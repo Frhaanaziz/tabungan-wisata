@@ -1,0 +1,11 @@
+{
+  "name": "@repo/validators",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "**/*.ts*"
+  ],
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}

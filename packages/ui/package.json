@@ -2,25 +2,44 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
-  "exports": {
-    "./button": "./src/button.tsx",
-    "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
-  },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component"
+    "lint": "eslint \"**/*.ts*\""
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@turbo/gen": "^1.11.3",
-    "@types/node": "^20.10.6",
-    "@types/eslint": "^8.56.1",
-    "@types/react": "^18.2.46",
-    "@types/react-dom": "^18.2.18",
-    "eslint": "^8.56.0",
-    "react": "^18.2.0",
-    "typescript": "^5.3.3"
+    "@types/node": "^17.0.12",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^7.32.0",
+    "postcss": "^8.4.24",
+    "react": "18.2.0",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
+    "cmdk": "^0.2.0",
+    "date-fns": "^3.2.0",
+    "lucide-react": "^0.244.0",
+    "react-day-picker": "^8.10.0",
+    "react-hook-form": "^7.49.3",
+    "tailwind-merge": "^1.13.2",
+    "tailwindcss": "^3.3.5",
+    "tailwindcss-animate": "^1.0.6",
+    "zod": "^3.22.4"
   }
 }
