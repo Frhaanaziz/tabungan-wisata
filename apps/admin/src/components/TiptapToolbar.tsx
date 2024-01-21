@@ -13,14 +13,12 @@ import {
   WrapText,
   Heading3,
   Heading2,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
 } from "lucide-react";
 import { Toggle } from "@ui/components/toggle";
-import {
-  TextAlignCenterIcon,
-  TextAlignJustifyIcon,
-  TextAlignLeftIcon,
-  TextAlignRightIcon,
-} from "@radix-ui/react-icons";
 import { useCallback } from "react";
 
 type Props = {
@@ -151,7 +149,7 @@ const TiptapToolbar = ({ editor }: Props) => {
           editor.chain().focus().setTextAlign("left").run()
         }
       >
-        <TextAlignLeftIcon className="h-4 w-4" />
+        <AlignLeft className="h-4 w-4" />
       </Toggle>
       <Toggle
         size="sm"
@@ -160,7 +158,7 @@ const TiptapToolbar = ({ editor }: Props) => {
           editor.chain().focus().setTextAlign("center").run()
         }
       >
-        <TextAlignCenterIcon className="h-4 w-4" />
+        <AlignCenter className="h-4 w-4" />
       </Toggle>
       <Toggle
         size="sm"
@@ -169,7 +167,7 @@ const TiptapToolbar = ({ editor }: Props) => {
           editor.chain().focus().setTextAlign("right").run()
         }
       >
-        <TextAlignRightIcon className="h-4 w-4" />
+        <AlignRight className="h-4 w-4" />
       </Toggle>
       <Toggle
         size="sm"
@@ -178,7 +176,7 @@ const TiptapToolbar = ({ editor }: Props) => {
           editor.chain().focus().setTextAlign("justify").run()
         }
       >
-        <TextAlignJustifyIcon className="h-4 w-4" />
+        <AlignJustify className="h-4 w-4" />
       </Toggle>
       <Toggle
         size="sm"
