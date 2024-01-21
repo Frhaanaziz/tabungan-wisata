@@ -14,6 +14,7 @@ import { EventsModule } from './events/events.module';
 import { PaymentsModule } from './payments/payments.module';
 import { UtilsModule } from './utils/utils.module';
 import { VerificationsModule } from './verifications/verifications.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { VerificationsModule } from './verifications/verifications.module';
     PaymentsModule,
     UtilsModule,
     VerificationsModule,
+    FilesModule,
   ],
   providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],
   controllers: [AppController],
