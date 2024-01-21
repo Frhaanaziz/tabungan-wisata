@@ -54,7 +54,7 @@ export function getZodErrorMessage(result: z.SafeParseError<any>) {
   return errorMessage;
 }
 
-export function getInitials(name?: string) {
+export function getInitials(name?: string | null) {
   if (!name || name.length === 0) return 'CN';
 
   const splitName = name.split(' ');

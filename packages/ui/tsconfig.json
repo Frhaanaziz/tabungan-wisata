@@ -4,5 +4,9 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["./*"],
+      "@ui/components/ui*": ["./components/ui*"],
+    },
   },
 }

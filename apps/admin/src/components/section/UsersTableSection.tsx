@@ -1,0 +1,59 @@
+"use client";
+import { Input } from "@ui/components/input";
+import { SearchDataTable } from "../data-table/SearchDataTable";
+import { useId, useState } from "react";
+import { toast } from "sonner";
+import type { UsersPaginated } from "@repo/types";
+import { api } from "@/trpc/react";
+import { useDebounce } from "@/lib/hooks/useDebounce";
+import { userColumn } from "../data-table/columns/UserColumn";
+
+const UsersTableSection = ({
+  page,
+  initialData,
+}: {
+  page: number;
+  initialData: UsersPaginated;
+}) => {
+  const toastId = useId();
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState(initialData);
+  const debouncedQuery = useDebounce(search);
+
+  api.user.getAllPaginated.useQuery(
+    {
+      page,
+      search: debouncedQuery,
+    },
+    {
+      onError(error) {
+        toast.error(error.message, { id: toastId });
+      },
+      onSuccess(data) {
+        setData(data);
+      },
+      initialData,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+  );
+
+  const { content, ...utils } = data;
+
+  return (
+    <SearchDataTable
+      data={content}
+      columns={userColumn}
+      utils={utils}
+      SearchInput={
+        <Input
+          placeholder="Filter names..."
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          className="max-w-sm"
+        />
+      }
+    />
+  );
+};
+export default UsersTableSection;

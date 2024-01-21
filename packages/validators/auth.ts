@@ -5,6 +5,16 @@ export const signInSchema = z.object({
   password: z.string().min(1, { message: 'Password is required' }),
 });
 
+export const signUpSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters' })
+    .max(100, { message: 'Password must be less than 100 characters' }),
+  schoolCode: z.string().min(1, { message: 'School code is required' }),
+});
+
 export const emailSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
 });
@@ -40,4 +50,8 @@ export const signInGoogleSchema = z.object({
     id_token: z.string().nullable().optional(),
     session_state: z.string().nullable().optional(),
   }),
+});
+
+export const AddSchoolCodeSchema = z.object({
+  schoolCode: z.string().min(1, { message: 'School code is required' }),
 });

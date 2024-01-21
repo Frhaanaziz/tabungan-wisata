@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export enum UserRole {
-  student = "student",
-  teacher = "teacher",
-  admin = "admin",
+  student = 'student',
+  teacher = 'teacher',
+  admin = 'admin',
 }
 
 export const userSchema = z.object({
@@ -12,8 +12,9 @@ export const userSchema = z.object({
   email: z.string().email().max(190),
   password: z.string().min(6).max(190),
   role: z.nativeEnum(UserRole),
-  schoolId: z.string().cuid(),
+  schoolId: z.string().cuid().optional(),
   emailVerified: z.boolean(),
+  image: z.string().url().optional(),
   // payments: z.array(paymentSchema).optional(),
   // registrations: z.array(eventRegistrationSchema).optional(),
   // school: schoolSchema.optional(),
