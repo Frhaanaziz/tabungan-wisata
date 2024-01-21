@@ -29,7 +29,6 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@ui/components/calendar";
 
 import { Input } from "@ui/components/input";
-import { Textarea } from "@ui/components/textarea";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
@@ -40,6 +39,7 @@ import { cn } from "@repo/utils";
 import { School } from "@repo/types";
 import { ScrollArea } from "@ui/components/scroll-area";
 import FormFieldWrapper from "./FormFieldWrapper";
+import RichTextEditor from "../RichTextEditor";
 
 type AddEventType = z.infer<typeof addEventSchema>;
 
@@ -59,7 +59,7 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     defaultValues,
   });
 
-  const { handleSubmit, control, reset } = form;
+  const { handleSubmit, control, reset, formState } = form;
 
   const { mutate, isLoading } = api.event.create.useMutation({
     onSuccess: async () => {
@@ -101,7 +101,11 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea {...field} placeholder="Enter event description" />
+                  <RichTextEditor
+                    {...field}
+                    isLoading={isLoading}
+                    formState={formState}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
