@@ -8,6 +8,7 @@ import NextTopLoader from "nextjs-toploader";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import ToastProvider from "@/context/ToastProvider";
 import { webPrimaryColor } from "@repo/utils/constants";
+import { EdgeStoreProvider } from "@/context/edgestore";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,12 +32,14 @@ export default function RootLayout({
         className={`min-h-screen bg-background font-sans antialiased ${inter.variable}`}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          <ThemeProvider attribute="class" disableTransitionOnChange>
-            <ToastProvider>
-              <NextTopLoader color={webPrimaryColor} />
-              {children}
-            </ToastProvider>
-          </ThemeProvider>
+          <EdgeStoreProvider>
+            <ThemeProvider attribute="class" disableTransitionOnChange>
+              <ToastProvider>
+                <NextTopLoader color={webPrimaryColor} />
+                {children}
+              </ToastProvider>
+            </ThemeProvider>
+          </EdgeStoreProvider>
         </TRPCReactProvider>
       </body>
     </html>
