@@ -82,7 +82,7 @@ export const schoolColumns: ColumnDef<School>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="pl-3">{row.original._count.users ?? ""}</div>
+      <div className="pl-3">{row.original?._count?.users ?? ""}</div>
     ),
   },
   {
@@ -101,7 +101,7 @@ export const schoolColumns: ColumnDef<School>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="pl-3">{row.original._count.events ?? ""}</div>
+      <div className="pl-3">{row.original?._count?.events ?? ""}</div>
     ),
   },
   {
