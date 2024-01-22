@@ -9,7 +9,7 @@ const config = {
   images: {
     remotePatterns: [
       {
-        hostname: "tailwindui.com",
+        hostname: "*.edgestore.dev",
         protocol: "https",
       },
       {
