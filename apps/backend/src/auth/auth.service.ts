@@ -4,7 +4,6 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
@@ -17,7 +16,6 @@ import { SignInGoogleDto } from './dto/SignInGoogle.dto';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private prismaService: PrismaService,
     private schoolsServer: SchoolsService,
     private verificationsService: VerificationsService,
     private utilsService: UtilsService,
@@ -26,7 +24,7 @@ export class AuthService {
   async signIn(signInDto: SignInDto) {
     const { email, password } = signInDto;
 
-    const user = await this.prismaService.user.findUnique({
+    const user = await this.usersService.getUser({
       where: {
         email,
       },
@@ -99,19 +97,17 @@ export class AuthService {
   async signInGoogle(loginGoogleDto: SignInGoogleDto) {
     const { accounts, ...data } = loginGoogleDto;
     try {
-      const user = await this.prismaService.user.findUnique({
+      const user = await this.usersService.getUser({
         where: {
           email: data.email,
         },
       });
 
       if (!user) {
-        const user = await this.prismaService.user.create({
-          data: {
-            ...data,
-            accounts: {
-              create: accounts,
-            },
+        const user = await this.usersService.createUser({
+          ...data,
+          accounts: {
+            create: accounts,
           },
         });
 
