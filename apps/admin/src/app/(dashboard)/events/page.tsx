@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
 import EventsTableSection from "@/components/section/EventsTableSection";
 import { buttonVariants } from "@ui/components/button";
 import AddEventForm from "@/components/forms/AddEventForm";
+import { ScrollArea } from "@ui/components/ui/scroll-area";
 
 const EventsPage = async ({
   searchParams,
@@ -22,8 +23,10 @@ const EventsPage = async ({
         <div className="mt-3 sm:ml-4 sm:mt-0">
           <Dialog>
             <DialogTrigger className={buttonVariants()}>+ Add</DialogTrigger>
-            <DialogContent className="max-w-3xl">
-              <AddEventForm schools={schools} />
+            <DialogContent className="max-w-3xl p-0">
+              <ScrollArea className="max-h-screen p-5">
+                <AddEventForm schools={schools} />
+              </ScrollArea>
             </DialogContent>
           </Dialog>
         </div>
