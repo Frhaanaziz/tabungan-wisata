@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await checkSessionAction();
-
+  console.log(session);
   return (
     <>
       <Header session={session} />
