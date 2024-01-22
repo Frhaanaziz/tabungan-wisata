@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@ui/components/input";
 import { SearchDataTable } from "../data-table/SearchDataTable";
-import { useId, useState } from "react";
+import { Suspense, useId, useState } from "react";
 import { toast } from "sonner";
 import type { SchoolsPaginated } from "@repo/types";
 import { schoolColumns } from "../data-table/columns/SchoolColumn";
@@ -41,19 +41,21 @@ const SchoolsTableSection = ({
   const { content, ...utils } = data;
 
   return (
-    <SearchDataTable
-      data={content}
-      columns={schoolColumns}
-      utils={utils}
-      SearchInput={
-        <Input
-          placeholder="Filter names..."
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          className="max-w-sm"
-        />
-      }
-    />
+    <Suspense fallback={null}>
+      <SearchDataTable
+        data={content}
+        columns={schoolColumns}
+        utils={utils}
+        SearchInput={
+          <Input
+            placeholder="Filter names..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="max-w-sm"
+          />
+        }
+      />
+    </Suspense>
   );
 };
 export default SchoolsTableSection;
