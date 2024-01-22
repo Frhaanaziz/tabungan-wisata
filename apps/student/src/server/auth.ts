@@ -9,7 +9,6 @@ import Google from "next-auth/providers/google";
 import { env } from "@/env";
 import { signInAction, signInGoogleAction } from "@/app/_actions/auth";
 import { type User as UserData } from "@repo/types";
-import { getErrorMessage } from "@repo/utils";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
