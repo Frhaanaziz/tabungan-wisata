@@ -15,6 +15,9 @@ export class EventsService {
   ): Promise<Event | null> {
     return this.prisma.event.findUnique({
       where: eventWhereUniqueInput,
+      include: {
+        images: true,
+      },
     });
   }
 
@@ -32,12 +35,18 @@ export class EventsService {
       cursor,
       where,
       orderBy,
+      include: {
+        images: true,
+      },
     });
   }
 
   async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({
       data,
+      include: {
+        images: true,
+      },
     });
   }
 
@@ -49,12 +58,18 @@ export class EventsService {
     return this.prisma.event.update({
       data,
       where,
+      include: {
+        images: true,
+      },
     });
   }
 
   async deleteEvent(where: Prisma.EventWhereUniqueInput): Promise<Event> {
     return this.prisma.event.delete({
       where,
+      include: {
+        images: true,
+      },
     });
   }
 
