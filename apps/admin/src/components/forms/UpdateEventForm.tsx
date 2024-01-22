@@ -75,7 +75,7 @@ const UpdateEventForm = ({
     <Form {...form}>
       <form
         onSubmit={handleSubmit((value) => mutate(value))}
-        className="space-y-8"
+        className="space-y-8  p-1"
       >
         <div className="space-y-5">
           <FormField
