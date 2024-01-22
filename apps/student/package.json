@@ -37,11 +37,11 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@repo/assets": "*",
     "@repo/tailwind-config": "*",
+    "@repo/types": "*",
     "@repo/utils": "*",
     "@repo/validators": "*",
-    "@repo/types": "*",
-    "@repo/assets": "*",
     "@types/eslint": "^8.44.7",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^18.17.0",
