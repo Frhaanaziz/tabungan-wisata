@@ -76,15 +76,28 @@ model School {
 model Event {
   id            String              @id @default(cuid())
   name          String
-  description   String
+  description   String              @db.Text
   startDate     DateTime
   endDate       DateTime
   schoolId      String
   cost          Float
+  images        File[]
   registrations EventRegistration[]
   school        School              @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   @@index([schoolId], name: "schoolId")
+}
+
+model File {
+  id           String   @id @default(cuid())
+  url          String   @unique
+  thumbnailUrl String?
+  size         Int
+  uploadedAt   DateTime
+  event        Event?   @relation(fields: [eventId], references: [id], onDelete: Restrict)
+  eventId      String?
+
+  @@index([eventId], name: "eventId")
 }
 
 model Payment {
