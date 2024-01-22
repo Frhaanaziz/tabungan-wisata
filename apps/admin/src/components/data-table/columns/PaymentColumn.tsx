@@ -29,7 +29,9 @@ export const paymentColumn: ColumnDef<Payment>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="pl-3">{row.original.user.name}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.original.user.name ?? ""}</div>
+    ),
   },
   {
     accessorKey: "amount",
