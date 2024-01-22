@@ -15,6 +15,7 @@ import type { Event } from "@repo/types";
 
 import { formatDate, toRupiah } from "@repo/utils";
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
+import React from "react";
 
 export const eventColumn: ColumnDef<Event>[] = [
   {
@@ -116,6 +117,7 @@ export const eventColumn: ColumnDef<Event>[] = [
 ];
 
 function ActionCell({ row }: { row: Row<Event> }) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const event = row.original;
   //   const id = useId();
   //   const utils = api.useUtils();
@@ -134,7 +136,7 @@ function ActionCell({ row }: { row: Row<Event> }) {
   //   });
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -150,7 +152,7 @@ function ActionCell({ row }: { row: Row<Event> }) {
       </DropdownMenu>
 
       <DialogContent className="max-w-3xl">
-        <UpdateEventForm event={event} />
+        <UpdateEventForm event={event} setModalOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   );
