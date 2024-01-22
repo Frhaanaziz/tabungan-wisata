@@ -16,6 +16,7 @@ import type { Event } from "@repo/types";
 import { formatDate, toRupiah } from "@repo/utils";
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
 import React from "react";
+import { ScrollArea } from "@ui/components/ui/scroll-area";
 
 export const eventColumn: ColumnDef<Event>[] = [
   {
@@ -153,8 +154,10 @@ function ActionCell({ row }: { row: Row<Event> }) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogContent className="max-w-3xl">
-        <UpdateEventForm event={event} setModalOpen={setIsOpen} />
+      <DialogContent className="max-w-3xl p-0">
+        <ScrollArea className="max-h-screen p-5">
+          <UpdateEventForm event={event} setModalOpen={setIsOpen} />
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
