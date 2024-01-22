@@ -57,7 +57,7 @@ export const userColumn: ColumnDef<User>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="pl-3">{row.original.school.name ?? ""}</div>
+      <div className="pl-3">{row.original?.school?.name ?? ""}</div>
     ),
   },
   {
