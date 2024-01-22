@@ -60,13 +60,14 @@ const UpdateEventForm = ({
 
   const { mutate, isLoading } = api.event.update.useMutation({
     onSuccess: async () => {
-      setModalOpen(false);
       toast.success("Event updated successfully");
       await utils.event.invalidate();
     },
     onError: (err) => {
-      setModalOpen(false);
       toast.error(err.message);
+    },
+    onSettled: () => {
+      setModalOpen(false);
     },
   });
 
