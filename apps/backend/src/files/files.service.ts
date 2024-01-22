@@ -1,44 +1,60 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import {
-  UploadApiErrorResponse,
-  UploadApiResponse,
-  v2 as cloudinary,
-} from 'cloudinary';
-import toStream = require('buffer-to-stream');
+import { Injectable } from '@nestjs/common';
+import { File, Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { UtilsService } from 'src/utils/utils.service';
 
 @Injectable()
 export class FilesService {
-  async upload(
-    file: Express.Multer.File,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
-    return new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
-        },
-      );
-      toStream(file.buffer).pipe(uploadStream);
+  constructor(
+    private prisma: PrismaService,
+    private utilsService: UtilsService,
+  ) {}
+
+  async getFile(
+    fileWhereUniqueInput: Prisma.FileWhereUniqueInput,
+  ): Promise<File | null> {
+    return this.prisma.file.findUnique({
+      where: fileWhereUniqueInput,
     });
   }
 
-  async delete(publicId: string) {
-    try {
-      const response = await cloudinary.uploader.destroy(publicId);
-      if (response.result == 'not found') throw new Error(response.result);
-
-      return response;
-    } catch (error) {
-      if (error.message == 'not found')
-        throw new NotFoundException('File not found');
-    }
+  async getFiles(params: {
+    skip?: number;
+    take?: number;
+    cursor?: Prisma.FileWhereUniqueInput;
+    where?: Prisma.FileWhereInput;
+    orderBy?: Prisma.FileOrderByWithRelationInput;
+  }): Promise<File[]> {
+    const { skip, take, cursor, where, orderBy } = params;
+    return this.prisma.file.findMany({
+      skip,
+      take,
+      cursor,
+      where,
+      orderBy,
+    });
   }
 
-  async replace(
-    publicId: string,
-    file: Express.Multer.File,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
-    await this.delete(publicId);
-    return this.upload(file);
+  async createFile(data: Prisma.FileCreateInput): Promise<File> {
+    return this.prisma.file.create({
+      data,
+    });
+  }
+
+  async updateFile(params: {
+    where: Prisma.FileWhereUniqueInput;
+    data: Prisma.FileUpdateInput;
+  }): Promise<File> {
+    const { where, data } = params;
+    return this.prisma.file.update({
+      data,
+      where,
+    });
+  }
+
+  async deleteFile(where: Prisma.FileWhereUniqueInput): Promise<File> {
+    return this.prisma.file.delete({
+      where,
+    });
   }
 }
