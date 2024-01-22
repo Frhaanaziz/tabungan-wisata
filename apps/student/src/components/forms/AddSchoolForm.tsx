@@ -74,7 +74,13 @@ const AddSchoolForm = () => {
               <FormItem>
                 <FormLabel>Code</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isLoading} />
+                  <Input
+                    {...field}
+                    disabled={isLoading}
+                    onChange={(e) =>
+                      field.onChange(e.target.value.toUpperCase())
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
