@@ -13,12 +13,14 @@ const RichTextEditor = ({
   value,
   onChange,
   isLoading,
-  formState,
+  isDirty,
+  isSubmitted,
 }: {
   value: string;
   onChange: (richText: string) => void;
   isLoading: boolean;
-  formState?: any;
+  isDirty: boolean;
+  isSubmitted: boolean;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -56,12 +58,12 @@ const RichTextEditor = ({
 
   useEffect(() => {
     // this is a way to listen for the form reset() function call
-    if (!formState.isSubmitted && !formState.isDirty) {
+    if (!isSubmitted && !isDirty) {
       // clear value when form is reset
       editor?.commands.setContent(value);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formState]);
+  }, [isSubmitted, isDirty]);
 
   const [isClient, setIsClient] = useState(false);
 
