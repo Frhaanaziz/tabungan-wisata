@@ -65,7 +65,13 @@ const navigation: SidebarItem[] = [
   // },
 ];
 
-const NavList = ({ pathName }: { pathName: string }) => {
+const NavList = ({
+  pathName,
+  setSidebarOpen,
+}: {
+  pathName: string;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <>
       {navigation.map((item) => (
@@ -73,6 +79,7 @@ const NavList = ({ pathName }: { pathName: string }) => {
           {!item.children ? (
             <Link
               href={item.href}
+              onClick={() => setSidebarOpen(false)}
               className={cn(
                 item.href === pathName
                   ? "bg-muted text-muted-foreground"
@@ -114,6 +121,7 @@ const NavList = ({ pathName }: { pathName: string }) => {
                         <Disclosure.Button
                           as="a"
                           href={subItem.href}
+                          onClick={() => setSidebarOpen(false)}
                           className={cn(
                             subItem.href === pathName
                               ? "bg-muted text-muted-foreground"
@@ -211,7 +219,10 @@ export default function Sidebar({
                   </div>
                   <nav className="flex flex-1 flex-col">
                     <ul role="list" className="-mx-2 space-y-2">
-                      <NavList pathName={pathName} />
+                      <NavList
+                        pathName={pathName}
+                        setSidebarOpen={setSidebarOpen}
+                      />
                     </ul>
                   </nav>
                 </div>
@@ -233,7 +244,7 @@ export default function Sidebar({
               <ModeToggle />
             </div>
             <ul role="list" className="-mx-2 space-y-2">
-              <NavList pathName={pathName} />
+              <NavList pathName={pathName} setSidebarOpen={setSidebarOpen} />
             </ul>
           </div>
         </ScrollArea>
