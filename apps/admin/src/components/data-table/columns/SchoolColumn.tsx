@@ -81,7 +81,9 @@ export const schoolColumns: ColumnDef<School>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="pl-3">{row.original._count.users}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.original._count.users ?? ""}</div>
+    ),
   },
   {
     accessorKey: "total events",
@@ -98,7 +100,9 @@ export const schoolColumns: ColumnDef<School>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="pl-3">{row.original._count.events}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.original._count.events ?? ""}</div>
+    ),
   },
   {
     id: "actions",
