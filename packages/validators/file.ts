@@ -5,5 +5,6 @@ export const fileSchema = z.object({
   url: z.string().url(),
   thumbnailUrl: z.string().url().optional(),
   size: z.number().min(0),
-  uploadedAt: z.date(),
+  uploadedAt: z.coerce.date(),
+  eventId: z.string().cuid().optional(),
 });
