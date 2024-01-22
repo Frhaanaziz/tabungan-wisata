@@ -56,7 +56,9 @@ export const userColumn: ColumnDef<User>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="pl-3">{row.original.school.name}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.original.school.name ?? ""}</div>
+    ),
   },
   {
     accessorKey: "role",
