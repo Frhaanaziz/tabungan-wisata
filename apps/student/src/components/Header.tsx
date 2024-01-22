@@ -17,7 +17,8 @@ import { companyName } from "@repo/utils/constants";
 export default function Header({ session }: { session: Session }) {
   const pathName = usePathname();
 
-  const user = session?.data;
+  const user = session.data;
+  const events = user?.school?.events ?? [];
 
   return (
     <Disclosure
@@ -69,6 +70,20 @@ export default function Header({ session }: { session: Session }) {
                       )}
                     >
                       {item.name}
+                    </Link>
+                  ))}
+                  {events.map((event) => (
+                    <Link
+                      key={event.id}
+                      href={`/events/${event.id}`}
+                      className={cn(
+                        `/events/${event.id}` === pathName
+                          ? "border-primary text-foreground"
+                          : "border-transparent text-muted-foreground hover:border-muted hover:text-foreground",
+                        "inline-flex items-center border-b-2 px-1 py-1 text-sm font-medium",
+                      )}
+                    >
+                      {event.name}
                     </Link>
                   ))}
                 </div>
