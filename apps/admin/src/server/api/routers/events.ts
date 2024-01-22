@@ -4,6 +4,7 @@ import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
 import { addEventSchema, updateEventSchema } from "@repo/validators/event";
+import { backendClientES } from "@/app/api/edgestore/[...edgestore]/route";
 
 export const eventRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
@@ -37,12 +38,35 @@ export const eventRouter = createTRPCRouter({
   create: adminProcedure
     .input(addEventSchema)
     .mutation(async ({ input, ctx }) => {
+      const { images, ...rest } = input;
       const accessToken = ctx.session.accessToken;
 
       try {
-        const result = await getBackendApi(accessToken).post("/events", input);
+        const eventResponse = await getBackendApi(accessToken).post(
+          "/events",
+          rest,
+        );
+        const eventId = eventResponse.data.id;
 
-        return result.data;
+        const imagesResponse = await Promise.all(
+          images.map(async (image) => {
+            const result = await getBackendApi(accessToken).post("/files", {
+              ...image,
+              eventId,
+            });
+            return result.data;
+          }),
+        );
+
+        await Promise.all(
+          images.map(async (image) => {
+            backendClientES.publicImages.confirmUpload({
+              url: image.url,
+            });
+          }),
+        );
+
+        return { ...eventResponse.data, images: imagesResponse };
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -54,15 +78,49 @@ export const eventRouter = createTRPCRouter({
   update: adminProcedure
     .input(updateEventSchema)
     .mutation(async ({ input, ctx }) => {
+      const { images, ...rest } = input;
       const accessToken = ctx.session.accessToken;
 
       try {
-        const result = await getBackendApi(accessToken).put(
+        const eventResponse = await getBackendApi(accessToken).put(
           `/events/${input.id}`,
-          input,
+          rest,
+        );
+        const eventId = eventResponse.data.id;
+
+        const imagesResponse = await Promise.all(
+          images.map(async (image) => {
+            const result = await getBackendApi(accessToken).post("/files", {
+              ...image,
+              eventId,
+            });
+            return result.data;
+          }),
         );
 
-        return result.data;
+        await Promise.all(
+          images.map(async (image) => {
+            backendClientES.publicImages.confirmUpload({
+              url: image.url,
+            });
+          }),
+        );
+
+        await Promise.all(
+          eventResponse.data.images.map(async (image: any) => {
+            backendClientES.publicImages.deleteFile({
+              url: image.url,
+            });
+          }),
+        );
+
+        await Promise.all(
+          eventResponse.data.images.map(async (image: any) =>
+            getBackendApi(accessToken).delete(`/files/${image.id}`),
+          ),
+        );
+
+        return { ...eventResponse.data, images: imagesResponse };
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
