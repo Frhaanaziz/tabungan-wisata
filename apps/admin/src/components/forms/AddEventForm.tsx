@@ -35,15 +35,18 @@ import { toast } from "sonner";
 import { addEventSchema } from "@repo/validators/event";
 import { Button } from "@ui/components/button";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { cn } from "@repo/utils";
+import { cn, getErrorMessage } from "@repo/utils";
 import { School } from "@repo/types";
 import { ScrollArea } from "@ui/components/scroll-area";
 import FormFieldWrapper from "./FormFieldWrapper";
 import RichTextEditor from "../RichTextEditor";
+import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
+import React from "react";
 
 type AddEventType = z.infer<typeof addEventSchema>;
 
 const AddEventForm = ({ schools }: { schools: School[] }) => {
+  const [isUploadingImage, setIsUploadingImage] = React.useState(false);
   const defaultValues: AddEventType = {
     name: "",
     description: "",
@@ -51,6 +54,7 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     endDate: new Date(),
     cost: 0,
     schoolId: "",
+    images: [],
   };
 
   const utils = api.useUtils();
@@ -58,7 +62,6 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     resolver: zodResolver(addEventSchema),
     defaultValues,
   });
-
   const { handleSubmit, control, reset, formState } = form;
 
   const { mutate, isLoading } = api.event.create.useMutation({
@@ -68,7 +71,7 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
       await utils.event.invalidate();
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(getErrorMessage(err));
     },
   });
 
@@ -76,7 +79,7 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     <Form {...form}>
       <form
         onSubmit={handleSubmit((value) => mutate(value))}
-        className="space-y-8"
+        className="space-y-8 p-1"
       >
         <div className="space-y-5">
           <FormField
@@ -103,8 +106,8 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
                 <FormControl>
                   <RichTextEditor
                     {...field}
+                    {...formState}
                     isLoading={isLoading}
-                    formState={formState}
                   />
                 </FormControl>
                 <FormMessage />
@@ -280,9 +283,32 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
               )}
             />
           </FormFieldWrapper>
+
+          <FormField
+            control={control}
+            name="images"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Images</FormLabel>
+                <FormControl>
+                  <MultiFileDropzoneField
+                    {...field}
+                    {...formState}
+                    category="event"
+                    isSubmitting={isLoading}
+                    isUploading={(isUploading) =>
+                      setIsUploadingImage(isUploading)
+                    }
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
-        <SubmitButton isSubmitting={isLoading} />
+        <SubmitButton isSubmitting={isLoading || isUploadingImage} />
       </form>
     </Form>
   );
