@@ -1,40 +1,21 @@
-import {
-  Controller,
-  Delete,
-  Param,
-  Post,
-  Put,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { FilesService } from './files.service';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Public } from 'src/auth/public.decorator';
+import { Admin } from 'src/auth/admin.decorator';
+import { CreateFileDto } from './dto/create-file.dto';
 
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
-  @Public()
+  @Admin()
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async online(@UploadedFile() file: Express.Multer.File) {
-    return this.filesService.upload(file);
+  async online(@Body() createFileDto: CreateFileDto) {
+    return this.filesService.createFile(createFileDto);
   }
 
-  @Public()
-  @Delete(':publicId')
-  async delete(@Param('publicId') publicId: string) {
-    return this.filesService.delete(publicId);
-  }
-
-  @Public()
-  @Put(':publicId')
-  @UseInterceptors(FileInterceptor('file'))
-  async replace(
-    @Param('publicId') publicId: string,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    return this.filesService.replace(publicId, file);
+  @Admin()
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return this.filesService.deleteFile({ id });
   }
 }
