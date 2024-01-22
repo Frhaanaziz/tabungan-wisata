@@ -50,7 +50,9 @@ export const eventColumn: ColumnDef<Event>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div className="pl-3">{row.original.school.name}</div>,
+    cell: ({ row }) => (
+      <div className="pl-3">{row.original.school.name ?? ""}</div>
+    ),
   },
   {
     accessorKey: "cost",
