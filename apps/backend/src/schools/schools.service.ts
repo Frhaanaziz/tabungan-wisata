@@ -95,7 +95,7 @@ export class SchoolsService {
       page,
       take,
       model: 'School',
-      search: {
+      where: {
         name: {
           contains: search,
         },
