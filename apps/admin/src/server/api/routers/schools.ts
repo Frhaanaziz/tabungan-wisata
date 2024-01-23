@@ -1,9 +1,8 @@
-import { z } from "zod";
-
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
 import { addSchoolSchema, updateSchoolSchema } from "@repo/validators/school";
+import { getPaginatedDataSchema } from "@repo/validators";
 
 export const schoolRouter = createTRPCRouter({
   getAll: adminProcedure.query(async ({ ctx }) => {
@@ -22,13 +21,7 @@ export const schoolRouter = createTRPCRouter({
   }),
 
   getAllPaginated: adminProcedure
-    .input(
-      z.object({
-        page: z.coerce.number(),
-        take: z.coerce.number().min(1).optional(),
-        search: z.string().optional().default(""),
-      }),
-    )
+    .input(getPaginatedDataSchema)
     // add output validation
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
