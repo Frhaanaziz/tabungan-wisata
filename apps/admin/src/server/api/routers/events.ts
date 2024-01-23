@@ -1,20 +1,13 @@
-import { z } from "zod";
-
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
 import { addEventSchema, updateEventSchema } from "@repo/validators/event";
 import { backendClientES } from "@/app/api/edgestore/[...edgestore]/route";
+import { getPaginatedDataSchema } from "@repo/validators";
 
 export const eventRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
-    .input(
-      z.object({
-        page: z.coerce.number(),
-        take: z.coerce.number().min(1).optional(),
-        search: z.string().optional().default(""),
-      }),
-    )
+    .input(getPaginatedDataSchema)
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
       const { page, take, search } = input;
