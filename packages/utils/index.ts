@@ -108,3 +108,33 @@ export function getCloudinaryPublicId(imageUrl: string): string | undefined {
   const parts = pathname.split('/');
   return parts[parts.length - 1]?.split('.')[0];
 }
+
+export function greeting(): string {
+  let currentHour = new Date().getHours();
+
+  let greetingText;
+
+  if (currentHour < 12) {
+    greetingText = 'morning';
+  } else if (currentHour < 17) {
+    greetingText = 'afternoon';
+  } else if (currentHour < 22) {
+    greetingText = 'evening';
+  } else {
+    greetingText = 'night';
+  }
+
+  return greetingText;
+}
+
+export function getFirstName(fullName: string): string {
+  if (!fullName) return '';
+
+  // Split the full name string into an array of words
+  const words = fullName.split(' ');
+
+  // Take the first element of the array as the first name
+  const firstName = words[0];
+
+  return firstName ?? '';
+}
