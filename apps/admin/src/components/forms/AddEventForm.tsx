@@ -57,6 +57,7 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     endDate: new Date(),
     cost: 0,
     schoolId: "",
+    include: "",
     images: [],
   };
 
@@ -65,10 +66,11 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
     resolver: zodResolver(addEventSchema),
     defaultValues,
   });
-  const { handleSubmit, control, formState } = form;
+  const { handleSubmit, control, formState, reset } = form;
 
   const { mutate, isLoading } = api.event.create.useMutation({
     onSuccess: async () => {
+      reset();
       toast.success("Event added successfully");
       await utils.event.invalidate();
     },
@@ -100,6 +102,24 @@ const AddEventForm = ({ schools }: { schools: School[] }) => {
                       <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input {...field} placeholder="Enter event name" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={control}
+                  name="include"
+                  disabled={isLoading}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Include</FormLabel>
+                      <FormControl>
+                        <RichTextEditor
+                          {...field}
+                          {...formState}
+                          isLoading={isLoading}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
