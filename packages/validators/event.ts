@@ -9,6 +9,9 @@ export const eventSchema = z.object({
   description: z
     .string()
     .min(1, { message: 'Description must have at least 1 character' }),
+  include: z.string().min(1, {
+    message: 'Include must have at least 1 character',
+  }),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   cost: z.coerce.number().min(0),
@@ -22,11 +25,17 @@ export const eventSchema = z.object({
 });
 
 export const addEventSchema = eventSchema.omit({ id: true }).extend({
-  images: z.array(fileSchema.omit({ id: true })),
+  images: z.array(fileSchema.omit({ id: true })).min(1, {
+    message: 'Please upload at least 1 image',
+  }),
 });
 
 export const updateEventSchema = eventSchema
   .omit({
     schoolId: true,
   })
-  .extend({ images: z.array(fileSchema.omit({ id: true })) });
+  .extend({
+    images: z
+      .array(fileSchema.omit({ id: true }))
+      .min(1, { message: 'Please upload at least 1 image' }),
+  });
