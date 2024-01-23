@@ -80,7 +80,6 @@ export function MultiFileDropzoneField({
                     temporary: true,
                   },
                 });
-                // console.log(res);
                 return res;
               } catch (err) {
                 updateFileProgress(addedFileState.key, "ERROR");
