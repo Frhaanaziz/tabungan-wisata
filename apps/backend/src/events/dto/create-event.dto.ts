@@ -15,6 +15,10 @@ export class CreateEventDto {
   @IsNotEmpty()
   description: string;
 
+  @IsString()
+  @IsNotEmpty()
+  include: string;
+
   @IsDateString()
   @IsNotEmpty()
   startDate: Date;
