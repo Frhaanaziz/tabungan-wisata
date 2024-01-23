@@ -92,7 +92,7 @@ export class UsersService {
       page,
       take,
       model: 'User',
-      search: {
+      where: {
         name: {
           contains: search,
         },
