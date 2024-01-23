@@ -1,18 +1,11 @@
-import { z } from "zod";
-
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
+import { getPaginatedDataSchema } from "@repo/validators";
 
 export const userRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
-    .input(
-      z.object({
-        page: z.coerce.number(),
-        take: z.coerce.number().min(1).optional(),
-        search: z.string().optional().default(""),
-      }),
-    )
+    .input(getPaginatedDataSchema)
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
       const { page, take, search } = input;
