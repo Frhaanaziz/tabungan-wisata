@@ -1,5 +1,5 @@
 "use client";
-import { Event, File } from "@repo/types";
+import { Event } from "@repo/types";
 import {
   Carousel,
   CarouselContent,
@@ -32,7 +32,8 @@ const EventCarousel = ({ event }: { event: Omit<Event, "school"> }) => {
             <AspectRatio ratio={1} className="w-full">
               <Image
                 src={image.url}
-                className="aspect-square w-full"
+                className="aspect-square w-full rounded-xl"
+                priority
                 fill
                 sizes="(min-width: 1536px) 40vw, (min-width: 1280px) 45vw, (min-width: 1024px) 45vw, (min-width: 768px) 50vw, (min-width: 640px) 90vw, 100vw"
                 alt={`${event.name} - ${i}`}
