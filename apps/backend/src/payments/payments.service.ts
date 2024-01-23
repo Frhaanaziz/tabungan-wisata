@@ -62,16 +62,19 @@ export class PaymentsService {
     page,
     take,
     search,
+    where,
   }: {
     page: number;
     take: number;
     search: string;
+    where?: Prisma.PaymentWhereInput;
   }) {
     return this.utilsService.getPaginatedResult({
       page,
       take,
       model: 'Payment',
-      search: {
+      where: {
+        ...where,
         user: {
           name: {
             contains: search,
