@@ -8,39 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Verification {
-  id        String   @id @default(cuid())
-  type      String
-  token     String   @unique(length: 250) @db.Text
-  expiresAt DateTime
-  active    Boolean  @default(false)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId], name: "userId")
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-}
-
 model User {
   id            String              @id @default(cuid())
   name          String
@@ -77,6 +44,7 @@ model Event {
   id            String              @id @default(cuid())
   name          String
   description   String              @db.Text
+  include       String              @db.Text
   startDate     DateTime
   endDate       DateTime
   schoolId      String
@@ -86,18 +54,6 @@ model Event {
   school        School              @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   @@index([schoolId], name: "schoolId")
-}
-
-model File {
-  id           String   @id @default(cuid())
-  url          String   @unique
-  thumbnailUrl String?
-  size         Int
-  uploadedAt   DateTime
-  event        Event?   @relation(fields: [eventId], references: [id], onDelete: Restrict)
-  eventId      String?
-
-  @@index([eventId], name: "eventId")
 }
 
 model Payment {
@@ -119,6 +75,51 @@ model EventRegistration {
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model File {
+  id           String   @id @default(cuid())
+  url          String   @unique
+  thumbnailUrl String?
+  size         Int
+  uploadedAt   DateTime
+  event        Event?   @relation(fields: [eventId], references: [id], onDelete: Restrict)
+  eventId      String?
+
+  @@index([eventId], name: "eventId")
+}
+
+model Verification {
+  id        String   @id @default(cuid())
+  type      String
+  token     String   @unique(length: 250) @db.Text
+  expiresAt DateTime
+  active    Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([userId], name: "userId")
 }
 
