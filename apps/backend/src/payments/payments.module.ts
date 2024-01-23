@@ -7,5 +7,6 @@ import { UtilsModule } from 'src/utils/utils.module';
   imports: [UtilsModule],
   controllers: [PaymentsController],
   providers: [PaymentsService],
+  exports: [PaymentsService],
 })
 export class PaymentsModule {}
