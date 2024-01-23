@@ -46,8 +46,6 @@ const UpdateEventForm = ({
 
   const defaultValues: UpdateEventType = {
     ...event,
-    startDate: new Date(event.startDate),
-    endDate: new Date(event.endDate),
     images: [],
   };
 
@@ -87,6 +85,24 @@ const UpdateEventForm = ({
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="Enter event name" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="include"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Include</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    {...field}
+                    {...formState}
+                    isLoading={isLoading}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
