@@ -15,13 +15,13 @@ export class UtilsService {
     page,
     take,
     model,
-    search,
+    where,
     include,
   }: {
     page: number;
     take: number;
     model: Prisma.ModelName;
-    search?: object;
+    where?: object;
     include?: object;
   }) {
     const totalRow = await this.prisma[model].count();
@@ -32,11 +32,11 @@ export class UtilsService {
     let rows = [];
 
     try {
-      if (search) {
+      if (where) {
         rows = await this.prisma[model].findMany({
           skip: (savePage - 1) * rowsPerPage,
           take: rowsPerPage,
-          where: search,
+          where,
           include,
         });
       } else {
