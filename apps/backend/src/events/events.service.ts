@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Event, Prisma } from '@prisma/client';
 import { UtilsService } from 'src/utils/utils.service';
@@ -13,12 +13,14 @@ export class EventsService {
   async getEvent(
     eventWhereUniqueInput: Prisma.EventWhereUniqueInput,
   ): Promise<Event | null> {
-    return this.prisma.event.findUnique({
+    const event = await this.prisma.event.findUnique({
       where: eventWhereUniqueInput,
       include: {
         images: true,
       },
     });
+    if (!event) throw new NotFoundException('Event not found');
+    return event;
   }
 
   async getEvents(params: {
@@ -86,7 +88,7 @@ export class EventsService {
       page,
       take,
       model: 'Event',
-      search: {
+      where: {
         name: {
           contains: search,
         },
