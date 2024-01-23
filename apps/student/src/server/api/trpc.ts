@@ -29,7 +29,6 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
 });
 
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  console.log("test");
   if (
     !ctx.session ||
     !ctx.session.user ||
