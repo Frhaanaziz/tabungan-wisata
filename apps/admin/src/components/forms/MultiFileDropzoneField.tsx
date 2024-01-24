@@ -61,7 +61,7 @@ export function MultiFileDropzoneField({
           const response = await Promise.all(
             addedFiles.map(async (addedFileState) => {
               try {
-                const res = await edgestore.publicImages.upload({
+                const res = await edgestore.publicImages?.upload({
                   file: addedFileState.file,
                   // eslint-disable-next-line @typescript-eslint/no-misused-promises
                   onProgressChange: async (progress) => {
