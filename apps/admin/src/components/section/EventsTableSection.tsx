@@ -26,6 +26,7 @@ const EventsTableSection = ({
       search: debouncedQuery,
     },
     {
+      queryKey: ["event.getAllPaginated", { page, search: debouncedQuery }],
       onError(error) {
         toast.error(error.message, { id: toastId });
       },

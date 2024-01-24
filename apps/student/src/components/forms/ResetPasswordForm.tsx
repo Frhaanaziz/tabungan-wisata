@@ -44,7 +44,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       if (result.error) throw new Error(result.error);
 
       reset(defaultValues);
-      toast.success("Password changed successfully");
+      toast.success("Password changed successfully, please sign in.");
       router.push("/auth/signin");
     } catch (error) {
       toast.error(getErrorMessage(error));

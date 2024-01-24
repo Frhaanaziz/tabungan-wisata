@@ -26,6 +26,7 @@ const PaymentsTableSection = ({
       search: debouncedQuery,
     },
     {
+      queryKey: ["payment.getAllPaginated", { page, search: debouncedQuery }],
       onError(error) {
         toast.error(error.message, { id: toastId });
       },

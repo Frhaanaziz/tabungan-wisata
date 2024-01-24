@@ -26,6 +26,7 @@ const SchoolsTableSection = ({
       search: debouncedQuery,
     },
     {
+      queryKey: ["school.getAllPaginated", { page, search: debouncedQuery }],
       onSuccess(data) {
         setData(data);
       },

@@ -26,6 +26,7 @@ const UsersTableSection = ({
       search: debouncedQuery,
     },
     {
+      queryKey: ["user.getAllPaginated", { page, search: debouncedQuery }],
       onError(error) {
         toast.error(error.message, { id: toastId });
       },
