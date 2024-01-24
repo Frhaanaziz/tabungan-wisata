@@ -4,6 +4,7 @@ import {
   IsString,
   IsEnum,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 
 enum PaymentStatus {
@@ -25,7 +26,7 @@ export class CreatePaymentDto {
   @IsString()
   userId: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(PaymentStatus)
   status: PaymentStatus;
 }
