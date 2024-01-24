@@ -44,7 +44,7 @@ const TopUpButton = ({ userId }: { userId: string }) => {
   const { handleSubmit, control, reset } = form;
 
   const { mutate: createPayment, isLoading } = api.payment.create.useMutation({
-    onSuccess: ({ token, paymentId }) => {
+    onSuccess: ({ token }) => {
       reset(defaultValues);
       // TODO: Create success, error, etc page
       // TODO: Add query key on every api call for caching
