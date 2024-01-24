@@ -15,6 +15,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { UtilsModule } from './utils/utils.module';
 import { VerificationsModule } from './verifications/verifications.module';
 import { FilesModule } from './files/files.module';
+import { MidtransModule } from './midtrans/midtrans.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { FilesModule } from './files/files.module';
     UtilsModule,
     VerificationsModule,
     FilesModule,
+    MidtransModule,
   ],
   providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],
   controllers: [AppController],
