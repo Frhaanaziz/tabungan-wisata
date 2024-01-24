@@ -8,4 +8,7 @@ export const configValidationSchema = Joi.object({
   JWT_EXPIRES_IN: Joi.string().required(),
 
   RESEND_API_KEY: Joi.string().required(),
+
+  MIDTRANS_APP_URL: Joi.string().required(),
+  MIDTRANS_SERVER_KEY: Joi.string().required(),
 });
