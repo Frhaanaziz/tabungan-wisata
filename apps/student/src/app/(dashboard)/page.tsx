@@ -1,10 +1,10 @@
 import { getFirstName, greeting } from "@repo/utils";
 import { AspectRatio } from "@ui/components/ui/aspect-ratio";
-import { Button } from "@ui/components/ui/button";
 import Image from "next/image";
 import { checkSessionAction } from "../_actions";
 import { api } from "@/trpc/server";
 import PaymentsTableSection from "@/components/section/PaymentsTableSection";
+import TopUpButton from "@/components/TopUpButton";
 
 export default async function Home({
   searchParams,
@@ -33,7 +33,7 @@ export default async function Home({
             Your target to go to the tour:{" "}
             <span className="underline">$3,000.00</span>
           </p>
-          <Button>Topup</Button>
+          <TopUpButton userId={user.id} />
         </div>
 
         <div className="col-span-2">
