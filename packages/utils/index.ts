@@ -138,3 +138,15 @@ export function getFirstName(fullName: string): string {
 
   return firstName ?? '';
 }
+
+export function getLastName(fullName: string): string | undefined {
+  if (!fullName) return '';
+
+  // Split the full name string into an array of words
+  const words = fullName.split(' ');
+
+  // Take the last element of the array as the last name
+  const lastName = words[words.length - 1];
+
+  return lastName;
+}
