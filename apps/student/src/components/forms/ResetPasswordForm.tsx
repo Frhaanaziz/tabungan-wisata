@@ -36,7 +36,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   });
 
   const { handleSubmit, control, formState, reset } = form;
-  const { isSubmitting, errors } = formState;
+  const { isSubmitting } = formState;
 
   async function onSubmit(formValues: z.infer<typeof resetPasswordSchema>) {
     try {
