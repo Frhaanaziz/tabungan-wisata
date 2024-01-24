@@ -11,7 +11,7 @@ import { PaymentsModule } from 'src/payments/payments.module';
     UtilsModule,
     forwardRef(() => VerificationsModule),
     SchoolsModule,
-    PaymentsModule,
+    forwardRef(() => PaymentsModule),
   ],
   controllers: [UsersController],
   providers: [UsersService],
