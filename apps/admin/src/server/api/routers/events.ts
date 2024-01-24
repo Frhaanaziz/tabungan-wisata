@@ -2,8 +2,8 @@ import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
 import { addEventSchema, updateEventSchema } from "@repo/validators/event";
-import { backendClientES } from "@/app/api/edgestore/[...edgestore]/route";
 import { getPaginatedDataSchema } from "@repo/validators";
+import { backendClientES } from "@/server/edgestore";
 
 export const eventRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
