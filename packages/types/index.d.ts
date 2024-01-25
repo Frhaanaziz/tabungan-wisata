@@ -9,7 +9,6 @@ import { fileSchema } from '@repo/validators/file';
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
 export type School = z.infer<typeof schoolSchema> & {
-  events: Event[] | null;
   _count: { events: number; users: number };
 };
 export type SchoolsPaginated = PaginatedDataUtils & {
@@ -21,7 +20,7 @@ export type UsersPaginated = PaginatedDataUtils & {
   content: User[];
 };
 
-export type Event = z.infer<typeof eventSchema> & { school: School };
+export type Event = z.infer<typeof eventSchema>;
 export type EventsPaginated = PaginatedDataUtils & {
   content: Event[];
 };
