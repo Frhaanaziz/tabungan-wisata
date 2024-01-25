@@ -19,6 +19,7 @@ export const paymentRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("paymentRouter getAllPaginated", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get payments",
