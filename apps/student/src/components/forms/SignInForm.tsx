@@ -64,6 +64,7 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
       router.replace(result.url ?? baseUrl);
     } catch (error) {
       toast.error(getErrorMessage(error));
+      console.error("SignInForm", error);
     }
   }
 
