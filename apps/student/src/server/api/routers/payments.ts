@@ -23,7 +23,7 @@ export const paymentRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
-        console.error("getAllPaginated payment", error);
+        console.error("paymentRouter getAllPaginated", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get payments",
@@ -45,7 +45,7 @@ export const paymentRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
-        console.error("update payment", error);
+        console.error("paymentRouter update", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to update payment",
@@ -78,7 +78,7 @@ export const paymentRouter = createTRPCRouter({
 
         return res.data;
       } catch (error: any) {
-        console.error("create payment", error);
+        console.error("paymentRouter create", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to create payment",
@@ -98,7 +98,7 @@ export const paymentRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
-        console.error("delete payment", error);
+        console.error("paymentRouter delete", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to delete payment",
