@@ -2,6 +2,14 @@ import EventCarousel from "@/components/EventCarousel";
 import { api } from "@/trpc/server";
 import RichText from "@ui/components/RichText";
 
+// export function generateStaticParams() {
+//   return api.event.getMany.query().then((events) => {
+//     return events.map((event) => ({
+//       params: { id: event.id },
+//     }));
+//   });
+// }
+
 const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
   const event = await api.event.getOne.query(id);
   return (
