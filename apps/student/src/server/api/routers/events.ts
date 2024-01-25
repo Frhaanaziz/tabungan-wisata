@@ -25,6 +25,7 @@ export const eventRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("eventRouter getOne", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get event",
