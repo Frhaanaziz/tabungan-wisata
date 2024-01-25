@@ -13,6 +13,7 @@ export const schoolRouter = createTRPCRouter({
 
       return result.data;
     } catch (error) {
+      console.error("schoolRouter getAll", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Failed to get schools",
@@ -22,7 +23,6 @@ export const schoolRouter = createTRPCRouter({
 
   getAllPaginated: adminProcedure
     .input(getPaginatedDataSchema)
-    // add output validation
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
       const { page, take, search } = input;
@@ -53,6 +53,7 @@ export const schoolRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("schoolRouter create", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to create school",
@@ -74,6 +75,7 @@ export const schoolRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("schoolRouter update", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to update school",
