@@ -14,6 +14,7 @@ export const authRouter = createTRPCRouter({
       );
       return result.data;
     } catch (error) {
+      console.error("authRouter signUp", error);
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: getNestErrorMessage(error),
