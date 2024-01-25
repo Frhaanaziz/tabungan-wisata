@@ -89,6 +89,7 @@ export const authOptions: NextAuthOptions = {
           user.accessToken = data.accessToken;
           user.data = data.user;
         } catch (error) {
+          console.error("Google signin callbacks", error);
           throw new Error(
             "Error signing in with Google, try signing in with email and password instead.",
           );
