@@ -1,17 +1,19 @@
-import EventCarousel from "@/components/EventCarousel";
-import { api } from "@/trpc/server";
-import RichText from "@ui/components/RichText";
+import { getBackendApi } from "@/lib/axios";
 
-// export function generateStaticParams() {
-//   return api.event.getMany.query().then((events) => {
-//     return events.map((event) => ({
-//       params: { id: event.id },
-//     }));
-//   });
-// }
+import EventCarousel from "@/components/EventCarousel";
+import RichText from "@ui/components/RichText";
+import { notFound } from "next/navigation";
+
+export async function generateStaticParams() {
+  const result = await getBackendApi().get("/events/ids");
+
+  return result.data;
+}
 
 const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
-  const event = await api.event.getOne.query(id);
+  const event = (await getBackendApi().get(`/events/${id}`)).data;
+  if (!event) notFound();
+
   return (
     <main className="container my-10 max-w-[1200px]">
       <section className="mb-16 grid items-center gap-16 sm:grid-cols-2">
