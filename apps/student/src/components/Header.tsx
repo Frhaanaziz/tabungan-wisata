@@ -13,12 +13,17 @@ import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/constant";
 import logo from "@repo/assets/images/logo.png";
 import { companyName } from "@repo/utils/constants";
+import { Event } from "@repo/types";
 
-export default function Header({ session }: { session: Session }) {
+export default function Header({
+  session,
+  events,
+}: {
+  session: Session;
+  events: Event[];
+}) {
   const pathName = usePathname();
-
   const user = session.data;
-  const events = user?.school?.events ?? [];
 
   return (
     <Disclosure
