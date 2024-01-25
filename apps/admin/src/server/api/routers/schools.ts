@@ -36,6 +36,7 @@ export const schoolRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("schoolRouter getAllPaginated", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get schools",
