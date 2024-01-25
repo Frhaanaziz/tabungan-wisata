@@ -11,7 +11,7 @@ import { AspectRatio } from "@ui/components/aspect-ratio";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const EventCarousel = ({ event }: { event: Omit<Event, "school"> }) => {
+const EventCarousel = ({ event }: { event: Event }) => {
   const images = event.images;
   const [isClient, setIsClient] = useState(false);
 
