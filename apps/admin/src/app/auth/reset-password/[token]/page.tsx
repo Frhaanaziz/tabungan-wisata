@@ -1,6 +1,6 @@
 import ResetPasswordForm from "@/components/forms/ResetPasswordForm";
 import { getBackendApi } from "@/lib/axios";
-import { getNestErrorMessage } from "@repo/utils";
+import { notFound } from "next/navigation";
 
 const ResetPasswordPage = async ({
   params: { token },
@@ -12,7 +12,8 @@ const ResetPasswordPage = async ({
       token,
     });
   } catch (error) {
-    throw new Error(getNestErrorMessage(error));
+    console.error("ResetPasswordPage", error);
+    notFound();
   }
 
   return (
