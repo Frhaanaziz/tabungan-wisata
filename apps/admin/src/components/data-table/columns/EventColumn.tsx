@@ -11,14 +11,14 @@ import {
 } from "@ui/components/dropdown-menu";
 import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
 
-import type { Event } from "@repo/types";
+import type { Event, School } from "@repo/types";
 
 import { formatDate, toRupiah } from "@repo/utils";
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
 import React from "react";
 import { ScrollArea } from "@ui/components/ui/scroll-area";
 
-export const eventColumn: ColumnDef<Event>[] = [
+export const eventColumn: ColumnDef<Event & { school: School }>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
@@ -119,7 +119,7 @@ export const eventColumn: ColumnDef<Event>[] = [
   },
 ];
 
-function ActionCell({ row }: { row: Row<Event> }) {
+function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const event = row.original;
   //   const id = useId();
