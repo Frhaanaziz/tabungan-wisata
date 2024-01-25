@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { buttonVariants } from "@ui/components/button";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import BreadCrumbs from "./BreadCrumbs";
 
 const HeadingWithAction = ({

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 import {
   Form,
   FormControl,
@@ -12,8 +12,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/form";
+import { Input } from "@ui/components/shadcn/input";
 import { Loader2 } from "lucide-react";
 import { getErrorMessage } from "@repo/utils";
 import { toast } from "sonner";

@@ -1,7 +1,7 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
-import { buttonVariants } from "@ui/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@ui/components/shadcn/dialog";
+import { buttonVariants } from "@ui/components/shadcn/button";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,8 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/form";
+import { Input } from "@ui/components/shadcn/input";
 import { getErrorMessage } from "@repo/utils";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";

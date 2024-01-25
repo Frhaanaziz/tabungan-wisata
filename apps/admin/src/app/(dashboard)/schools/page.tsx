@@ -1,8 +1,12 @@
 import SchoolsTableSection from "@/components/section/SchoolsTableSection";
-import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@ui/components/shadcn/dialog";
 
 import AddSchoolForm from "@/components/forms/AddSchoolForm";
-import { buttonVariants } from "@ui/components/button";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import { api } from "@/trpc/server";
 
 const SchoolsPage = async ({

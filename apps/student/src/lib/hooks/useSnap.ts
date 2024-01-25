@@ -29,40 +29,12 @@ export const useSnap = () => {
 
   function snapPopUp({ token, toastId }: { token: string; toastId: string }) {
     if (snap) {
-      snap.pay(
-        token,
-        // {
-        // onSuccess: function (result: any) {
-        //   console.log(result);
-        //   updatePayment({
-        //     id: paymentId,
-        //     status: PaymentStatus.completed,
-        //   });
-        //   toast.success("Payment success!", { id: toastId });
-        // },
-        // onPending: function (result: any) {
-        //   console.log(result);
-        //   toast("Waiting your payment", { id: toastId, icon: "🕒" });
-        // },
-        // onError: function (result: any) {
-        //   console.log(result);
-        //   toast.error("Payment failed, please try again", { id: toastId });
-        //   updatePayment({
-        //     id: paymentId,
-        //     status: PaymentStatus.failed,
-        //   });
-        // },
-        // onClose: function () {
-        //   deletePayment(paymentId);
-        // },
-        //   }
-      );
+      snap.pay(token);
     } else {
       console.error("Midtrans is not ready, please try again later");
       toast.error("Midtrans is not ready, please try again later", {
         id: toastId,
       });
-      //   deletePayment(paymentId);
     }
   }
 

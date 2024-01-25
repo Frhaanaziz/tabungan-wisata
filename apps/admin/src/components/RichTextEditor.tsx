@@ -4,7 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { cn } from "@repo/utils";
 import { useState, useEffect } from "react";
-import { Skeleton } from "@ui/components/skeleton";
+import { Skeleton } from "@ui/components/shadcn/skeleton";
 import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link";
 import TiptapToolbar from "./TiptapToolbar";

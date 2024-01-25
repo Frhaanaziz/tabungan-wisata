@@ -1,5 +1,5 @@
 import { Loader2 } from "lucide-react";
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 
 const SubmitButton = ({ isSubmitting }: { isSubmitting: boolean }) => {
   return (

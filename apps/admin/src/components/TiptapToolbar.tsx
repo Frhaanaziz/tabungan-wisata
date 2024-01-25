@@ -18,7 +18,7 @@ import {
   AlignRight,
   AlignJustify,
 } from "lucide-react";
-import { Toggle } from "@ui/components/toggle";
+import { Toggle } from "@ui/components/shadcn/toggle";
 import { useCallback } from "react";
 
 type Props = {

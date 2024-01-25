@@ -1,22 +1,17 @@
 import { api } from "@/trpc/server";
 import HeadingNoAction from "@/components/HeadingNoAction";
-import PaymentsTableSection from "@/components/section/PaymentsTableSection";
+import { DataTable } from "@ui/components/table/data-table";
+import { paymentColumn } from "@/components/data-table/columns/PaymentColumn";
 
-const PaymentsPage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const page = (searchParams.page as string) || "1";
-  const initialData = await api.payment.getAllPaginated.query({
-    page: parseInt(page),
-  });
+const PaymentsPage = async () => {
+  const data = await api.payment.getAll.query();
 
   return (
     <>
       <HeadingNoAction text="Payments" />
 
-      <PaymentsTableSection page={parseInt(page)} initialData={initialData} />
+      {/* <PaymentsTableSection page={parseInt(page)} initialData={initialData} /> */}
+      <DataTable columns={paymentColumn} data={data} searchBy="name" />
     </>
   );
 };

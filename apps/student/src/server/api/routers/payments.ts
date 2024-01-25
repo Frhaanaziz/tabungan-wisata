@@ -31,6 +31,27 @@ export const paymentRouter = createTRPCRouter({
       }
     }),
 
+  getAll: privateProcedure
+    .input(z.object({ userId: z.string().cuid() }))
+    .query(async ({ input, ctx }) => {
+      const { userId, ...rest } = input;
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken, rest).get(
+          `/users/${userId}/payments`,
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("paymentRouter getAll", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get payments",
+        });
+      }
+    }),
+
   update: privateProcedure
     .input(updatePaymentSchema)
     .mutation(async ({ input, ctx }) => {

@@ -6,7 +6,6 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["./*"],
-      "@ui/components/ui*": ["./components/ui*"],
     },
   },
 }

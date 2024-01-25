@@ -11,23 +11,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
+} from "@ui/components/shadcn/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@ui/components/popover";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/popover";
+import { Input } from "@ui/components/shadcn/input";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { updateEventSchema } from "@repo/validators/event";
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 import { CalendarIcon } from "lucide-react";
 import FormFieldWrapper from "./FormFieldWrapper";
 import { format } from "date-fns";
 import { cn } from "@repo/utils";
-import { Calendar } from "@ui/components/calendar";
+import { Calendar } from "@ui/components/shadcn/calendar";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import RichTextEditor from "../RichTextEditor";

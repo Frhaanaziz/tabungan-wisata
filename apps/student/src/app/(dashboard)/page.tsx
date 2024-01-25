@@ -1,22 +1,25 @@
-import { getFirstName, greeting } from "@repo/utils";
-import { AspectRatio } from "@ui/components/ui/aspect-ratio";
+import { getFirstName, greeting, toRupiah } from "@repo/utils";
+import { AspectRatio } from "@ui/components/shadcn/aspect-ratio";
 import Image from "next/image";
 import { checkSessionAction } from "../_actions";
 import { api } from "@/trpc/server";
-import PaymentsTableSection from "@/components/section/PaymentsTableSection";
 import TopUpButton from "@/components/TopUpButton";
+import { notFound } from "next/navigation";
+import { DataTable } from "@ui/components/table/data-table";
+import { paymentColumn } from "@/components/data-table/columns/PaymentColumn";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function Home() {
   const { data: user } = await checkSessionAction();
-  const page = (searchParams.page as string) || "1";
-  const initialData = await api.payment.getAllPaginated.query({
-    page: parseInt(page),
+  if (!user.schoolId) notFound();
+
+  const data = await api.payment.getAll.query({
     userId: user.id,
   });
+  const userBalance = await api.user.getBalance.query();
+
+  const eventsCost = (
+    await api.school.getEvents.query({ id: user.schoolId })
+  ).reduce((acc, curr) => acc + curr.cost, 0);
 
   return (
     <main className="container">
@@ -28,10 +31,12 @@ export default async function Home({
             you have
             <br />
           </h1>
-          <p className="my-5 text-4xl font-bold text-green-500">$2,920.56</p>
+          <p className="my-5 text-4xl font-bold text-green-500">
+            {toRupiah(userBalance)}
+          </p>
           <p className="mb-4 text-lg">
-            Your target to go to the tour:{" "}
-            <span className="underline">$3,000.00</span>
+            Your target balance to participate in the tour:{" "}
+            <span className="underline">{toRupiah(eventsCost)}</span>
           </p>
           <TopUpButton userId={user.id} />
         </div>
@@ -43,11 +48,14 @@ export default async function Home({
         </div>
       </section>
 
-      <PaymentsTableSection
+      <section className="my-20">
+        <DataTable columns={paymentColumn} data={data} />
+      </section>
+      {/* <PaymentsTableSection
         initialData={initialData}
         userId={user.id}
         page={parseInt(page)}
-      />
+      /> */}
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import PaymentFailedLottie from "@/components/lotties/PaymentFailedLottie";
-import { buttonVariants } from "@ui/components/ui/button";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import Link from "next/link";
 
 const PaymentFailedPage = () => {

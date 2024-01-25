@@ -11,10 +11,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/form";
+import { Input } from "@ui/components/shadcn/input";
 import { updateSchoolSchema } from "@repo/validators/school";
-import { Textarea } from "@ui/components/textarea";
+import { Textarea } from "@ui/components/shadcn/textarea";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";

@@ -1,5 +1,5 @@
 import PaymentPendingLottie from "@/components/lotties/PaymentPendingLottie";
-import { buttonVariants } from "@ui/components/ui/button";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import Link from "next/link";
 
 const PaymentPendingPage = () => {

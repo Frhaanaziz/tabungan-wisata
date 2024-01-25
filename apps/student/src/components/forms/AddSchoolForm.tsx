@@ -11,8 +11,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/form";
+import { Input } from "@ui/components/shadcn/input";
 import { getErrorMessage } from "@repo/utils";
 import { toast } from "sonner";
 import { AddSchoolCodeSchema } from "@repo/validators/auth";
@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { signOut, useSession } from "next-auth/react";
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 
 const AddSchoolForm = () => {
   const router = useRouter();

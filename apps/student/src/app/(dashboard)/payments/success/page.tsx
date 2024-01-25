@@ -1,5 +1,5 @@
 import PaymentSuccessLottie from "@/components/lotties/PaymentSuccessLottie";
-import { buttonVariants } from "@ui/components/ui/button";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import Link from "next/link";
 
 const PaymentSuccessPage = () => {

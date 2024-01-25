@@ -1,5 +1,5 @@
 "use client";
-import { Input } from "@ui/components/input";
+import { Input } from "@ui/components/shadcn/input";
 import { SearchDataTable } from "../data-table/SearchDataTable";
 import { Suspense, useId, useState } from "react";
 import { toast } from "sonner";

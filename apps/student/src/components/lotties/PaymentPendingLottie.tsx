@@ -1,7 +1,7 @@
 "use client";
 import Lottie from "react-lottie-player";
 import { useState, useEffect } from "react";
-import { Skeleton } from "@ui/components/skeleton";
+import { Skeleton } from "@ui/components/shadcn/skeleton";
 import { useRouter } from "next/navigation";
 
 const PaymentPendingLottie = () => {

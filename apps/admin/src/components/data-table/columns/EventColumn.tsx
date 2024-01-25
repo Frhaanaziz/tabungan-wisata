@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@ui/components/button";
-import { ChevronsUpDown, MoreHorizontal } from "lucide-react";
+import { Button } from "@ui/components/shadcn/button";
+import { MoreHorizontal } from "lucide-react";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 
 import {
@@ -8,109 +8,56 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@ui/components/dropdown-menu";
-import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
+} from "@ui/components/shadcn/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@ui/components/shadcn/dialog";
 
 import type { Event, School } from "@repo/types";
 
 import { formatDate, toRupiah } from "@repo/utils";
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
 import React from "react";
-import { ScrollArea } from "@ui/components/ui/scroll-area";
+import { ScrollArea } from "@ui/components/shadcn/scroll-area";
+import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 
 export const eventColumn: ColumnDef<Event & { school: School }>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Name
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Name" />;
     },
-    cell: ({ row }) => <div className="pl-3">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "school",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          School
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="School" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{row.original.school.name ?? ""}</div>
-    ),
+    cell: ({ row }) => <div>{row.original.school.name ?? ""}</div>,
   },
   {
     accessorKey: "cost",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Cost
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Cost" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{toRupiah(row.getValue("cost"))}</div>
-    ),
+    cell: ({ row }) => <div>{toRupiah(row.getValue("cost"))}</div>,
   },
   {
     accessorKey: "startDate",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Start Date
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Start Date" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{formatDate(row.getValue("startDate"))}</div>
-    ),
+    cell: ({ row }) => <div>{formatDate(row.getValue("startDate"))}</div>,
   },
   {
     accessorKey: "endDate",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          End Date
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="End Date" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{formatDate(row.getValue("endDate"))}</div>
-    ),
+    cell: ({ row }) => <div>{formatDate(row.getValue("endDate"))}</div>,
   },
   {
     id: "actions",
@@ -122,21 +69,6 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
 function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const event = row.original;
-  //   const id = useId();
-  //   const utils = api.useUtils();
-
-  //   const { mutate } = api.event.delete.useMutation({
-  //     onMutate: () => {
-  //       toast.loading("Deleting event...", { id });
-  //     },
-  //     onSuccess: async () => {
-  //       toast.success("Event deleted", { id });
-  //       await utils.event.getAll.invalidate();
-  //     },
-  //     onError: (error) => {
-  //       toast.error(getErrorMessage(error), { id });
-  //     },
-  //   });
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

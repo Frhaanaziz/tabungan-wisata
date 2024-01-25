@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, buttonVariants } from "@ui/components/button";
+import { Button, buttonVariants } from "@ui/components/shadcn/button";
 import Link from "next/link";
 
 export default function Error({

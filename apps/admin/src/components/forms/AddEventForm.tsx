@@ -11,35 +11,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/components/form";
+} from "@ui/components/shadcn/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@ui/components/popover";
+} from "@ui/components/shadcn/popover";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@ui/components/command";
-import { Dialog, DialogContent, DialogTrigger } from "@ui/components/dialog";
-import { buttonVariants } from "@ui/components/button";
+} from "@ui/components/shadcn/command";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@ui/components/shadcn/dialog";
+import { buttonVariants } from "@ui/components/shadcn/button";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "@ui/components/calendar";
+import { Calendar } from "@ui/components/shadcn/calendar";
 
-import { Input } from "@ui/components/input";
+import { Input } from "@ui/components/shadcn/input";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { addEventSchema } from "@repo/validators/event";
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn, getErrorMessage } from "@repo/utils";
 import { School } from "@repo/types";
-import { ScrollArea } from "@ui/components/scroll-area";
+import { ScrollArea } from "@ui/components/shadcn/scroll-area";
 import FormFieldWrapper from "./FormFieldWrapper";
 import RichTextEditor from "../RichTextEditor";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";

@@ -5,12 +5,16 @@ import { XIcon, ChevronRightIcon, LayoutDashboard } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn, getInitials } from "@repo/utils";
 import Link from "next/link";
-import { ScrollArea } from "@ui/components/scroll-area";
+import { ScrollArea } from "@ui/components/shadcn/scroll-area";
 import { usePathname } from "next/navigation";
-import { ModeToggle } from "./ModeToggler";
+import { ModeToggle } from "@/components/ModeToggler";
 import { Menu } from "lucide-react";
 import type { Session } from "next-auth";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@ui/components/shadcn/avatar";
 
 type SidebarItem = {
   name: string;

@@ -1,100 +1,45 @@
 "use client";
-import { Button } from "@ui/components/button";
-import { ChevronsUpDown } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { User } from "@repo/types";
 import { formatDate } from "@repo/utils";
+import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 
 export const userColumn: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Name
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Name" />;
     },
-    cell: ({ row }) => <div className="pl-3">{row.getValue("name")}</div>,
+    cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "email",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Email
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Email" />;
     },
-    cell: ({ row }) => <div className="pl-3">{row.getValue("email")}</div>,
+    cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "school",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          School
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="School" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{row.original?.school?.name ?? ""}</div>
-    ),
+    cell: ({ row }) => <div>{row.original?.school?.name ?? ""}</div>,
   },
   {
     accessorKey: "role",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Role
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Role" />;
     },
-    cell: ({ row }) => <div className="pl-3">{row.getValue("role")}</div>,
+    cell: ({ row }) => <div>{row.getValue("role")}</div>,
   },
   {
     accessorKey: "createdAt",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Created At
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Created At" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{formatDate(row.getValue("createdAt"))}</div>
-    ),
+    cell: ({ row }) => <div>{formatDate(row.getValue("createdAt"))}</div>,
   },
   //   {
   //     id: "actions",

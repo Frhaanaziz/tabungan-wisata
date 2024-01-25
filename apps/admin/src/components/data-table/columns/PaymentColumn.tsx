@@ -1,11 +1,10 @@
 "use client";
-import { Button } from "@ui/components/button";
-import { ChevronsUpDown } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { Payment } from "@repo/types";
 import { formatDateWithTime, toRupiah } from "@repo/utils";
-import { Badge } from "@ui/components/badge";
+import { Badge } from "@ui/components/shadcn/badge";
+import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 
 const paymentStatusClass = {
   pending: "bg-yellow-500 hover:bg-yellow-500",
@@ -15,63 +14,42 @@ const paymentStatusClass = {
 
 export const paymentColumn: ColumnDef<Payment>[] = [
   {
-    accessorKey: "user",
+    accessorKey: "name",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Name
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Name" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{row.original.user.name ?? ""}</div>
-    ),
+    cell: ({ row }) => <div>{row.original?.user?.name ?? ""}</div>,
+    filterFn: (row, id, value) => {
+      let lowercaseName = row.original?.user?.name.toLowerCase() ?? "";
+      let lowercaseQuery = value.toLowerCase();
+
+      return lowercaseName.includes(lowercaseQuery);
+    },
   },
   {
     accessorKey: "amount",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Amount
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Amount" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{toRupiah(row.getValue("amount"))}</div>
-    ),
+    cell: ({ row }) => <div>{toRupiah(row.getValue("amount"))}</div>,
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Payment Method" />;
+    },
+    cell: ({ row }) => <div>{row.getValue("paymentMethod")}</div>,
   },
   {
     accessorKey: "status",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Status
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Status" />;
     },
     cell: ({ row }) => {
       const status = row.getValue("status") as keyof typeof paymentStatusClass;
 
       return (
-        <div className="pl-3">
+        <div>
           {
             <Badge className={`${paymentStatusClass[status]}`}>
               {row.getValue("status")}
@@ -80,24 +58,15 @@ export const paymentColumn: ColumnDef<Payment>[] = [
         </div>
       );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "date",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          size="sm"
-          className="text-md"
-        >
-          Date
-          <ChevronsUpDown className="ml-2 h-3 w-3" />
-        </Button>
-      );
+      return <DataTableColumnHeader column={column} title="Date" />;
     },
-    cell: ({ row }) => (
-      <div className="pl-3">{formatDateWithTime(row.getValue("date"))}</div>
-    ),
+    cell: ({ row }) => <div>{formatDateWithTime(row.getValue("date"))}</div>,
   },
 ];

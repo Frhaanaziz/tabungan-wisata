@@ -1,4 +1,4 @@
-import { Skeleton } from "@ui/components/skeleton";
+import { Skeleton } from "@ui/components/shadcn/skeleton";
 
 const DataTableSkeleton = () => {
   return (

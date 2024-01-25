@@ -99,6 +99,7 @@ export function formatDateWithTime(date: Date | string | number): string {
 }
 
 export function toRupiah(amount: number): string {
+  if (!amount) return 'Rp 0';
   return 'Rp ' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 

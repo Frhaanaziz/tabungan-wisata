@@ -24,7 +24,7 @@ import {
   Settings2,
 } from "lucide-react";
 
-import { Button } from "@ui/components/button";
+import { Button } from "@ui/components/shadcn/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -32,8 +32,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@ui/components/dropdown-menu";
-import { Input } from "@ui/components/input";
+} from "@ui/components/shadcn/dropdown-menu";
+import { Input } from "@ui/components/shadcn/input";
 import {
   Table,
   TableBody,
@@ -41,7 +41,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@ui/components/table";
+} from "@ui/components/shadcn/table";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { PaginatedDataUtils } from "@repo/types";
