@@ -21,6 +21,7 @@ export const eventRouter = createTRPCRouter({
 
         return result.data;
       } catch (error) {
+        console.error("eventRouter getAllPaginated", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get events",
@@ -61,6 +62,7 @@ export const eventRouter = createTRPCRouter({
 
         return { ...eventResponse.data, images: imagesResponse };
       } catch (error) {
+        console.error("eventRouter create", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to create event",
@@ -115,6 +117,7 @@ export const eventRouter = createTRPCRouter({
 
         return { ...eventResponse.data, images: imagesResponse };
       } catch (error) {
+        console.error("eventRouter update", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to update event",
