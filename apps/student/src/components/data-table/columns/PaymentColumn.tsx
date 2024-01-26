@@ -2,7 +2,11 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { Payment } from "@repo/types";
-import { formatDateWithTime, toRupiah } from "@repo/utils";
+import {
+  convertPaymentMethod,
+  formatDateWithTime,
+  toRupiah,
+} from "@repo/utils";
 import { Badge } from "@ui/components/shadcn/badge";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 
@@ -37,7 +41,9 @@ export const paymentColumn: ColumnDef<Payment>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Payment Method" />;
     },
-    cell: ({ row }) => <div>{row.getValue("paymentMethod")}</div>,
+    cell: ({ row }) => (
+      <div>{convertPaymentMethod(row.getValue("paymentMethod"))}</div>
+    ),
   },
   {
     accessorKey: "amount",
