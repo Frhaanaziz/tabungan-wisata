@@ -18,8 +18,8 @@ export const eventSchema = z.object({
   schoolId: z.string().cuid({ message: 'Please select a school' }),
   images: z
     // .array(fileSchema.omit({ id: true }))
-    .array(fileSchema)
-    .min(1, { message: 'Please upload at least 1 image' }),
+    .array(fileSchema),
+  // .min(1, { message: 'Please upload at least 1 image' }),
   // registrations: z.array(eventRegistrationSchema).optional(),
   // school: schoolSchema.optional(),
 });
