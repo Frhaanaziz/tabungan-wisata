@@ -68,7 +68,9 @@ export function getInitials(name?: string | null): string {
   }
 }
 
-export function checkAccessToken(token: string): boolean {
+export function checkAccessToken(token: string | undefined): boolean {
+  if (!token) return false;
+
   try {
     const jwtPayload = jwt.verify(token, process.env.NEXTAUTH_SECRET!);
     if (!jwtPayload || typeof jwtPayload === 'string') return false;
@@ -150,4 +152,21 @@ export function getLastName(fullName: string): string | undefined {
   const lastName = words[words.length - 1];
 
   return lastName;
+}
+
+export function convertPaymentMethod(paymentMethod: string): string {
+  if (!paymentMethod) return '';
+
+  if (paymentMethod.includes('_')) {
+    // Jika terdapat underscore, capitalize kedua kata dan buang underscore
+    const words = paymentMethod.split('_');
+    for (let i = 0; i < words.length; i++) {
+      words[i] =
+        (words[i]?.charAt(0)?.toUpperCase() ?? '') + words[i]?.slice(1);
+    }
+    return words.join(' ');
+  } else {
+    // Jika tidak ada underscore, capitalize saja
+    return paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1);
+  }
 }
