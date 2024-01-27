@@ -2,6 +2,8 @@ import { api } from "@/trpc/server";
 import EventsTableSection from "@/components/section/EventsTableSection";
 
 import AddEventForm from "@/components/forms/AddEventForm";
+import { Suspense } from "react";
+import DataTableSkeleton from "@/components/skeleton/DataTableSkeleton";
 
 const EventsPage = async ({
   searchParams,
@@ -9,9 +11,12 @@ const EventsPage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const page = (searchParams.page as string) || "1";
-  const initialData = await api.event.getAllPaginated.query({
+  const search = (searchParams.search as string) || "";
+  const data = await api.event.getAllPaginated.query({
     page: parseInt(page),
+    search,
   });
+
   const schools = await api.school.getAll.query();
 
   return (
@@ -23,7 +28,9 @@ const EventsPage = async ({
         </div>
       </header>
 
-      <EventsTableSection page={parseInt(page)} initialData={initialData} />
+      <Suspense fallback={<DataTableSkeleton />}>
+        <EventsTableSection data={data} />
+      </Suspense>
     </>
   );
 };
