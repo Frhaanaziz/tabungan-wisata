@@ -6,31 +6,9 @@ import { Button } from '@ui/components/shadcn/button';
 import { DataTableViewOptions } from './data-table-view-options';
 
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
-import {
-  CheckCircledIcon,
-  Cross1Icon,
-  CrossCircledIcon,
-  StopwatchIcon,
-} from '@radix-ui/react-icons';
+import { Cross1Icon } from '@radix-ui/react-icons';
 import { Input } from '../shadcn/input';
-
-export const paymentStatus = [
-  {
-    value: 'completed',
-    label: 'Completed',
-    icon: CheckCircledIcon,
-  },
-  {
-    value: 'pending',
-    label: 'Pending',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'failed',
-    label: 'Failed',
-    icon: CrossCircledIcon,
-  },
-];
+import { paymentMethods, paymentStatus } from '@repo/utils/constants';
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -63,6 +41,13 @@ export function DataTableToolbar<TData>({
             column={table.getColumn('status')}
             title="Status"
             options={paymentStatus}
+          />
+        )}
+        {table.getColumn('paymentMethod') && (
+          <DataTableFacetedFilter
+            column={table.getColumn('paymentMethod')}
+            title="Payment Method"
+            options={paymentMethods}
           />
         )}
         {isFiltered && (
