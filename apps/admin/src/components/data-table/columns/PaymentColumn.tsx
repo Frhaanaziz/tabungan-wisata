@@ -45,6 +45,9 @@ export const paymentColumn: ColumnDef<Payment>[] = [
     cell: ({ row }) => (
       <div>{convertPaymentMethod(row.getValue("paymentMethod"))}</div>
     ),
+    filterFn: (row, id, value) => {
+      return value.includes(convertPaymentMethod(row.getValue(id)));
+    },
   },
   {
     accessorKey: "status",
