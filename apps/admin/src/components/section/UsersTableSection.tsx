@@ -1,62 +1,29 @@
 "use client";
 import { Input } from "@ui/components/shadcn/input";
 import { SearchDataTable } from "../data-table/SearchDataTable";
-import { Suspense, useId, useState } from "react";
-import { toast } from "sonner";
 import type { UsersPaginated } from "@repo/types";
-import { api } from "@/trpc/react";
-import { useDebounce } from "@/lib/hooks/useDebounce";
 import { userColumn } from "../data-table/columns/UserColumn";
+import { useTableSection } from "@/lib/hooks/useTableSection";
 
-const UsersTableSection = ({
-  page,
-  initialData,
-}: {
-  page: number;
-  initialData: UsersPaginated;
-}) => {
-  const toastId = useId();
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState(initialData);
-  const debouncedQuery = useDebounce(search);
-
-  api.user.getAllPaginated.useQuery(
-    {
-      page,
-      search: debouncedQuery,
-    },
-    {
-      queryKey: ["user.getAllPaginated", { page, search: debouncedQuery }],
-      onError(error) {
-        toast.error(error.message, { id: toastId });
-      },
-      onSuccess(data) {
-        setData(data);
-      },
-      initialData,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-    },
-  );
+const UsersTableSection = ({ data }: { data: UsersPaginated }) => {
+  const { search, setSearch } = useTableSection("");
 
   const { content, ...utils } = data;
 
   return (
-    <Suspense fallback={null}>
-      <SearchDataTable
-        data={content}
-        columns={userColumn}
-        utils={utils}
-        SearchInput={
-          <Input
-            placeholder="Filter names..."
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            className="max-w-sm"
-          />
-        }
-      />
-    </Suspense>
+    <SearchDataTable
+      data={content}
+      columns={userColumn}
+      utils={utils}
+      SearchInput={
+        <Input
+          placeholder="Filter names..."
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          className="max-w-sm"
+        />
+      }
+    />
   );
 };
 export default UsersTableSection;
