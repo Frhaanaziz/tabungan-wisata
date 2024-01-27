@@ -8,6 +8,8 @@ import {
 import AddSchoolForm from "@/components/forms/AddSchoolForm";
 import { buttonVariants } from "@ui/components/shadcn/button";
 import { api } from "@/trpc/server";
+import { Suspense } from "react";
+import DataTableSkeleton from "@/components/skeleton/DataTableSkeleton";
 
 const SchoolsPage = async ({
   searchParams,
@@ -15,8 +17,10 @@ const SchoolsPage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const page = (searchParams.page as string) || "1";
-  const initialData = await api.school.getAllPaginated.query({
+  const search = (searchParams.search as string) || "";
+  const data = await api.school.getAllPaginated.query({
     page: parseInt(page),
+    search,
   });
 
   return (
@@ -33,7 +37,9 @@ const SchoolsPage = async ({
         </div>
       </header>
 
-      <SchoolsTableSection page={parseInt(page)} initialData={initialData} />
+      <Suspense fallback={<DataTableSkeleton />}>
+        <SchoolsTableSection data={data} />
+      </Suspense>
     </>
   );
 };
