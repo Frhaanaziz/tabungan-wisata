@@ -32,7 +32,7 @@ const EventsPage = async ({
       </header>
 
       <Suspense fallback={<DataTableSkeleton />}>
-        <SearchDataTable data={content} columns={eventColumn} utils={utils} />;
+        <SearchDataTable data={content} columns={eventColumn} utils={utils} />
       </Suspense>
     </>
   );

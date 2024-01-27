@@ -25,7 +25,7 @@ const UsersPage = async ({
       <HeadingNoAction text="Users" />
 
       <Suspense fallback={<DataTableSkeleton />}>
-        <SearchDataTable data={content} columns={userColumn} utils={utils} />;
+        <SearchDataTable data={content} columns={userColumn} utils={utils} />
       </Suspense>
     </>
   );
