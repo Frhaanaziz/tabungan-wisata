@@ -59,7 +59,15 @@ export function SearchDataTable({
   SearchInput: JSX.Element;
   emptyState?: string;
 }) {
-  const { currentPage, rowsPerPage, totalPages } = utils;
+  const {
+    currentPage,
+    rowsPerPage,
+    totalPages,
+    isFirstPage,
+    isLastPage,
+    nextPage,
+    previousPage,
+  } = utils;
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -85,7 +93,7 @@ export function SearchDataTable({
   });
 
   useEffect(() => {
-    router.push(
+    router.replace(
       pathname + "?" + createQueryString("page", pageIndex.toString()),
       { scroll: false },
     );
@@ -120,8 +128,6 @@ export function SearchDataTable({
       pagination,
     },
   });
-
-  const canPreviousPage = pagination.pageIndex > 1;
 
   return (
     <div className="w-full">
@@ -218,9 +224,9 @@ export function SearchDataTable({
           <p className=" flex-shrink-0 font-semibold">
             Page{" "}
             <span>
-              {table.getState().pagination.pageIndex} of{" "}
-              {table.getPageCount() - 1}
-              {/* {table.getPageCount()} */}
+              {currentPage} of {totalPages}
+              {/* {table.getState().pagination.pageIndex} of{" "}
+              {table.getPageCount() - 1} */}
             </span>
           </p>
         </div>
@@ -232,9 +238,13 @@ export function SearchDataTable({
             min={1}
             defaultValue={table.getState().pagination.pageIndex}
             onChange={(e) => {
-              //   const page = e.target.value ? Number(e.target.value) : 0;
-              const page = e.target.value ? Number(e.target.value) : 1;
-              table.setPageIndex(page);
+              if (
+                parseInt(e.target.value) > totalPages ||
+                parseInt(e.target.value) < 1
+              )
+                return;
+              const page = parseInt(e.target.value);
+              table.setPageIndex(page ? page : 1);
             }}
             className="w-16"
           />
@@ -245,7 +255,7 @@ export function SearchDataTable({
             size="icon"
             // onClick={() => table.setPageIndex(0)}
             onClick={() => table.setPageIndex(1)}
-            disabled={!canPreviousPage}
+            disabled={isFirstPage}
             // disabled={!table.getCanPreviousPage()}
             className="hidden lg:inline-flex"
           >
@@ -254,24 +264,29 @@ export function SearchDataTable({
 
           <Button
             size="icon"
-            onClick={() => table.previousPage()}
-            disabled={!canPreviousPage}
+            onClick={() => table.setPageIndex(previousPage)}
+            // onClick={() => table.previousPage()}
+            disabled={isFirstPage}
             // disabled={!table.getCanPreviousPage()}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
             size="icon"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            onClick={() => table.setPageIndex(nextPage)}
+            // onClick={() => table.nextPage()}
+            disabled={isLastPage}
+            // disabled={!table.getCanNextPage()}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
 
           <Button
             size="icon"
-            onClick={() => table.setPageIndex(table.getPageCount())}
-            disabled={!table.getCanNextPage()}
+            onClick={() => table.setPageIndex(totalPages)}
+            // onClick={() => table.setPageIndex(table.getPageCount())}
+            disabled={isLastPage}
+            // disabled={!table.getCanNextPage()}
             className="hidden lg:inline-flex"
           >
             <ChevronsRight className="h-4 w-4" />
