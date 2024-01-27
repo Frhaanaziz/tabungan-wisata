@@ -1,20 +1,8 @@
 "use client";
 
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  PaginationState,
-  SortingState,
-  VisibilityState,
-} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 
 import {
   ChevronLeft,
@@ -42,97 +30,51 @@ import {
   TableHeader,
   TableRow,
 } from "@ui/components/shadcn/table";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { PaginatedDataUtils } from "@repo/types";
+import { useControlledDataTable } from "@/lib/hooks/useControlledDataTable";
+
+interface SearchDataTableProps {
+  data: any[];
+  columns: ColumnDef<any>[];
+  utils: PaginatedDataUtils;
+  SearchInput?: JSX.Element;
+  emptyState?: string;
+}
 
 export function SearchDataTable({
   data,
   columns,
   utils,
-  SearchInput,
   emptyState = "No results.",
-}: {
-  data: any[];
-  columns: ColumnDef<any>[];
-  utils: PaginatedDataUtils;
-  SearchInput: JSX.Element;
-  emptyState?: string;
-}) {
+}: SearchDataTableProps) {
   const {
     currentPage,
-    rowsPerPage,
-    totalPages,
     isFirstPage,
     isLastPage,
     nextPage,
     previousPage,
+    totalPages,
   } = utils;
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  console.log(utils);
 
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
-
-  const createQueryString: any = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: currentPage,
-    pageSize: rowsPerPage,
-  });
-
-  useEffect(() => {
-    router.replace(
-      pathname + "?" + createQueryString("page", pageIndex.toString()),
-      { scroll: false },
-    );
-  }, [pageIndex, createQueryString, pathname, router]);
-
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize],
-  );
-
-  const table = useReactTable({
-    data,
+  const { table, setSearch, search } = useControlledDataTable({
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    manualPagination: true,
-    pageCount: totalPages + 1,
-    onPaginationChange: setPagination,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-      pagination,
-    },
+    data,
+    utils,
   });
 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between pb-4">
-        <div className="flex">{SearchInput}</div>
+        {/* <div className="flex">{SearchInput}</div> */}
+        <div className="flex">
+          <Input
+            placeholder="Filter names..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="max-w-sm"
+          />
+        </div>
 
         <div className="flex items-center gap-2">
           <DropdownMenu>
@@ -225,8 +167,6 @@ export function SearchDataTable({
             Page{" "}
             <span>
               {currentPage} of {totalPages}
-              {/* {table.getState().pagination.pageIndex} of{" "}
-              {table.getPageCount() - 1} */}
             </span>
           </p>
         </div>
@@ -236,6 +176,7 @@ export function SearchDataTable({
           <Input
             type="number"
             min={1}
+            max={totalPages}
             defaultValue={table.getState().pagination.pageIndex}
             onChange={(e) => {
               if (
@@ -246,18 +187,16 @@ export function SearchDataTable({
               const page = parseInt(e.target.value);
               table.setPageIndex(page ? page : 1);
             }}
-            className="w-16"
+            className="h-8 w-16"
           />
         </div>
 
         <div className="flex-shrink-0 space-x-2">
           <Button
             size="icon"
-            // onClick={() => table.setPageIndex(0)}
             onClick={() => table.setPageIndex(1)}
             disabled={isFirstPage}
-            // disabled={!table.getCanPreviousPage()}
-            className="hidden lg:inline-flex"
+            className="hidden h-8 w-8 p-0 lg:inline-flex"
           >
             <ChevronsLeft className="h-4 w-4" />
           </Button>
@@ -265,18 +204,16 @@ export function SearchDataTable({
           <Button
             size="icon"
             onClick={() => table.setPageIndex(previousPage)}
-            // onClick={() => table.previousPage()}
             disabled={isFirstPage}
-            // disabled={!table.getCanPreviousPage()}
+            className="h-8 w-8 p-0"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
             size="icon"
             onClick={() => table.setPageIndex(nextPage)}
-            // onClick={() => table.nextPage()}
             disabled={isLastPage}
-            // disabled={!table.getCanNextPage()}
+            className="h-8 w-8 p-0"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
@@ -284,10 +221,8 @@ export function SearchDataTable({
           <Button
             size="icon"
             onClick={() => table.setPageIndex(totalPages)}
-            // onClick={() => table.setPageIndex(table.getPageCount())}
             disabled={isLastPage}
-            // disabled={!table.getCanNextPage()}
-            className="hidden lg:inline-flex"
+            className="hidden h-8 w-8 p-0 lg:inline-flex"
           >
             <ChevronsRight className="h-4 w-4" />
           </Button>
