@@ -1,4 +1,3 @@
-import SchoolsTableSection from "@/components/section/SchoolsTableSection";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +9,8 @@ import { buttonVariants } from "@ui/components/shadcn/button";
 import { api } from "@/trpc/server";
 import { Suspense } from "react";
 import DataTableSkeleton from "@/components/skeleton/DataTableSkeleton";
+import { SearchDataTable } from "@/components/data-table/SearchDataTable";
+import { schoolColumns } from "@/components/data-table/columns/SchoolColumn";
 
 const SchoolsPage = async ({
   searchParams,
@@ -22,6 +23,8 @@ const SchoolsPage = async ({
     page: parseInt(page),
     search,
   });
+
+  const { content, ...utils } = data;
 
   return (
     <>
@@ -38,7 +41,7 @@ const SchoolsPage = async ({
       </header>
 
       <Suspense fallback={<DataTableSkeleton />}>
-        <SchoolsTableSection data={data} />
+        <SearchDataTable data={content} columns={schoolColumns} utils={utils} />
       </Suspense>
     </>
   );
