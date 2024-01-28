@@ -41,7 +41,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!isAunthenticated)
     throw new TRPCError({
       code: "UNAUTHORIZED",
-      message: "Invalid access token",
+      message: "INVALID_ACCESS_TOKEN",
     });
 
   return next({
