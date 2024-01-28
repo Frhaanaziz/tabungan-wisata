@@ -163,7 +163,7 @@ export function SearchDataTable({
       </div>
       <div className="flex items-center justify-between gap-5 overflow-x-auto py-4 ">
         <div className="flex items-center gap-2">
-          <p className=" flex-shrink-0 font-semibold">
+          <p className=" flex-shrink-0 text-sm font-medium">
             Page{" "}
             <span>
               {currentPage} of {totalPages}
@@ -172,7 +172,7 @@ export function SearchDataTable({
         </div>
 
         <div className="hidden items-center gap-1 self-end sm:flex">
-          <p className="font-semibold">Go to page:</p>
+          <p className="text-sm font-medium">Go to page:</p>
           <Input
             type="number"
             min={1}
