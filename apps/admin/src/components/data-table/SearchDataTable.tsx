@@ -55,7 +55,6 @@ export function SearchDataTable({
     previousPage,
     totalPages,
   } = utils;
-  console.log(utils);
 
   const { table, setSearch, search } = useControlledDataTable({
     columns,
