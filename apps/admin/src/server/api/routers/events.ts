@@ -4,6 +4,8 @@ import { TRPCError } from "@trpc/server";
 import { addEventSchema, updateEventSchema } from "@repo/validators/event";
 import { getPaginatedDataSchema } from "@repo/validators";
 import { backendClientES } from "@/server/edgestore";
+import { deleteFile, uploadFile } from "../shared";
+import { File } from "@repo/types";
 
 export const eventRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
@@ -32,7 +34,7 @@ export const eventRouter = createTRPCRouter({
   create: adminProcedure
     .input(addEventSchema)
     .mutation(async ({ input, ctx }) => {
-      const { images, ...rest } = input;
+      const { images, itineraries, ...rest } = input;
       const accessToken = ctx.session.accessToken;
 
       try {
@@ -41,6 +43,14 @@ export const eventRouter = createTRPCRouter({
           rest,
         );
         const eventId = eventResponse.data.id;
+
+        await itineraries.reduce(async (promise, itinerary) => {
+          await promise;
+          return getBackendApi(accessToken).post("/itineraries", {
+            ...itinerary,
+            eventId,
+          });
+        }, Promise.resolve());
 
         const imagesResponse = await Promise.all(
           images.map(async (image) => {
@@ -73,7 +83,7 @@ export const eventRouter = createTRPCRouter({
   update: adminProcedure
     .input(updateEventSchema)
     .mutation(async ({ input, ctx }) => {
-      const { images, ...rest } = input;
+      const { images, itineraries, ...rest } = input;
       const accessToken = ctx.session.accessToken;
 
       try {
@@ -83,39 +93,49 @@ export const eventRouter = createTRPCRouter({
         );
         const eventId = eventResponse.data.id;
 
-        const imagesResponse = await Promise.all(
-          images.map(async (image) => {
-            const result = await getBackendApi(accessToken).post("/files", {
-              ...image,
-              eventId,
-            });
-            return result.data;
-          }),
+        // Get deleted itineraries
+        const deletedItineraries = eventResponse.data.itineraries.filter(
+          (itinerary: any) =>
+            !itineraries.some((i: any) => i.id === itinerary.id),
         );
-
+        // Delete itineraries
         await Promise.all(
-          images.map(async (image) => {
-            backendClientES.publicImages.confirmUpload({
-              url: image.url,
-            });
-          }),
-        );
-
-        await Promise.all(
-          eventResponse.data.images.map(async (image: any) => {
-            backendClientES.publicImages.deleteFile({
-              url: image.url,
-            });
-          }),
-        );
-
-        await Promise.all(
-          eventResponse.data.images.map(async (image: any) =>
-            getBackendApi(accessToken).delete(`/files/${image.id}`),
+          deletedItineraries.map(async (itinerary: any) =>
+            getBackendApi(accessToken).delete(`/itineraries/${itinerary.id}`),
           ),
         );
 
-        return { ...eventResponse.data, images: imagesResponse };
+        // Update or create itineraries
+        await itineraries.reduce(async (promise, itinerary) => {
+          await promise;
+          if (itinerary.id) {
+            return getBackendApi(accessToken).put(
+              `/itineraries/${itinerary.id}`,
+              itinerary,
+            );
+          } else {
+            return getBackendApi(accessToken).post("/itineraries", {
+              ...itinerary,
+              eventId,
+            });
+          }
+        }, Promise.resolve());
+
+        // Upload images
+        const filesResponse = await Promise.all(
+          images.map(async (image) =>
+            uploadFile({ accessToken, file: image, eventId }),
+          ),
+        );
+
+        // Delete images
+        await Promise.all(
+          eventResponse.data.images.map(async (image: File) => {
+            deleteFile({ accessToken, file: image });
+          }),
+        );
+
+        return { ...eventResponse.data, images: filesResponse };
       } catch (error) {
         console.error("eventRouter update", error);
         throw new TRPCError({
