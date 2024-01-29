@@ -9,16 +9,7 @@ import { convertPaymentMethod } from '.';
 
 export const webPrimaryColor = '#2663E9';
 export const companyName = 'Tabungan Wisata';
-
-// credit_card
-// echannel
-// bank_transfer
-// gopay
-// qris
-// cstore
-// bca_klikpay
-// bca_klikbca
-// bri_epay
+export const companyContact = '+6281234567890';
 
 export const paymentMethods = [
   {
