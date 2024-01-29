@@ -9,7 +9,6 @@ import { ThemeProvider } from "@/context/ThemeProvider";
 import ToastProvider from "@/context/ToastProvider";
 import { webPrimaryColor } from "@repo/utils/constants";
 import NextAuthSessionProvider from "@/context/NextAuthSessionProvider";
-import { NextUIProvider } from "@/context/NextUIProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,12 +34,10 @@ export default function RootLayout({
         <NextAuthSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
             <ThemeProvider attribute="class" disableTransitionOnChange>
-              <NextUIProvider>
-                <ToastProvider>
-                  <NextTopLoader color={webPrimaryColor} />
-                  {children}
-                </ToastProvider>
-              </NextUIProvider>
+              <ToastProvider>
+                <NextTopLoader color={webPrimaryColor} />
+                {children}
+              </ToastProvider>
             </ThemeProvider>
           </TRPCReactProvider>
         </NextAuthSessionProvider>
