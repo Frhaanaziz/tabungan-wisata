@@ -48,6 +48,7 @@ export function DataTableToolbar<TData>({
             column={table.getColumn('paymentMethod')}
             title="Payment Method"
             options={paymentMethods}
+            className="hidden sm:flex"
           />
         )}
         {isFiltered && (
