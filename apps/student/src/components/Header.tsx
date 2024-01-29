@@ -24,7 +24,7 @@ export default function Header({
   events,
 }: {
   session: Session;
-  events: Omit<Event, "itinerary">[];
+  events: Omit<Event, "itineraries">[];
 }) {
   const pathName = usePathname();
   const user = session.data;
