@@ -8,7 +8,7 @@ import { eventSchema } from "@repo/validators/event";
 export const schoolRouter = createTRPCRouter({
   getEvents: privateProcedure
     .input(schoolSchema.pick({ id: true }))
-    .output(z.array(eventSchema))
+    .output(z.array(eventSchema.omit({ itineraries: true })))
     .query(async ({ ctx, input }) => {
       const { id: schoolId } = input;
       const accessToken = ctx.session.accessToken;
