@@ -57,3 +57,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+.testimonial {
+  position: relative;
+  border: 3px solid #f2f2f2;
+  padding: 21px 28px 32px;
+  margin: 0 0 20px;
+}
+
+.testimonial:after {
+  content: "";
+  position: absolute;
+  left: 62px;
+  bottom: -33px;
+  width: 30px;
+  height: 33px;
+  background: url(/images/testimonials_before.png) no-repeat;
+  background-size: 15px 18px;
+}
