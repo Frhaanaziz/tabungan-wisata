@@ -34,7 +34,7 @@ export default function Header({
       as="nav"
       className="border-b border-b-muted bg-background shadow"
     >
-      {({ open }) => (
+      {({ open, close }) => (
         <>
           <div className="container">
             <div className="relative flex h-16 justify-between">
@@ -153,6 +153,7 @@ export default function Header({
               {navigation.map((item) => (
                 <Link
                   key={item.name}
+                  onClick={() => close()}
                   href={item.href}
                   className={cn(
                     item.href === pathName
@@ -162,6 +163,21 @@ export default function Header({
                   )}
                 >
                   {item.name}
+                </Link>
+              ))}
+              {events.map((event) => (
+                <Link
+                  key={event.name}
+                  onClick={() => close()}
+                  href={`/events/${event.id}`}
+                  className={cn(
+                    `/events/${event.id}` === pathName
+                      ? "border-primary bg-primary/5 text-primary"
+                      : "border-transparent text-muted-foreground hover:border-muted hover:bg-muted/70 hover:text-foreground",
+                    "block border-l-4 py-2 pl-3 pr-4 text-base font-medium",
+                  )}
+                >
+                  {event.name}
                 </Link>
               ))}
             </div>
