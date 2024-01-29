@@ -13,13 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@ui/components/shadcn/form";
-import { Input } from "@ui/components/shadcn/input";
 import { Loader2 } from "lucide-react";
 import { getErrorMessage } from "@repo/utils";
 import { toast } from "sonner";
 import { resetPasswordSchema } from "@repo/validators/auth";
 import { resetPasswordAction } from "@/app/_actions/auth";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@ui/components/PasswordInput";
 
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const router = useRouter();
@@ -71,7 +71,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
                 <FormItem>
                   <FormLabel>New password</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isSubmitting} type="password" />
+                    <PasswordInput
+                      {...field}
+                      disabled={isSubmitting}
+                      placeholder="Enter New Password"
+                      autoComplete="new-password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,7 +89,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
                 <FormItem>
                   <FormLabel>Confirm password</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isSubmitting} type="password" />
+                    <PasswordInput
+                      {...field}
+                      disabled={isSubmitting}
+                      placeholder="Confirm New Password"
+                      autoComplete="new-password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
