@@ -76,6 +76,7 @@ const AddSchoolForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    placeholder="Enter your school code"
                     disabled={isLoading}
                     onChange={(e) =>
                       field.onChange(e.target.value.toUpperCase())
