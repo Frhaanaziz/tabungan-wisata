@@ -99,7 +99,7 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
             <Accordion type="single" collapsible>
               {itineraries.map(({ description, name, id }, i) => (
                 <AccordionItem key={id} value={id}>
-                  <AccordionTrigger>
+                  <AccordionTrigger className="text-start">
                     DAY {i + 1} {name}
                   </AccordionTrigger>
                   <AccordionContent asChild>
