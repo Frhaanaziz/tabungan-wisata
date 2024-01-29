@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import type { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { ModeToggle } from "@/components/ModeToggler";
+// import { ModeToggle } from "@/components/ModeToggler";
 import {
   Avatar,
   AvatarFallback,
@@ -98,7 +98,7 @@ export default function Header({
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <ModeToggle />
+                {/* <ModeToggle /> */}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
