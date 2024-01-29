@@ -13,6 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@ui/components/shadcn/form";
+import { PasswordInput } from "@ui/components/PasswordInput";
 import { Input } from "@ui/components/shadcn/input";
 import Link from "next/link";
 import { Checkbox } from "@ui/components/shadcn/checkbox";
@@ -94,9 +95,14 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email address</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isSubmitting} />
+                  <Input
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Email@example.com"
+                    autoComplete="email"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,7 +115,12 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} disabled={isSubmitting} />
+                  <PasswordInput
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Enter your password"
+                    autoComplete="password"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,10 +138,7 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
               </label>
             </div>
 
-            <Link
-              href="/auth/reset-password"
-              className="text-sm font-semibold hover:underline"
-            >
+            <Link href="/auth/reset-password" className="text-sm font-semibold">
               Forgot password?
             </Link>
           </div>
@@ -142,18 +150,19 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
         </form>
       </Form>
 
-      <div className="relative mt-6">
+      <div className="relative my-10">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t-2" />
         </div>
         <div className="relative flex justify-center text-sm font-medium leading-6">
-          <span className="bg-background px-5">Or continue with</span>
+          {/* <span className="bg-background px-5">Or continue with</span> */}
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="">
         <Button
           className={"w-full gap-3"}
+          variant={"outline"}
           onClick={handleGoogleSignIn}
           disabled={isSubmitting}
         >
@@ -163,18 +172,13 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
             width={20}
             height={20}
             alt="google"
-            className="h-5 w-5 invert dark:invert-0"
+            className="h-5 w-5 dark:invert"
           />
-          <span className="text-sm font-semibold leading-6">Google</span>
+          <span className="text-sm font-semibold leading-6">
+            Sign in with Google
+          </span>
         </Button>
       </div>
-
-      <Link
-        href="/auth/signup"
-        className="mt-3 inline-block text-center text-sm text-primary underline"
-      >
-        Don&apos;t have an account? Sign up
-      </Link>
     </>
   );
 };
