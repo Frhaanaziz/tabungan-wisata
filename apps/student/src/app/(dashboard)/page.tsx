@@ -31,7 +31,7 @@ export default async function Home() {
         </div>
 
         <div className="col-span-3">
-          <h1 className="text-5xl font-bold">
+          <h1 className="text-4xl font-bold md:text-5xl">
             Good {greeting()} {getFirstName(user.name).toLowerCase()},
             <br />
             you have
