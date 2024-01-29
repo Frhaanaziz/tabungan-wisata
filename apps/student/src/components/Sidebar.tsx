@@ -7,7 +7,7 @@ import { cn, getInitials } from "@repo/utils";
 import Link from "next/link";
 import { ScrollArea } from "@ui/components/shadcn/scroll-area";
 import { usePathname } from "next/navigation";
-import { ModeToggle } from "@/components/ModeToggler";
+// import { ModeToggle } from "@/components/ModeToggler";
 import { Menu } from "lucide-react";
 import type { Session } from "next-auth";
 import {
@@ -183,7 +183,7 @@ export default function Sidebar({
                     {/* <Link href={'/'}>
                       <Logo />
                     </Link> */}
-                    <ModeToggle />
+                    {/* <ModeToggle /> */}
                   </div>
                   <nav className="flex flex-1 flex-col">
                     <ul role="list" className="-mx-2 space-y-2">
@@ -206,7 +206,7 @@ export default function Sidebar({
               {/* <Link href={'/'}>
                 <Logo />
               </Link> */}
-              <ModeToggle />
+              {/* <ModeToggle /> */}
             </div>
             <ul role="list" className="-mx-2 space-y-2">
               <NavList pathName={pathName} />
