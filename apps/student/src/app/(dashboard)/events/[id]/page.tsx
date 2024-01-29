@@ -44,7 +44,7 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
   const places = itineraries.map((itinerary) => itinerary.name);
 
   return (
-    <div className="container my-10 grid grid-cols-4 gap-10">
+    <div className="container my-10 grid-cols-4 gap-10 lg:grid">
       <main className="col-span-3">
         <section>
           <Carousel
@@ -75,7 +75,8 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
           </Carousel>
 
           <div className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-            <MapPinIcon className="h-4 w-4" /> <p>{places.join(", ")}</p>
+            <MapPinIcon className="min-h-4 min-w-4" />{" "}
+            <p className="truncate">{places.join(", ")}</p>
           </div>
           <h1 className="mt-2 text-2xl font-semibold">{name}</h1>
         </section>
@@ -118,7 +119,7 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
           ada
         </div>
 
-        <section className="flex justify-around gap-10">
+        <section className="flex flex-col justify-around gap-10 md:flex-row">
           <div>
             <p className="text-3xl font-bold">Included :</p>
             <div className="my-4 h-0.5 w-24 bg-primary" />
@@ -137,11 +138,12 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </section>
       </main>
-      <aside className="space-y-10">
+
+      <aside className="hidden space-y-10 lg:block">
         <GoogleMap />
 
         <div className="relative flex flex-col">
-          <p className="testimonial text-pretty text-sm">
+          <p className="testimonial text-pretty text-sm text-muted-foreground dark:border-muted dark:after:hidden">
             Pada dasarnya kami sebagai pelanggan sangat terbantu dan puas dengan
             respon serta kerjasama yg baik, namun untuk lebih meningkatkan
             kepuasan pelanggan tentunya harus terus semakin lebih baik lagi.
@@ -167,7 +169,8 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-5 rounded-lg border bg-slate-50/50  p-5">
+        {/* <div className="flex items-center gap-5 rounded-lg border bg-slate-50/50  p-5"> */}
+        <div className="flex items-center gap-5 rounded-lg border bg-muted/30  p-5">
           <PhoneCallIcon className="h-9 w-9 text-primary/80" />
           <div className="space-y-1">
             <p className="text-primary">Need help with your trip?</p>
