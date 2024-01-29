@@ -24,6 +24,7 @@ export const env = createEnv({
     NEXT_PUBLIC_BASE_URL: z.string(),
     NEXT_PUBLIC_MIDTRANS_CLIENT_KEY: z.string(),
     NEXT_PUBLIC_MIDTRANS_APP_URL: z.string(),
+    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string(),
   },
 
   /**
@@ -42,6 +43,8 @@ export const env = createEnv({
     NEXT_PUBLIC_MIDTRANS_CLIENT_KEY:
       process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY,
     NEXT_PUBLIC_MIDTRANS_APP_URL: process.env.NEXT_PUBLIC_MIDTRANS_APP_URL,
+    NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:
+      process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
