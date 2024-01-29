@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import NextTopLoader from "nextjs-toploader";
-import { ThemeProvider } from "@/context/ThemeProvider";
+// import { ThemeProvider } from "@/context/ThemeProvider";
 import ToastProvider from "@/context/ToastProvider";
 import { webPrimaryColor } from "@repo/utils/constants";
 import NextAuthSessionProvider from "@/context/NextAuthSessionProvider";
@@ -33,12 +33,12 @@ export default function RootLayout({
       >
         <NextAuthSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
-            <ThemeProvider attribute="class" disableTransitionOnChange>
-              <ToastProvider>
-                <NextTopLoader color={webPrimaryColor} />
-                {children}
-              </ToastProvider>
-            </ThemeProvider>
+            {/* <ThemeProvider attribute="class" disableTransitionOnChange> */}
+            <ToastProvider>
+              <NextTopLoader color={webPrimaryColor} />
+              {children}
+            </ToastProvider>
+            {/* </ThemeProvider> */}
           </TRPCReactProvider>
         </NextAuthSessionProvider>
       </body>
