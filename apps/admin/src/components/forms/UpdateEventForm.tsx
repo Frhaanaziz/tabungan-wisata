@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import type * as z from "zod";
 
 import {
@@ -23,7 +23,7 @@ import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { updateEventSchema } from "@repo/validators/event";
 import { Button } from "@ui/components/shadcn/button";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, XIcon } from "lucide-react";
 import FormFieldWrapper from "./FormFieldWrapper";
 import { format } from "date-fns";
 import { cn } from "@repo/utils";
@@ -56,6 +56,11 @@ const UpdateEventForm = ({
 
   const { handleSubmit, control, formState } = form;
 
+  const { fields, append, remove } = useFieldArray({
+    name: "itineraries",
+    control,
+  });
+
   const { mutate, isLoading } = api.event.update.useMutation({
     onSuccess: async () => {
       toast.success("Event updated successfully");
@@ -73,60 +78,9 @@ const UpdateEventForm = ({
     <Form {...form}>
       <form
         onSubmit={handleSubmit((value) => mutate(value))}
-        className="space-y-8  p-1"
+        className="space-y-8 p-1"
       >
         <div className="space-y-5">
-          <FormField
-            control={control}
-            name="name"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Enter event name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="include"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Include</FormLabel>
-                <FormControl>
-                  <RichTextEditor
-                    {...field}
-                    {...formState}
-                    isLoading={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="description"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <RichTextEditor
-                    {...field}
-                    {...formState}
-                    isLoading={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <FormField
             control={control}
             name="cost"
@@ -232,6 +186,133 @@ const UpdateEventForm = ({
               )}
             />
           </FormFieldWrapper>
+
+          <FormField
+            control={control}
+            name="name"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Enter event name" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="include"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Include</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    {...field}
+                    {...formState}
+                    isLoading={isLoading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="exclude"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Exclude</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    {...field}
+                    {...formState}
+                    isLoading={isLoading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={control}
+            name="highlight"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Highlight</FormLabel>
+                <FormControl>
+                  <RichTextEditor
+                    {...field}
+                    {...formState}
+                    isLoading={isLoading}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {fields.map((field, index) => (
+            <React.Fragment key={index}>
+              <FormField
+                control={form.control}
+                key={field.id}
+                name={`itineraries.${index}.name`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Itinerary #day{index + 1} location{" "}
+                      {!!index && (
+                        <Button
+                          type="button"
+                          size={"icon"}
+                          className="h-4 w-4"
+                          onClick={() => remove(index)}
+                        >
+                          <XIcon className="h-3 w-3" />
+                        </Button>
+                      )}
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                key={field.id}
+                name={`itineraries.${index}.description`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Itinerary #day{index + 1} description</FormLabel>
+                    <FormControl>
+                      <RichTextEditor
+                        {...field}
+                        {...formState}
+                        isLoading={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </React.Fragment>
+          ))}
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-2"
+            onClick={() => append({ name: "", description: "", eventId: "" })}
+          >
+            Add Itinerary
+          </Button>
 
           <FormField
             control={control}
