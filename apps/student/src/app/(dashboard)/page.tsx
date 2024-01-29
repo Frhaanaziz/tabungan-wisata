@@ -23,7 +23,13 @@ export default async function Home() {
 
   return (
     <main className="container">
-      <section className="mt-10 grid grid-cols-5 items-center">
+      <section className="mt-10 grid-cols-5 items-center space-y-10 md:grid md:space-y-0">
+        <div className="order-2 col-span-2">
+          <AspectRatio ratio={3 / 2}>
+            <Image src={"/images/frugality.jpg"} alt="frugality" fill />
+          </AspectRatio>
+        </div>
+
         <div className="col-span-3">
           <h1 className="text-5xl font-bold">
             Good {greeting()} {getFirstName(user.name).toLowerCase()},
@@ -39,12 +45,6 @@ export default async function Home() {
             <span className="underline">{toRupiah(eventsCost)}</span>
           </p>
           <TopUpButton userId={user.id} />
-        </div>
-
-        <div className="col-span-2">
-          <AspectRatio ratio={3 / 2}>
-            <Image src={"/images/frugality.jpg"} alt="frugality" fill />
-          </AspectRatio>
         </div>
       </section>
 
