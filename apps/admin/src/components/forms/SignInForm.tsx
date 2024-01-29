@@ -23,6 +23,7 @@ import { getErrorMessage } from "@repo/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { baseUrl } from "@/lib/constant";
+import { PasswordInput } from "@ui/components/PasswordInput";
 
 interface Props {
   callbackUrl: string | string[] | undefined;
@@ -88,7 +89,12 @@ const SignInForm = ({ callbackUrl }: Props) => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} disabled={isSubmitting} />
+                  <PasswordInput
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Enter Password"
+                    autoComplete="password"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
