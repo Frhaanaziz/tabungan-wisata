@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import googleIcon from "@repo/assets/icons/google.svg";
 import { api } from "@/trpc/react";
 import { baseUrl } from "@/lib/constant";
+import { PasswordInput } from "@ui/components/PasswordInput";
 
 type SignUpType = z.infer<typeof signUpSchema>;
 
@@ -78,7 +79,11 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isSubmitting} />
+                  <Input
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Enter your full name"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,7 +97,11 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isSubmitting} />
+                  <Input
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Email@example.com"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -105,9 +114,17 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} disabled={isSubmitting} />
+                  <PasswordInput
+                    {...field}
+                    disabled={isSubmitting}
+                    placeholder="Enter your password"
+                    autoComplete="password"
+                  />
                 </FormControl>
-                <FormMessage />
+                {/* <FormMessage /> */}
+                <ul className="list-inside list-disc text-sm">
+                  <li>Minimum 6 characters long</li>
+                </ul>
               </FormItem>
             )}
           />
@@ -120,10 +137,11 @@ const SignUpForm = () => {
                 <FormControl>
                   <Input
                     {...field}
+                    placeholder="School access code"
+                    disabled={isSubmitting}
                     onChange={(e) => {
                       field.onChange(e.target.value.toUpperCase());
                     }}
-                    disabled={isSubmitting}
                   />
                 </FormControl>
                 <FormMessage />
