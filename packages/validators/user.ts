@@ -12,6 +12,7 @@ export const userSchema = z.object({
   email: z.string().email().max(190),
   password: z.string().min(6).max(190),
   role: z.nativeEnum(UserRole),
+  balance: z.number().int().min(0),
   schoolId: z.string().cuid().optional(),
   emailVerified: z.boolean(),
   image: z.string().url().optional(),
