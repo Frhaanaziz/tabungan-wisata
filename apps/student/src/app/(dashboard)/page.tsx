@@ -15,7 +15,6 @@ export default async function Home() {
   const data = await api.payment.getAll.query({
     userId: user.id,
   });
-  const userBalance = await api.user.getBalance.query();
 
   const eventsCost = (
     await api.school.getEvents.query({ id: user.schoolId })
@@ -38,7 +37,7 @@ export default async function Home() {
             <br />
           </h1>
           <p className="my-5 text-4xl font-bold text-green-500">
-            {toRupiah(userBalance)}
+            {toRupiah(user.balance)}
           </p>
           <p className="mb-4 text-lg">
             Your target balance to participate in the tour:{" "}
