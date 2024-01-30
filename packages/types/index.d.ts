@@ -5,6 +5,7 @@ import type { schoolSchema } from '@repo/validators/school';
 import { eventSchema } from '@repo/validators/event';
 import { paymentSchema } from '@repo/validators/payment';
 import { fileSchema } from '@repo/validators/file';
+import { withdrawalSchema } from '@repo/validators/withdrawal';
 
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
@@ -28,6 +29,11 @@ export type EventsPaginated = PaginatedDataUtils & {
 export type Payment = z.infer<typeof paymentSchema> & { user: User };
 export type PaymentsPaginated = PaginatedDataUtils & {
   content: Payment[];
+};
+
+export type Withdrawal = z.infer<typeof withdrawalSchema> & { user: User };
+export type WithdrawalsPaginated = PaginatedDataUtils & {
+  content: Withdrawal[];
 };
 
 export type File = z.infer<typeof fileSchema>;
