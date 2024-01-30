@@ -4,11 +4,12 @@ import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import {
   XIcon,
   ChevronRightIcon,
-  LayoutDashboard,
-  School,
-  User,
-  CalendarRange,
-  CreditCard,
+  LayoutDashboardIcon,
+  SchoolIcon,
+  UserIcon,
+  CalendarRangeIcon,
+  CreditCardIcon,
+  LandmarkIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn, getInitials } from "@repo/utils";
@@ -34,28 +35,33 @@ type SidebarItem = {
 const navigation: SidebarItem[] = [
   {
     name: "Dashboard",
-    icon: LayoutDashboard,
+    icon: LayoutDashboardIcon,
     href: "/",
   },
   {
-    name: "Schools",
-    icon: School,
-    href: "/schools",
+    name: "SchoolIcons",
+    icon: SchoolIcon,
+    href: "/schoolIcons",
   },
   {
     name: "Users",
-    icon: User,
+    icon: UserIcon,
     href: "/users",
   },
   {
     name: "Events",
-    icon: CalendarRange,
+    icon: CalendarRangeIcon,
     href: "/events",
   },
   {
     name: "Payments",
-    icon: CreditCard,
+    icon: CreditCardIcon,
     href: "/payments",
+  },
+  {
+    name: "Withdrawals",
+    icon: LandmarkIcon,
+    href: "/withdrawals",
   },
   // {
   //   name: "Web Config",
