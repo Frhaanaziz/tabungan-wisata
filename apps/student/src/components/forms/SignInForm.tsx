@@ -156,6 +156,7 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
         </div>
         <div className="relative flex justify-center text-sm font-medium leading-6">
           {/* <span className="bg-background px-5">Or continue with</span> */}
+          <span className="bg-background px-5">Or</span>
         </div>
       </div>
 
