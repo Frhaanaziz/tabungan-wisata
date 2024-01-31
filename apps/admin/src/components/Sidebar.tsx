@@ -39,9 +39,9 @@ const navigation: SidebarItem[] = [
     href: "/",
   },
   {
-    name: "SchoolIcons",
+    name: "Schools",
     icon: SchoolIcon,
-    href: "/schoolIcons",
+    href: "/schools",
   },
   {
     name: "Users",
