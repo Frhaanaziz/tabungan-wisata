@@ -1,8 +1,8 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import { cn } from "@repo/utils";
+import StarterKit from "@tiptap/starter-kit";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@ui/components/shadcn/skeleton";
 import TextAlign from "@tiptap/extension-text-align";
