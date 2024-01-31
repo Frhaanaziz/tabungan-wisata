@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Withdrawal } from "@repo/types";
-import { formatDate, toRupiah } from "@repo/utils";
-import React from "react";
+import { formatDateWithTime, toRupiah } from "@repo/utils";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 
 export const withdrawalColumn: ColumnDef<Withdrawal>[] = [
@@ -13,6 +13,13 @@ export const withdrawalColumn: ColumnDef<Withdrawal>[] = [
       return <DataTableColumnHeader column={column} title="Name" />;
     },
     cell: ({ row }) => <div>{row.original?.user?.name ?? ""}</div>,
+  },
+  {
+    accessorKey: "school",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="School" />;
+    },
+    cell: ({ row }) => <div>{row.original?.school?.name ?? ""}</div>,
   },
   {
     accessorKey: "amount",
@@ -26,13 +33,17 @@ export const withdrawalColumn: ColumnDef<Withdrawal>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Created At" />;
     },
-    cell: ({ row }) => <div>{formatDate(row.getValue("createdAt"))}</div>,
+    cell: ({ row }) => (
+      <div>{formatDateWithTime(row.getValue("createdAt"))}</div>
+    ),
   },
   {
     accessorKey: "updatedAt",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Updated At" />;
     },
-    cell: ({ row }) => <div>{formatDate(row.getValue("updatedAt"))}</div>,
+    cell: ({ row }) => (
+      <div>{formatDateWithTime(row.getValue("updatedAt"))}</div>
+    ),
   },
 ];
