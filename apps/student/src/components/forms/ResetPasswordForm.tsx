@@ -75,7 +75,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
                       {...field}
                       disabled={isSubmitting}
                       placeholder="Enter New Password"
-                      autoComplete="password"
+                      autoComplete="new-password"
                     />
                   </FormControl>
                   <FormMessage />
@@ -93,7 +93,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
                       {...field}
                       disabled={isSubmitting}
                       placeholder="Retype New Password"
-                      autoComplete="password"
+                      autoComplete="new-password"
                     />
                   </FormControl>
                   <FormMessage />
