@@ -71,6 +71,7 @@ const EmailVerificationResetPasswordForm = () => {
                     {...field}
                     disabled={isSubmitting}
                     placeholder="email@example.com"
+                    autoComplete="email"
                   />
                 </FormControl>
                 <FormMessage />
