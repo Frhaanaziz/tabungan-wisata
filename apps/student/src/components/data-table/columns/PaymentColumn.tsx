@@ -17,34 +17,6 @@ const paymentStatusClass = {
 };
 
 export const paymentColumn: ColumnDef<Payment>[] = [
-  // {
-  //   accessorKey: "user",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //         size="sm"
-  //         className="text-md"
-  //       >
-  //         Name
-  //         <ChevronsUpDown className="ml-2 h-3 w-3" />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => (
-  //     <div>{row.original.user.name ?? ""}</div>
-  //   ),
-  // },
-  {
-    accessorKey: "paymentMethod",
-    header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Payment Method" />;
-    },
-    cell: ({ row }) => (
-      <div>{convertPaymentMethod(row.getValue("paymentMethod"))}</div>
-    ),
-  },
   {
     accessorKey: "amount",
     header: ({ column }) => {
@@ -73,6 +45,15 @@ export const paymentColumn: ColumnDef<Payment>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Payment Method" />;
+    },
+    cell: ({ row }) => (
+      <div>{convertPaymentMethod(row.getValue("paymentMethod"))}</div>
+    ),
   },
   {
     accessorKey: "date",
