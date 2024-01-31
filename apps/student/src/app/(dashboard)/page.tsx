@@ -4,17 +4,18 @@ import Image from "next/image";
 import { checkSessionAction } from "../_actions";
 import { api } from "@/trpc/server";
 import TopUpButton from "@/components/TopUpButton";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import { DataTable } from "@ui/components/table/data-table";
 import { paymentColumn } from "@/components/data-table/columns/PaymentColumn";
 
 export default async function Home() {
   const { data: user } = await checkSessionAction();
-  if (!user.schoolId) notFound();
+  if (!user.schoolId) redirect("/auth/school");
 
-  const data = await api.payment.getAll.query({
+  const userPayments = await api.payment.getAll.query({
     userId: user.id,
   });
+  const userBalance = await api.user.getBalance.query();
 
   const eventsCost = (
     await api.school.getEvents.query({ id: user.schoolId })
@@ -37,7 +38,7 @@ export default async function Home() {
             <br />
           </h1>
           <p className="my-5 text-4xl font-bold text-green-500">
-            {toRupiah(user.balance)}
+            {toRupiah(userBalance)}
           </p>
           <p className="mb-4 text-lg">
             Your target balance to participate in the tour:{" "}
@@ -48,7 +49,11 @@ export default async function Home() {
       </section>
 
       <section className="my-20">
-        <DataTable columns={paymentColumn} data={data} />
+        <DataTable
+          columns={paymentColumn}
+          data={userPayments}
+          emptyMessage={"No transactions."}
+        />
       </section>
       {/* <PaymentsTableSection
         initialData={initialData}
