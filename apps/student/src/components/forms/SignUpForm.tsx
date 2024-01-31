@@ -83,6 +83,7 @@ const SignUpForm = () => {
                     {...field}
                     disabled={isSubmitting}
                     placeholder="Enter your full name"
+                    autoComplete="name"
                   />
                 </FormControl>
                 <FormMessage />
@@ -101,6 +102,7 @@ const SignUpForm = () => {
                     {...field}
                     disabled={isSubmitting}
                     placeholder="Email@example.com"
+                    autoComplete="email"
                   />
                 </FormControl>
                 <FormMessage />
