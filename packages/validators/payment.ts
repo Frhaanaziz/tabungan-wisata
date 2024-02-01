@@ -14,10 +14,10 @@ export const paymentSchema = z.object({
     .min(1, { message: 'Amount must be greater than 0' })
     .max(2147483647, { message: 'Amount must be less than 2147483647' }),
   paymentMethod: z.string().optional(),
-  date: z.coerce.date(),
   userId: z.string().cuid(),
   status: z.nativeEnum(PaymentStatus),
-  // user: userSchema.optional(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export const addPaymentSchema = paymentSchema.pick({
