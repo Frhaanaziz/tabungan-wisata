@@ -21,7 +21,7 @@ export const userRouter = createTRPCRouter({
         console.error("userRouter updateSchool", error);
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: "Something went wrong. Please try again later.",
+          message: getNestErrorMessage(error),
         });
       }
     }),
