@@ -5,6 +5,7 @@ import {
   itinerarySchema,
   updateItinerarySchema,
 } from './itinerary';
+
 export const eventSchema = z.object({
   id: z.string().cuid(),
   name: z
@@ -24,12 +25,14 @@ export const eventSchema = z.object({
   endDate: z.coerce.date(),
   cost: z.coerce.number().min(0),
   schoolId: z.string().cuid({ message: 'Please select a school' }),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
   images: z.array(fileSchema),
   itineraries: z.array(itinerarySchema),
 });
 
 export const addEventSchema = eventSchema
-  .omit({ id: true, itineraries: true })
+  .omit({ id: true, itineraries: true, createdAt: true, updatedAt: true })
   .extend({
     images: z.array(fileSchema.omit({ id: true })).min(1, {
       message: 'Please upload at least 1 image',
@@ -40,6 +43,8 @@ export const addEventSchema = eventSchema
 export const updateEventSchema = eventSchema
   .omit({
     schoolId: true,
+    createdAt: true,
+    updatedAt: true,
   })
   .extend({
     images: z
