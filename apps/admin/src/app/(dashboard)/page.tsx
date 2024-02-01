@@ -19,19 +19,32 @@ import {
 import Overview from "@/components/Overview";
 import SignOutButton from "@/components/SignOutButton";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import { api } from "@/trpc/server";
+import { getInitials, toRupiah } from "@repo/utils";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
+  const totalUsers = await api.user.getTotalUsers.query();
+  const totalUserOneMonth = await api.user.getCountNewUsers.query({ days: 30 });
+  const totalTransactionOneMonth = await api.payment.getCountNewPayments.query({
+    days: 30,
+  });
+  const totalEventsOneMonth = await api.event.getCountNewEvents.query({
+    days: 30,
+  });
+  const eventGrowth = await api.event.getGrowthPercentage.query();
+  const userGrowth = await api.user.getGrowthPercentage.query();
+  const revenueGrowth = await api.payment.getGrowthPercentage.query();
+  const revenueOneMonth = await api.payment.getRevenue.query({ days: 30 });
+  const usersGrowthCount = await api.user.getGrowthCount.query({ days: 7 });
+  const recentTransactions = await api.payment.getCompletedPayments.query({
+    take: 5,
+  });
+
   return (
     <>
-      {/* <header className="pb-5 sm:flex sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <div className="mt-3 sm:ml-4 sm:mt-0">
-          <SignOutButton />
-        </div>
-      </header>
-
-      <main>test</main> */}
-      <header className="pb-5 sm:flex sm:items-center sm:justify-between">
+      <header className="flex items-center justify-between pb-5">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <div className="mt-3 sm:ml-4 sm:mt-0">
           <SignOutButton />
@@ -59,9 +72,9 @@ export default async function Home() {
                     <Users className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
+                    <div className="text-2xl font-bold">{totalUsers}</div>
                     <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
+                      +{userGrowth.toFixed(2)}% from last month
                     </p>
                   </CardContent>
                 </Card>
@@ -73,9 +86,11 @@ export default async function Home() {
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
+                    <div className="text-2xl font-bold">
+                      +{toRupiah(revenueOneMonth)}
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                      +180.1% from last month
+                      +{revenueGrowth.toFixed(2)}% from last month
                     </p>
                   </CardContent>
                 </Card>
@@ -87,9 +102,11 @@ export default async function Home() {
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
+                    <div className="text-2xl font-bold">
+                      +{totalEventsOneMonth}
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                      +19% from last month
+                      +{eventGrowth.toFixed(2)}% from last month
                     </p>
                   </CardContent>
                 </Card>
@@ -101,9 +118,11 @@ export default async function Home() {
                     <Activity className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
+                    <div className="text-2xl font-bold">
+                      +{totalUserOneMonth}
+                    </div>
                     <p className="text-xs text-muted-foreground">
-                      +201 since last hour
+                      +{usersGrowthCount} since last week
                     </p>
                   </CardContent>
                 </Card>
@@ -121,11 +140,37 @@ export default async function Home() {
                   <CardHeader>
                     <CardTitle>Recent Transactions</CardTitle>
                     <CardDescription>
-                      You made 265 sales this month.
+                      Student made {totalTransactionOneMonth} transaction this
+                      month.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <RecentSales />
+                    <div className="space-y-8">
+                      {recentTransactions.map(({ user, amount, id }) => (
+                        <div key={id} className="flex items-center">
+                          <Avatar className="h-9 w-9">
+                            <AvatarImage
+                              src={user?.image ?? "/"}
+                              alt={user.name}
+                            />
+                            <AvatarFallback>
+                              {getInitials(user.name)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="ml-4 space-y-1">
+                            <p className="text-sm font-medium leading-none">
+                              {user.name}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {user.email}
+                            </p>
+                          </div>
+                          <div className="ml-auto font-medium">
+                            +{toRupiah(amount)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -134,71 +179,5 @@ export default async function Home() {
         </div>
       </main>
     </>
-  );
-}
-
-function RecentSales() {
-  return (
-    <div className="space-y-8">
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/01.png" alt="Avatar" />
-          <AvatarFallback>OM</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Olivia Martin</p>
-          <p className="text-sm text-muted-foreground">
-            olivia.martin@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$1,999.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-          <AvatarImage src="/avatars/02.png" alt="Avatar" />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Jackson Lee</p>
-          <p className="text-sm text-muted-foreground">jackson.lee@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/03.png" alt="Avatar" />
-          <AvatarFallback>IN</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Isabella Nguyen</p>
-          <p className="text-sm text-muted-foreground">
-            isabella.nguyen@email.com
-          </p>
-        </div>
-        <div className="ml-auto font-medium">+$299.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/04.png" alt="Avatar" />
-          <AvatarFallback>WK</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">William Kim</p>
-          <p className="text-sm text-muted-foreground">will@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$99.00</div>
-      </div>
-      <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/05.png" alt="Avatar" />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Sofia Davis</p>
-          <p className="text-sm text-muted-foreground">sofia.davis@email.com</p>
-        </div>
-        <div className="ml-auto font-medium">+$39.00</div>
-      </div>
-    </div>
   );
 }
