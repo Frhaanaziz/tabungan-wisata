@@ -16,6 +16,7 @@ export const env = createEnv({
     ),
     JWT_EXPIRES_IN: z.string(),
     BACKEND_URL: z.string().url(),
+    PORT: z.string(),
   },
 
   client: {
@@ -33,6 +34,7 @@ export const env = createEnv({
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
     BACKEND_URL: process.env.BACKEND_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    PORT: process.env.PORT,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
