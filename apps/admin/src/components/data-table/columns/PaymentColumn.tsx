@@ -72,10 +72,12 @@ export const paymentColumn: ColumnDef<Payment>[] = [
     },
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Date" />;
+      return <DataTableColumnHeader column={column} title="Created At" />;
     },
-    cell: ({ row }) => <div>{formatDateWithTime(row.getValue("date"))}</div>,
+    cell: ({ row }) => (
+      <div>{formatDateWithTime(row.getValue("createdAt"))}</div>
+    ),
   },
 ];
