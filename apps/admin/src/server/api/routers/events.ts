@@ -6,6 +6,7 @@ import { getPaginatedDataSchema } from "@repo/validators";
 import { backendClientES } from "@/server/edgestore";
 import { deleteFile, uploadFile } from "../shared";
 import { File } from "@repo/types";
+import { z } from "zod";
 
 export const eventRouter = createTRPCRouter({
   getAllPaginated: adminProcedure
@@ -27,6 +28,47 @@ export const eventRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get events",
+        });
+      }
+    }),
+
+  getCountNewEvents: adminProcedure
+    .output(z.coerce.number())
+    .input(z.object({ days: z.coerce.number() }))
+    .query(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken, input).get(
+          "/events/count-new-events",
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("eventRouter getCountNewEvents", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get count new events",
+        });
+      }
+    }),
+
+  getGrowthPercentage: adminProcedure
+    .output(z.coerce.number())
+    .query(async ({ ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken).get(
+          "/events/growth-percentage",
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("eventRouter getUserGrowthPercentage", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get user growth percentage",
         });
       }
     }),
