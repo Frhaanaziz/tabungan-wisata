@@ -10,7 +10,7 @@ import { withdrawalSchema } from '@repo/validators/withdrawal';
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
 export type School = z.infer<typeof schoolSchema> & {
-  _count: { events: number; users: number };
+  _count: { users: number };
 };
 export type SchoolsPaginated = PaginatedDataUtils & {
   content: School[];
