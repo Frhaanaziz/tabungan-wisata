@@ -34,6 +34,22 @@ export const eventRouter = createTRPCRouter({
       }
     }),
 
+  getAll: adminProcedure.output(z.array(eventSchema)).query(async ({ ctx }) => {
+    const accessToken = ctx.session.accessToken;
+
+    try {
+      const result = await getBackendApi(accessToken).get("/events");
+
+      return result.data;
+    } catch (error) {
+      console.error("eventRouter getAll", error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to get events",
+      });
+    }
+  }),
+
   getAllPaginated: adminProcedure
     .input(getPaginatedDataSchema)
     .query(async ({ input, ctx }) => {
