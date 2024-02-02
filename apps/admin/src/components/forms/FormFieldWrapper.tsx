@@ -1,7 +1,19 @@
-import { PropsWithChildren } from "react";
+import { cn } from "@ui/lib/utils";
+import React from "react";
 
-const FormFieldWrapper = ({ children }: PropsWithChildren) => {
-  return <div className="flex flex-wrap items-center gap-5">{children}</div>;
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+const FormFieldWrapper = ({ children, className, ...rest }: Props) => {
+  return (
+    <div
+      className={cn("flex flex-wrap items-center gap-5", className)}
+      {...rest}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default FormFieldWrapper;
