@@ -18,8 +18,10 @@ export default async function Home() {
   const userBalance = await api.user.getBalance.query();
 
   const eventsCost = (
-    await api.school.getEvents.query({ id: user.schoolId })
-  ).reduce((acc, curr) => acc + curr.cost, 0);
+    await api.eventRegistration.getBySchoolId.query({ schoolId: user.schoolId })
+  )
+    .map(({ event }) => event.cost)
+    .reduce((a, b) => a + b, 0);
 
   return (
     <main className="container">
