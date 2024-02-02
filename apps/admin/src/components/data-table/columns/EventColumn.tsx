@@ -10,18 +10,23 @@ import {
   DropdownMenuTrigger,
 } from "@ui/components/shadcn/dropdown-menu";
 import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@ui/components/shadcn/dialog";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@ui/components/shadcn/alert-dialog";
 
 import type { Event, School } from "@repo/types";
 
 import { formatDate, toRupiah } from "@repo/utils";
-import UpdateEventForm from "@/components/forms/UpdateEventForm";
 import React from "react";
-import { ScrollArea } from "@ui/components/shadcn/scroll-area";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
+import Link from "next/link";
 
 export const eventColumn: ColumnDef<Event & { school: School }>[] = [
   {
@@ -31,17 +36,17 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
     },
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
-  {
-    accessorKey: "school",
-    header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="School" />;
-    },
-    cell: ({ row }) => <div>{row.original.school.name ?? ""}</div>,
-  },
+  // {
+  //   accessorKey: "school",
+  //   header: ({ column }) => {
+  //     return <DataTableColumnHeader column={column} title="School" />;
+  //   },
+  //   cell: ({ row }) => <div>{row.original.school.name ?? ""}</div>,
+  // },
   {
     accessorKey: "cost",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Cost" />;
+      return <DataTableColumnHeader column={column} title="Minimum Cost" />;
     },
     cell: ({ row }) => <div>{toRupiah(row.getValue("cost"))}</div>,
   },
@@ -67,11 +72,10 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
 ];
 
 function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
-  const [isOpen, setIsOpen] = React.useState(false);
   const event = row.original;
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <AlertDialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -81,16 +85,28 @@ function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild>
-            <DialogTrigger className="w-full">Edit</DialogTrigger>
+            <Link href={`/events/${event.id}/update`}>Edit</Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild>
+            <AlertDialogTrigger className="w-full">Delete</AlertDialogTrigger>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogContent className="max-w-3xl p-0">
-        <ScrollArea className="max-h-screen p-5">
-          <UpdateEventForm event={event} setModalOpen={setIsOpen} />
-        </ScrollArea>
-      </DialogContent>
-    </Dialog>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
