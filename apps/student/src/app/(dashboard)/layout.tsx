@@ -8,10 +8,16 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await checkSessionAction();
   const schoolId = session.data.schoolId as string;
 
-  const events = await api.school.getEvents.query({ id: schoolId });
+  const eventRegistrations = await api.eventRegistration.getBySchoolId.query({
+    schoolId,
+  });
+
   return (
     <>
-      <Header session={session} events={events} />
+      <Header
+        session={session}
+        eventRegistrations={eventRegistrations as any}
+      />
       {children}
       <Footer />
     </>
