@@ -3,8 +3,30 @@ import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
 import { getPaginatedDataSchema } from "@repo/validators";
 import { z } from "zod";
+import { userSchema } from "@repo/validators/user";
+import { schoolSchema } from "@repo/validators/school";
 
 export const userRouter = createTRPCRouter({
+  getAll: adminProcedure
+    .output(
+      z.array(userSchema.extend({ school: schoolSchema, email: z.string() })),
+    )
+    .query(async ({ ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken).get("/users");
+
+        return result.data;
+      } catch (error) {
+        console.error("userRouter getAll", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get users",
+        });
+      }
+    }),
+
   getAllPaginated: adminProcedure
     .input(getPaginatedDataSchema)
     .query(async ({ input, ctx }) => {
