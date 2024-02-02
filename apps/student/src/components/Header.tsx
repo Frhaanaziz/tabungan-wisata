@@ -17,17 +17,21 @@ import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/constant";
 import logo from "@repo/assets/images/logo.png";
 import { companyName } from "@repo/utils/constants";
-import { Event } from "@repo/types";
+import { Event, EventRegistration } from "@repo/types";
 
 export default function Header({
   session,
-  events,
+  eventRegistrations,
 }: {
   session: Session;
-  events: Omit<Event, "itineraries">[];
+  eventRegistrations: EventRegistration &
+    { event: Pick<Event, "name" | "id"> }[];
 }) {
   const pathName = usePathname();
   const user = session.data;
+  const events = eventRegistrations.map(
+    (eventRegistration) => eventRegistration.event,
+  );
 
   return (
     <Disclosure
