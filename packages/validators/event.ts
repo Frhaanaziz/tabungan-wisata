@@ -24,7 +24,6 @@ export const eventSchema = z.object({
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   cost: z.coerce.number().min(0),
-  schoolId: z.string().cuid({ message: 'Please select a school' }),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   images: z.array(fileSchema),
@@ -42,7 +41,6 @@ export const addEventSchema = eventSchema
 
 export const updateEventSchema = eventSchema
   .omit({
-    schoolId: true,
     createdAt: true,
     updatedAt: true,
   })
