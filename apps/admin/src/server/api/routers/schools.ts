@@ -1,10 +1,33 @@
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
-import { addSchoolSchema, updateSchoolSchema } from "@repo/validators/school";
+import {
+  addSchoolSchema,
+  schoolSchema,
+  updateSchoolSchema,
+} from "@repo/validators/school";
 import { getPaginatedDataSchema } from "@repo/validators";
 
 export const schoolRouter = createTRPCRouter({
+  getById: adminProcedure
+    .input(schoolSchema.pick({ id: true }))
+    .query(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+      const { id } = input;
+
+      try {
+        const result = await getBackendApi(accessToken).get(`/schools/${id}`);
+
+        return result.data;
+      } catch (error) {
+        console.error("schoolRouter getById", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get school",
+        });
+      }
+    }),
+
   getAll: adminProcedure.query(async ({ ctx }) => {
     const accessToken = ctx.session.accessToken;
 
