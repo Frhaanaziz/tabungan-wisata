@@ -75,7 +75,7 @@ const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
           </Carousel>
 
           <div className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
-            <MapPinIcon className="min-h-4 min-w-4" />{" "}
+            <MapPinIcon className="h-4 min-h-4 w-4 min-w-4" />{" "}
             <p className="truncate">{places.join(", ")}</p>
           </div>
           <h1 className="mt-2 text-2xl font-semibold">{name}</h1>
