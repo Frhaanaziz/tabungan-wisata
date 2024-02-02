@@ -11,6 +11,42 @@ export const webPrimaryColor = '#2663E9';
 export const companyName = 'Tabungan Wisata';
 export const companyContact = '+6281234567890';
 
+export const socialMedia = [
+  {
+    name: 'Facebook',
+    url: 'https://facebook.com',
+    icon: '/images/facebook-icon.png',
+  },
+  {
+    name: 'Instagram',
+    url: 'https://instagram.com',
+    icon: '/images/instagram-icon.png',
+  },
+  {
+    name: 'X',
+    url: 'https://x.com',
+    icon: '/images/x-icon.png',
+  },
+];
+
+export const paymentStatus = [
+  {
+    value: 'completed',
+    label: 'Completed',
+    icon: CheckCircledIcon,
+  },
+  {
+    value: 'pending',
+    label: 'Pending',
+    icon: StopwatchIcon,
+  },
+  {
+    value: 'failed',
+    label: 'Failed',
+    icon: CrossCircledIcon,
+  },
+];
+
 export const paymentMethods = [
   {
     value: convertPaymentMethod('credit_card'),
@@ -56,23 +92,5 @@ export const paymentMethods = [
     value: convertPaymentMethod('bri_epay'),
     label: 'BRI E-Pay',
     icon: IdCardIcon,
-  },
-];
-
-export const paymentStatus = [
-  {
-    value: 'completed',
-    label: 'Completed',
-    icon: CheckCircledIcon,
-  },
-  {
-    value: 'pending',
-    label: 'Pending',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'failed',
-    label: 'Failed',
-    icon: CrossCircledIcon,
   },
 ];
