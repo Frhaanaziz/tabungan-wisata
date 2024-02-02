@@ -93,7 +93,6 @@ export const paymentRouter = createTRPCRouter({
           {
             userId,
             amount,
-            date: new Date().toISOString(),
           },
         );
 
