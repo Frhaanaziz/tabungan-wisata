@@ -16,9 +16,6 @@ export const userSchema = z.object({
   schoolId: z.string().cuid().nullable(),
   emailVerified: z.boolean(),
   image: z.string().url().optional(),
-  // payments: z.array(paymentSchema).optional(),
-  // registrations: z.array(eventRegistrationSchema).optional(),
-  // school: schoolSchema.optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
