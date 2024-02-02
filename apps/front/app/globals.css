@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.poppins {
+  font-family: Poppins, sans-serif;
+}
+
+.volkhov {
+  font-family: Volkhov;
+}
+
+.red-gradient {
+  background: linear-gradient(180deg, #ff946d 0%, #ff7d68 100%);
+}
