@@ -1,10 +1,10 @@
 import { api } from "@/trpc/server";
 
-import AddEventForm from "@/components/forms/AddEventForm";
 import { Suspense } from "react";
 import DataTableSkeleton from "@/components/skeleton/DataTableSkeleton";
 import { SearchDataTable } from "@/components/data-table/SearchDataTable";
 import { eventColumn } from "@/components/data-table/columns/EventColumn";
+import HeadingWithAction from "@/components/HeadingWithAction";
 
 const EventsPage = async ({
   searchParams,
@@ -18,18 +18,17 @@ const EventsPage = async ({
     search,
   });
 
-  const schools = await api.school.getAll.query();
-
   const { content, ...utils } = data;
 
   return (
     <>
-      <header className="mb-4 flex items-center justify-between pb-5">
+      {/* <header className="mb-4 flex items-center justify-between pb-5">
         <h1 className="text-2xl font-semibold leading-6 ">Events</h1>
         <div className="mt-3 sm:ml-4 sm:mt-0">
-          <AddEventForm schools={schools} />
+          <AddEventForm />
         </div>
-      </header>
+      </header> */}
+      <HeadingWithAction heading="Events" href="/events/add" label="+ Add" />
 
       <Suspense fallback={<DataTableSkeleton />}>
         <SearchDataTable data={content} columns={eventColumn} utils={utils} />
