@@ -6,6 +6,7 @@ import { eventSchema } from '@repo/validators/event';
 import { paymentSchema } from '@repo/validators/payment';
 import { fileSchema } from '@repo/validators/file';
 import { withdrawalSchema } from '@repo/validators/withdrawal';
+import { eventRegistrationSchema } from '@repo/validators/eventRegistration';
 
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
@@ -25,6 +26,8 @@ export type Event = z.infer<typeof eventSchema>;
 export type EventsPaginated = PaginatedDataUtils & {
   content: Event[];
 };
+
+export type EventRegistration = z.infer<typeof eventRegistrationSchema>;
 
 export type Payment = z.infer<typeof paymentSchema> & { user: User };
 export type PaymentsPaginated = PaginatedDataUtils & {
