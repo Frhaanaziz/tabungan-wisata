@@ -1,7 +1,11 @@
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
-import { addEventSchema, updateEventSchema } from "@repo/validators/event";
+import {
+  addEventSchema,
+  eventSchema,
+  updateEventSchema,
+} from "@repo/validators/event";
 import { getPaginatedDataSchema } from "@repo/validators";
 import { backendClientES } from "@/server/edgestore";
 import { deleteFile, uploadFile } from "../shared";
@@ -9,6 +13,27 @@ import { File } from "@repo/types";
 import { z } from "zod";
 
 export const eventRouter = createTRPCRouter({
+  getById: adminProcedure
+    .input(eventSchema.pick({ id: true }))
+    .output(eventSchema)
+    .query(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken).get(
+          `/events/${input.id}`,
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("eventRouter getById", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get event",
+        });
+      }
+    }),
+
   getAllPaginated: adminProcedure
     .input(getPaginatedDataSchema)
     .query(async ({ input, ctx }) => {
