@@ -16,7 +16,7 @@ function FooterSection() {
         </div>
         <div className="flex gap-4 items-center">
           {socialMedia.map(({ icon, name, url }) => (
-            <Link href={url} key={name}>
+            <Link href={url} key={name} target="_blank">
               <img src={icon} alt={name} />
             </Link>
           ))}
