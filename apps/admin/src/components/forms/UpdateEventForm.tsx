@@ -31,16 +31,11 @@ import { Calendar } from "@ui/components/shadcn/calendar";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import RichTextEditor from "../RichTextEditor";
+import { Event } from "@repo/types";
 
 type UpdateEventType = z.infer<typeof updateEventSchema>;
 
-const UpdateEventForm = ({
-  event,
-  setModalOpen,
-}: {
-  event: UpdateEventType;
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const UpdateEventForm = ({ event }: { event: Event }) => {
   const [isUploadingImage, setIsUploadingImage] = React.useState(false);
   const utils = api.useUtils();
 
@@ -69,9 +64,6 @@ const UpdateEventForm = ({
     onError: (err) => {
       toast.error(err.message);
     },
-    onSettled: () => {
-      setModalOpen(false);
-    },
   });
 
   return (
@@ -81,26 +73,6 @@ const UpdateEventForm = ({
         className="space-y-8 p-1"
       >
         <div className="space-y-5">
-          <FormField
-            control={control}
-            name="cost"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Cost</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="number"
-                    min={0}
-                    placeholder="Enter event name"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <FormFieldWrapper>
             <FormField
               control={form.control}
@@ -187,20 +159,43 @@ const UpdateEventForm = ({
             />
           </FormFieldWrapper>
 
-          <FormField
-            control={control}
-            name="name"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Enter event name" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <FormFieldWrapper className="flex-nowrap">
+            <FormField
+              control={control}
+              name="cost"
+              disabled={isLoading}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Cost</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="number"
+                      min={0}
+                      placeholder="Enter event name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="name"
+              disabled={isLoading}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Enter event name" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </FormFieldWrapper>
+
           <FormField
             control={control}
             name="include"
