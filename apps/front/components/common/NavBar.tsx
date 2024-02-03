@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import MainButton from './MainButton';
+import { env } from '@/env.mjs';
 
 function NavBar() {
   const [menu, setMenu] = useState(false);
@@ -42,16 +43,18 @@ function NavBar() {
             </p> */}
 
             <Link
-              href="/auth/login"
+              href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signin`}
               className="hover:text-primary text-navText font-[600] cursor-pointer flex items-center gap-2 "
             >
               Login
             </Link>
 
-            <MainButton
-              text="Sign up"
-              classes="bg-transparent text-navText font-[600] shadow-none rounded-normal border border-navText hover:border-none hover:text-white"
-            />
+            <Link href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signup`}>
+              <MainButton
+                text="Sign up"
+                classes="bg-transparent text-navText font-[600] shadow-none rounded-normal border border-navText hover:border-none hover:text-white"
+              />
+            </Link>
           </div>
         </div>
       </div>
@@ -107,16 +110,18 @@ function NavBar() {
                 </p> */}
 
                 <Link
-                  href="/auth/login"
+                  href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signin`}
                   className="hover:text-white text-navText font-[600] cursor-pointer flex items-center gap-2 "
                 >
                   Login
                 </Link>
 
-                <MainButton
-                  text="Sign up"
-                  classes="bg-secondary hover:bg-secondary text-navText font-[600] shadow-none rounded-normal border border-none hover:text-white"
-                />
+                <Link href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signup`}>
+                  <MainButton
+                    text="Sign up"
+                    classes="bg-secondary hover:bg-secondary text-navText font-[600] shadow-none rounded-normal border border-none hover:text-white"
+                  />
+                </Link>
               </div>
             </div>
           </div>
