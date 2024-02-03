@@ -105,6 +105,18 @@ export function toRupiah(amount: number): string {
   return 'Rp ' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+export function toRupiahSuffix(amount: number): string {
+  if (!amount) return 'Rp 0';
+
+  let formatted = `${amount}`;
+
+  if (amount >= 1000) {
+    formatted = (amount / 1000).toFixed(0) + 'k';
+  }
+
+  return 'Rp ' + formatted;
+}
+
 export function getCloudinaryPublicId(imageUrl: string): string | undefined {
   const url = new URL(imageUrl);
   const pathname = url.pathname;
@@ -169,4 +181,28 @@ export function convertPaymentMethod(paymentMethod: string): string {
     // Jika tidak ada underscore, capitalize saja
     return paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1);
   }
+}
+
+export function truncate(text: string, maxChars: number) {
+  if (text.length > maxChars) {
+    return text.slice(0, maxChars) + '...';
+  } else {
+    return text;
+  }
+}
+
+export function getDaysBetweenDates(
+  start: Date | number | string,
+  end: Date | number | string
+): number {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+
+  const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
+  const diffDays = Math.round(
+    Math.abs((startDate.getTime() - endDate.getTime()) / oneDay)
+  );
+
+  return diffDays;
 }
