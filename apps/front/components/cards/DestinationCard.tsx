@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IProps {
   imageUrl: string;
@@ -17,11 +17,12 @@ function DestinationCard({
 }: IProps) {
   return (
     <div className="flex relative flex-col justify-between  pb-[2.63rem] group">
-      <div className="  object-fill ">
+      <div className="object-fill ">
         <img
           src={imageUrl}
           alt="destination image"
-          className="w-[314px] h-[20.43rem]  object-cover rounded-t-[1.5rem]"
+          // className="w-[314px] h-[20.43rem]  object-cover rounded-t-[1.5rem]"
+          className="w-[400px] h-[20.43rem]  object-cover rounded-t-[1.5rem]"
         />
       </div>
       <div className="bg-white w-full mt-[1.69rem] px-[1.62rem]  group-hover:shadow-md pb-[2rem] group-hover:rounded-[1.5rem]">
