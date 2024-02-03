@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "files": [
-    "next.js"
+    "next.js",
+    "library.js"
   ],
   "devDependencies": {
     "eslint-config-turbo": "^1.11.3",
