@@ -1,32 +1,32 @@
-import React from "react";
-import TripStepCard from "../cards/TripStepCard";
+import React from 'react';
+import TripStepCard from '../cards/TripStepCard';
 
 function BookNextTripSection() {
   const steps = [
     {
       id: 0,
-      iconUrl: "/images/destination-icon.png",
-      title: "Choose Destination",
+      iconUrl: '/images/destination-icon.png',
+      title: 'Choose Destination',
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ',
     },
     {
       id: 1,
-      iconUrl: "/images/payment-icon.png",
-      title: "Make Payment",
+      iconUrl: '/images/payment-icon.png',
+      title: 'Make Payment',
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ',
     },
     {
       id: 2,
-      iconUrl: "/images/airport-icon.png",
-      title: "Reach Airport on Selected Date",
+      iconUrl: '/images/airport-icon.png',
+      title: 'Reach Airport on Selected Date',
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ",
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna, tortor tempus. ',
     },
   ];
   return (
-    <section className="flex justify-between flex-col md:flex-row items-center mt-[-10rem]">
+    <section className="flex justify-between flex-col md:flex-row items-center mt-[-5rem] lg:mt-[-10rem]">
       <div>
         <p className="text-lightGray text-[1.125rem] font-[600] text-left">
           Easy and Fast
