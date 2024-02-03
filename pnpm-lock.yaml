@@ -204,6 +204,12 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.51)(react@18.2.0)
+      '@t3-oss/env-nextjs':
+        specifier: ^0.7.3
+        version: 0.7.3(typescript@5.3.3)(zod@3.22.4)
+      axios:
+        specifier: ^1.6.7
+        version: 1.6.7
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -228,10 +234,16 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1)
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@repo/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.16
