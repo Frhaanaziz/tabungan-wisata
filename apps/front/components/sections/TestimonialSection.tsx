@@ -1,23 +1,23 @@
-import React from "react";
-import TestimonialCard from "../cards/TestimonialCard";
+import React from 'react';
+import TestimonialCard from '../cards/TestimonialCard';
 
 function TestimonialSection() {
   const reviews = [
     {
       id: 0,
-      imageUrl: "/images/mike.png",
-      reviewerName: "Mike taylor",
-      position: "Lahore, Pakistan",
+      imageUrl: '/images/mike.png',
+      reviewerName: 'Mike taylor',
+      position: 'Lahore, Pakistan',
       review:
-        "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.",
+        'On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.',
     },
     {
       id: 2,
-      imageUrl: "/images/mike.png",
-      reviewerName: "Chris Thomas",
-      position: "CEO of Red Button",
+      imageUrl: '/images/mike.png',
+      reviewerName: 'Chris Thomas',
+      position: 'CEO of Red Button',
       review:
-        "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.",
+        'On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.',
     },
   ];
   return (
@@ -58,14 +58,14 @@ function TestimonialSection() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-16">
+        {/* <div className="flex flex-col gap-16">
           <div className="hover:cursor-pointer">
             <img src="/images/chevron-up.png" alt="chevron up" />
           </div>
           <div className="hover:cursor-pointer">
             <img src="/images/chevron-down.png" alt="chevron up" />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
