@@ -1,7 +1,7 @@
-const { env } = require('./env-config');
+const { env } = require('./env.mjs');
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: env.BASE_URL,
+  siteUrl: env.NEXT_PUBLIC_BASE_URL,
   generateRobotsTxt: true,
 };
