@@ -1,5 +1,5 @@
-import React from "react";
-import MainButton from "../common/MainButton";
+import React from 'react';
+import MainButton from '../common/MainButton';
 
 function HeroSection() {
   return (
