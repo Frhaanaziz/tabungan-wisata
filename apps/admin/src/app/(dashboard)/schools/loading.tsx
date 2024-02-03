@@ -5,7 +5,7 @@ const Loading = () => {
   return (
     <>
       <HeadingSkeleton />
-      <DataTableSkeleton />;
+      <DataTableSkeleton />
     </>
   );
 };
