@@ -11,7 +11,6 @@ import {
 } from "@ui/components/shadcn/dropdown-menu";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -23,10 +22,12 @@ import {
 
 import type { Event, School } from "@repo/types";
 
-import { formatDate, toRupiah } from "@repo/utils";
+import { formatDate, getErrorMessage, toRupiah } from "@repo/utils";
 import React from "react";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 import Link from "next/link";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
 
 export const eventColumn: ColumnDef<Event & { school: School }>[] = [
   {
@@ -36,13 +37,6 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
     },
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
-  // {
-  //   accessorKey: "school",
-  //   header: ({ column }) => {
-  //     return <DataTableColumnHeader column={column} title="School" />;
-  //   },
-  //   cell: ({ row }) => <div>{row.original.school.name ?? ""}</div>,
-  // },
   {
     accessorKey: "cost",
     header: ({ column }) => {
@@ -51,18 +45,18 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
     cell: ({ row }) => <div>{toRupiah(row.getValue("cost"))}</div>,
   },
   {
-    accessorKey: "startDate",
+    accessorKey: "duration",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Start Date" />;
+      return <DataTableColumnHeader column={column} title="Duration (days)" />;
     },
-    cell: ({ row }) => <div>{formatDate(row.getValue("startDate"))}</div>,
+    cell: ({ row }) => <div>{toRupiah(row.getValue("duration"))}</div>,
   },
   {
-    accessorKey: "endDate",
+    accessorKey: "createdAt",
     header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="End Date" />;
+      return <DataTableColumnHeader column={column} title="Created At" />;
     },
-    cell: ({ row }) => <div>{formatDate(row.getValue("endDate"))}</div>,
+    cell: ({ row }) => <div>{formatDate(row.getValue("createdAt"))}</div>,
   },
   {
     id: "actions",
@@ -72,10 +66,22 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
 ];
 
 function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   const event = row.original;
 
+  const utils = api.useUtils();
+  const { mutate } = api.event.delete.useMutation({
+    onSuccess: async () => {
+      await utils.event.invalidate();
+      toast.success("Event deleted successfully");
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error));
+    },
+  });
+
   return (
-    <AlertDialog>
+    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -98,13 +104,22 @@ function ActionCell({ row }: { row: Row<Event & { school: School }> }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete the event
+            and remove your data from servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+
+          <Button
+            variant={"destructive"}
+            onClick={() => {
+              setDialogOpen(false);
+              mutate({ id: event.id });
+            }}
+          >
+            Continue
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
