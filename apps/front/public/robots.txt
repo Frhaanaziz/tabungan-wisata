@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tw-front.aththariq.com
+
+# Sitemaps
+Sitemap: https://tw-front.aththariq.com/sitemap.xml
