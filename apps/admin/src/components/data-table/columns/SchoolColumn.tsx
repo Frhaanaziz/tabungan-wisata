@@ -89,7 +89,7 @@ function ActionCell({ row }: { row: Row<School> }) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogContent>
+      <DialogContent className="max-w-[550px]">
         <AddEventRegistrationForm
           schoolId={school.id}
           setDialogOpen={setDialogOpen}
