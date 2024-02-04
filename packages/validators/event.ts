@@ -21,8 +21,9 @@ export const eventSchema = z.object({
   exclude: z.string().min(1, {
     message: 'Exclude must have at least 1 character',
   }),
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
+  duration: z.coerce
+    .number()
+    .min(1, { message: 'Duration must be at least 1 day' }),
   cost: z.coerce.number().min(0),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
