@@ -12,26 +12,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@ui/components/shadcn/form";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@ui/components/shadcn/popover";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon, XIcon } from "lucide-react";
-import { Calendar } from "@ui/components/shadcn/calendar";
-
 import { Input } from "@ui/components/shadcn/input";
 import SubmitButton from "../SubmitButton";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
 import { addEventSchema } from "@repo/validators/event";
 import { Button } from "@ui/components/shadcn/button";
-import { cn, getErrorMessage } from "@repo/utils";
+import { getErrorMessage } from "@repo/utils";
 import FormFieldWrapper from "./FormFieldWrapper";
 import RichTextEditor from "../RichTextEditor";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
+import { XIcon } from "lucide-react";
 
 type AddEventType = z.infer<typeof addEventSchema>;
 
@@ -39,12 +31,11 @@ const AddEventForm = () => {
   const [isUploadingImage, setIsUploadingImage] = React.useState(false);
   const defaultValues: AddEventType = {
     name: "",
-    startDate: new Date(),
-    endDate: new Date(),
+    duration: 0,
     cost: 0,
-    highlight: "",
     include: "",
     exclude: "",
+    highlight: "",
     itineraries: [{ description: "", name: "", eventId: "" }],
     images: [],
   };
@@ -63,7 +54,7 @@ const AddEventForm = () => {
 
   const { mutate, isLoading } = api.event.create.useMutation({
     onSuccess: async () => {
-      reset();
+      reset(defaultValues);
       toast.success("Event added successfully");
       await utils.event.invalidate();
     },
@@ -79,92 +70,6 @@ const AddEventForm = () => {
         className="space-y-8 p-1"
       >
         <div className="space-y-5">
-          <FormFieldWrapper>
-            <FormField
-              control={form.control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Event start Date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground",
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        // disabled={(date) =>
-                        //   date > new Date() || date < new Date("1900-01-01")
-                        // }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Event end date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground",
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        // disabled={(date) =>
-                        //   date > new Date() || date < new Date("1900-01-01")
-                        // }
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </FormFieldWrapper>
-
           <FormFieldWrapper className="flex-nowrap">
             <FormField
               control={control}
@@ -189,12 +94,22 @@ const AddEventForm = () => {
                 <FormItem className="w-full">
                   <FormLabel>Minimum cost</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      min={0}
-                      placeholder="Enter event name"
-                    />
+                    <Input {...field} type="number" min={0} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="duration"
+              disabled={isLoading}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Event duration (days)</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="number" min={0} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
