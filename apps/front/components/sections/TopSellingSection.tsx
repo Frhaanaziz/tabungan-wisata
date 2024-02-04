@@ -1,7 +1,7 @@
 import React from 'react';
 import DestinationCard from '../cards/DestinationCard';
 import { getEventsAction } from '@/app/_actions/event';
-import { getDaysBetweenDates, toRupiahSuffix, truncate } from '@repo/utils';
+import { toRupiahSuffix, truncate } from '@repo/utils';
 import { notFound } from 'next/navigation';
 
 async function TopSellingSection() {
@@ -15,7 +15,7 @@ async function TopSellingSection() {
         imageUrl: event.images.at(1)?.url ?? '/',
         title: truncate(event.name, 18),
         amount: toRupiahSuffix(event.cost),
-        duration: `${getDaysBetweenDates(event.startDate, event.endDate)} Days Trip`,
+        duration: `${event.duration} Days Trip`,
         highlighted: true,
       }))
       .slice(0, 3) ?? [];
