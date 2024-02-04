@@ -227,4 +227,30 @@ export const eventRouter = createTRPCRouter({
         });
       }
     }),
+
+  delete: adminProcedure
+    .input(eventSchema.pick({ id: true }))
+    .mutation(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const { data } = await getBackendApi(accessToken).delete(
+          `/events/${input.id}`,
+        );
+
+        await Promise.all(
+          data.images.map(async (image: File) => {
+            deleteFile({ accessToken, file: image });
+          }),
+        );
+
+        return data;
+      } catch (error) {
+        console.error("eventRouter delete", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to delete event",
+        });
+      }
+    }),
 });
