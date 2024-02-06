@@ -10,14 +10,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-radio-group": "^1.1.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.7.3",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel-react": "8.0.0-rc22",
     "lucide-react": "^0.300.0",
     "next": "^14.1.0",
     "next-sitemap": "^4.2.3",
+    "nextjs-toploader": "^1.6.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.33.2",
@@ -26,15 +31,20 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validators": "workspace:*",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.11.16",
-    "@types/react": "^18.2.51",
+    "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/parser": "^6.21.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.34",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   }
