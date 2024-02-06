@@ -69,16 +69,14 @@ const Pagination = ({
         <PaginationItem>
           <PaginationPrevious
             className={`${isFirstPage ? 'pointer-events-none text-black/50' : ''}`}
-            // href={`${pathName}?page=${previousPage}`}
             href={`${pathName}?${createQueryString(previousPage.toString())}`}
             scroll={false}
           />
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem className="hidden sm:block">
           {previous.map((page) => (
             <PaginationLink
               key={page}
-              // href={`${pathName}?page=${page}`}
               href={`${pathName}?${createQueryString(page.toString())}`}
               scroll={false}
             >
@@ -89,11 +87,10 @@ const Pagination = ({
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem className="hidden sm:block">
           {next.map((page) => (
             <PaginationLink
               key={page}
-              // href={`${pathName}?page=${page}`}
               href={`${pathName}?${createQueryString(page.toString())}`}
               scroll={false}
             >
@@ -104,7 +101,6 @@ const Pagination = ({
         <PaginationItem>
           <PaginationNext
             className={`${isLastPage ? 'pointer-events-none text-black/50' : ''}`}
-            // href={`${pathName}?page=${nextPage}`}
             href={`${pathName}?${createQueryString(nextPage.toString())}`}
             scroll={false}
           />
