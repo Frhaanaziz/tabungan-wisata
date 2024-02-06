@@ -19,7 +19,7 @@ function TestimonialSection() {
       review:
         'On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.',
     },
-  ];
+  ] as const;
   return (
     <section className="flex justify-between flex-col xl:flex-row items-center lg:-mt-[5rem] gap-16">
       <div>
