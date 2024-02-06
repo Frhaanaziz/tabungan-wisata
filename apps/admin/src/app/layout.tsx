@@ -13,6 +13,7 @@ import { EdgeStoreProvider } from "@/context/edgestore";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 export const metadata = {
