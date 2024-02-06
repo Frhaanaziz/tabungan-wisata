@@ -3,13 +3,14 @@ import DestinationCard from '../cards/DestinationCard';
 import { getEventsAction } from '@/app/_actions/event';
 import { toRupiahSuffix, truncate } from '@repo/utils';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 
 async function TopSellingSection() {
-  const { data: events } = await getEventsAction();
-  if (!events) return notFound();
+  const { data } = await getEventsAction();
+  if (!data) return notFound();
 
-  const destinations =
-    events
+  const events =
+    data
       .map((event) => ({
         id: event.id,
         imageUrl: event.images.at(1)?.url ?? '/',
@@ -20,32 +21,6 @@ async function TopSellingSection() {
       }))
       .slice(0, 3) ?? [];
 
-  // const destinations = [
-  //   {
-  //     id: 0,
-  //     imageUrl: '/images/rome.png',
-  //     title: 'Rome, Italy',
-  //     amount: '$5.42k',
-  //     duration: '10 Days Trip',
-  //     highlighted: false,
-  //   },
-  //   {
-  //     id: 1,
-  //     imageUrl: '/images/london.jpg',
-  //     title: 'London, UK',
-  //     amount: '$4.2k',
-  //     duration: '12 Days Trip',
-  //     highlighted: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     imageUrl: '/images/europe.png',
-  //     title: 'Full Europe',
-  //     amount: '$15k',
-  //     duration: '28 Days Trip',
-  //     highlighted: true,
-  //   },
-  // ];
   return (
     <section>
       <p className="text-lightGray text-[1.125rem] font-[600] text-center">
@@ -55,15 +30,17 @@ async function TopSellingSection() {
         Top Destinations
       </p>
       <div className="flex flex-col gap-4 md:flex-row items-center md:justify-between mt-16 w-full">
-        {destinations.map((destination) => (
-          <DestinationCard
-            key={destination.id}
-            imageUrl={destination.imageUrl}
-            title={destination.title}
-            duration={destination.duration}
-            amount={destination.amount}
-            highlighted={destination.highlighted}
-          />
+        {events.map((event) => (
+          <Link href={`/events/${event.id}`} key={event.id}>
+            <DestinationCard
+              key={event.id}
+              imageUrl={event.imageUrl}
+              title={event.title}
+              duration={event.duration}
+              amount={event.amount}
+              highlighted={event.highlighted}
+            />
+          </Link>
         ))}
       </div>
     </section>
