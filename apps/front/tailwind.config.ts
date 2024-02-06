@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import { Config } from 'tailwindcss';
 
 const config = {
   darkMode: ['class'],
@@ -55,9 +55,15 @@ const config = {
       lineHeight: {
         large: '5.01956rem',
       },
+      fontFamily: {
+        caveat: ['var(--font-caveat)'],
+      },
+      content: {
+        'wavy-underline': 'url("/icons/wavy-underline.svg")',
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;
 
 export default config;
