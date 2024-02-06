@@ -19,13 +19,12 @@ import {
   AccordionTrigger,
 } from "@ui/components/shadcn/accordion";
 import { Separator } from "@ui/components/shadcn/separator";
-
+import GoogleMap from "@ui/components/GoogleMap";
 import { AspectRatio } from "@ui/components/shadcn/aspect-ratio";
 import Image from "next/image";
 import RichText from "@ui/components/RichText";
 import { notFound } from "next/navigation";
 import { Event } from "@repo/types";
-import GoogleMap from "@/components/GoogleMap";
 import { MapPinIcon, PhoneCallIcon } from "lucide-react";
 import { companyContact } from "@repo/utils/constants";
 
