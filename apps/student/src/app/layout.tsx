@@ -5,10 +5,10 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import NextTopLoader from "nextjs-toploader";
-// import { ThemeProvider } from "@/context/ThemeProvider";
 import ToastProvider from "@/context/ToastProvider";
 import { webPrimaryColor } from "@repo/utils/constants";
 import NextAuthSessionProvider from "@/context/NextAuthSessionProvider";
+import { PropsWithChildren } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,11 +21,7 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
