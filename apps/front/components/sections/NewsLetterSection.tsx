@@ -15,13 +15,13 @@ function NewsLetterSection({ className, ...props }: Props) {
       {...props}
     >
       <div className="z-20">
-        <p className="text-lightGray text-[1.5rem] font-[600] text-center mb-[2.63rem]">
+        <p className="text-lightGray text-xl sm:text-2xl font-[600] text-center mb-[2.63rem]">
           Subscribe to get information, latest news and other{' '}
           <br className="hidden md:block" /> interesting offers about Jadoo
         </p>
 
         <div className="flex justify-between flex-col md:flex-row items-center gap-8">
-          <div className="relative flex-grow z-[10]">
+          <div className="relative flex-grow w-full z-[10]">
             <Input
               type="email"
               placeholder="Your email"
