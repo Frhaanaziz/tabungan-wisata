@@ -9,9 +9,11 @@ function isCUID(id: string) {
   return id.length === 25 && id.startsWith('c');
 }
 
-interface Props extends React.ComponentPropsWithoutRef<'nav'> {}
+interface Props extends React.ComponentPropsWithoutRef<'nav'> {
+  customText?: string;
+}
 
-const BreadCrumbs = ({ className, ...restProps }: Props) => {
+const BreadCrumbs = ({ className, customText, ...restProps }: Props) => {
   const pathName = usePathname();
   const pathNameArray = pathName.split('/').splice(1);
 
@@ -20,10 +22,10 @@ const BreadCrumbs = ({ className, ...restProps }: Props) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn('pb-4', className)}
+      className={cn('pb-4 text-sm', className)}
       {...restProps}
     >
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+      <ol className="flex flex-wrap items-center gap-2  text-muted-foreground">
         <li>
           <Link href={'/'} className="font-semibold">
             Home
@@ -40,7 +42,7 @@ const BreadCrumbs = ({ className, ...restProps }: Props) => {
             return (
               <li key={item}>
                 <Link className="capitalize text-lightGrayAlt" href={path}>
-                  {label}
+                  {customText ? customText : label}
                 </Link>
               </li>
             );
