@@ -6,11 +6,11 @@ import { AspectRatio } from '@ui/components/shadcn/aspect-ratio';
 import { Separator } from '@ui/components/shadcn/separator';
 import { CalendarDaysIcon, CoinsIcon } from 'lucide-react';
 import Link from 'next/link';
-import BreadCrumbs from '@/components/common/BreadCrumbs';
 import Pagination from '@/components/common/Pagination';
 import FilterAccordion from '@/components/common/FilterAccordion';
 import MainButton from '@/components/common/MainButton';
 import { Suspense } from 'react';
+import HeadingSection from '@/components/sections/HeadingSection';
 
 const EventsPage = async ({
   searchParams,
@@ -46,27 +46,19 @@ const EventsPage = async ({
 
   return (
     <main className="">
-      <section className="relative bg-white bg-center bg-no-repeat bg-cover bg-[url('/images/bg-events-top.png')]">
-        <div className="container flex pt-10 gap-5 xl:gap-10 min-h-[250px] lg:min-h-[270px] xl:min-h-[300px] 2xl:min-h-[330px] flex-col">
-          <BreadCrumbs className="hidden sm:block" />
-          <div className="flex flex-col">
-            <h1 className="mb-2 font-caveat font-semibold text-[#36bca1] text-lg xl:text-xl">
-              Event listing
-            </h1>
-            <p className="text-3xl font-bold relative after:absolute after:content-wavy-underline after:left-0 after:top-20 after:sm:top-10 lg:text-4xl">
-              Pick Your Best Experience
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeadingSection
+        heading="Event listing"
+        subHeading="Pick Your Best Experience"
+        image="/images/bg-events-top.png"
+      />
 
-      <section className="mt-20 container lg:grid grid-cols-3 gap-10">
-        <div className=" lg:col-span-2">
+      <section className="mt-20 container md:grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className=" md:col-span-2">
           <h2 className="text-2xl font-semibold mb-5">
             {events.length} TOURS FOUND
           </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-5">
             {events.length ? (
               events.map((event) => (
                 <Link key={event.id} href={`/events/${event.id}`}>
