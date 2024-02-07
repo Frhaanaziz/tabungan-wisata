@@ -13,6 +13,57 @@ export const companyContact = '6281234567890';
 export const companyEmail = 'support@aththariq.com';
 export const companyVideoUrl = 'https://www.youtube.com/watch?v=6v2L2UGZJAM';
 
+export const teamMembers = [
+  {
+    name: 'simon',
+    position: 'Owner',
+    image: '/images/team-1.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Sofie',
+    position: 'General Manager',
+    image: '/images/team-2.webp',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Chloe',
+    position: 'General Manager',
+    image: '/images/team-3.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Jack',
+    position: 'Videographer',
+    image: '/images/team-4.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Fiona',
+    position: 'Tour Coordinator',
+    image: '/images/team-5.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Oratai',
+    position: 'Thailand Operations',
+    image: '/images/team-6.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Thuy',
+    position: 'Vietnam Operations',
+    image: '/images/team-7.png',
+    socialMedia: 'https://instagram.com',
+  },
+  {
+    name: 'Ima',
+    position: 'Bali Operations',
+    image: '/images/team-8.png',
+    socialMedia: 'https://instagram.com',
+  },
+];
+
 export const socialMedia = [
   {
     name: 'Facebook',
