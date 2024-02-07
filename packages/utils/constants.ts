@@ -11,6 +11,7 @@ export const webPrimaryColor = '#2663E9';
 export const companyName = 'Tabungan Wisata';
 export const companyContact = '6281234567890';
 export const companyEmail = 'support@aththariq.com';
+export const companyVideoUrl = 'https://www.youtube.com/watch?v=6v2L2UGZJAM';
 
 export const socialMedia = [
   {
