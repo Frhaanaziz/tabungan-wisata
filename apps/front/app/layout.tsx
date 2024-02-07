@@ -3,7 +3,8 @@ import { Poppins, Volkhov, Caveat } from 'next/font/google';
 import './globals.css';
 import NextTopLoader from 'nextjs-toploader';
 import { cn } from '@repo/utils';
-import { webPrimaryColor } from '@repo/utils/constants';
+import { companyName, webPrimaryColor } from '@repo/utils/constants';
+import { env } from '@/env.mjs';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,9 +24,51 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: 'Travel Agency Landing Page',
-  description:
-    'A Travel Agency Landing Page built with Next14, Shadcn, and Tailwind.',
+  title: {
+    default: companyName,
+    template: `%s | ${companyName}`,
+  },
+  description: `Discover your dream vacation with ${companyName} - your trusted travel experts. Browse affordable packages, customize your trip with flexible booking options, and get personalized advice from our travel specialists. Whether it's a beach getaway, city break, or exotic adventure, we have the perfect vacation waiting for you. Book online today and start exploring.`,
+  keywords: [
+    'travel agency',
+    'travel packages',
+    'vacation packages',
+    'book vacation',
+    'book trip',
+    'beach vacation',
+    'city break',
+    'adventure travel',
+    'family vacation',
+    'honeymoon packages',
+    'cruise packages',
+    'all-inclusive resorts',
+    'luxury travel',
+    'cheap flights',
+    'airfare deals',
+    'hotel deals',
+    'travel guides',
+    'holiday planning',
+    'group travel',
+    'study tours',
+  ],
+  metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
+  openGraph: {
+    type: 'website',
+    description: `Discover your dream vacation with ${companyName} - your trusted travel experts. Browse affordable packages, customize your trip with flexible booking options, and get personalized advice from our travel specialists. Whether it's a beach getaway, city break, or exotic adventure, we have the perfect vacation waiting for you. Book online today and start exploring.`,
+    url: env.NEXT_PUBLIC_BASE_URL,
+    siteName: companyName,
+    images: [
+      {
+        url: `${env.NEXT_PUBLIC_BASE_URL}/images/logo.png`,
+        width: 116,
+        height: 35,
+        alt: companyName,
+      },
+    ],
+  },
+  category: 'Travel',
+  generator: 'Next.js',
+  applicationName: companyName,
 };
 
 export default function RootLayout({
