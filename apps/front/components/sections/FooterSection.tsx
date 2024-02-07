@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import React from 'react';
 import { socialMedia } from '@repo/utils/constants';
+import { cn } from '@repo/utils';
 
-function FooterSection() {
+interface Props extends React.ComponentPropsWithoutRef<'footer'> {}
+
+function FooterSection({ className, ...props }: Props) {
   return (
-    <footer className="mb-12">
+    <footer className={cn('pb-12', className)} {...props}>
       <div className="flex flex-col md:flex-row justify-between gap-8 ">
         <div>
           <p>
