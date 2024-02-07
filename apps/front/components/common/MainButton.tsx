@@ -1,6 +1,6 @@
-import { forwardRef, ReactElement } from "react";
-import { Loader2 } from "lucide-react";
-import { Button } from "../ui/button";
+import { forwardRef, ReactElement } from 'react';
+import { Loader2 } from 'lucide-react';
+import { Button } from '../ui/button';
 
 type MainButtonProps = {
   text: string;
@@ -9,15 +9,15 @@ type MainButtonProps = {
   action?: () => void;
   isSubmitable?: boolean;
   disabled?: boolean;
-  width?: "full_width" | string;
+  width?: 'full_width' | string;
   dataLoadingText?: string;
-  variant?: "primary" | "secondary";
+  variant?: 'primary' | 'secondary';
   classes?: string;
   iconRoute?: string;
   rightIconRoute?: string;
   rightIconClass?: string;
   iconComponent?: ReactElement;
-  size?: "small" | "normal" | "large";
+  size?: 'small' | 'normal' | 'large';
   isGradient?: boolean;
 };
 
@@ -31,43 +31,43 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
       disabled = false,
       isSubmitable,
       width,
-      dataLoadingText = "Please wait ...",
-      variant = "primary",
+      dataLoadingText = 'Please wait ...',
+      variant = 'primary',
       classes,
       iconRoute,
       rightIconRoute,
-      rightIconClass = "w-[24px] h-[24px]",
+      rightIconClass = 'w-[24px] h-[24px]',
       iconComponent,
-      size = "normal",
+      size = 'normal',
       isGradient,
     },
     ref
   ) => {
     const propWidth =
-      width === "full_width" ? "w-full" : width ? width : "w-[6.375rem]";
+      width === 'full_width' ? 'w-full' : width ? width : 'w-[6.375rem]';
 
-    const isSecondaryVariant = variant !== "primary";
+    const isSecondaryVariant = variant !== 'primary';
 
     const size_height =
-      size === "normal"
-        ? "h-[2.256rem]"
-        : size === "large"
-        ? "h-[2.256rem]"
-        : "h-[2.625rem]";
+      size === 'normal'
+        ? 'h-[2.256rem]'
+        : size === 'large'
+          ? 'h-[2.256rem]'
+          : 'h-[2.625rem]';
 
     const variant_hover =
-      variant === "primary" ? "hover:bg-primary" : "hover:bg-secondary";
+      variant === 'primary' ? 'hover:bg-primary' : 'hover:bg-secondary';
 
     return !isLoading ? (
       <Button
         form={form}
         className={`${
-          isSecondaryVariant ? " text-white  bg-secondary" : "bg-primary"
+          isSecondaryVariant ? ' text-white  bg-secondary' : 'bg-primary'
         } text-white shadow-xl ${propWidth} md:${propWidth}  select-none rounded-[0.625rem] hover:opacity-90 ${variant_hover} ${size_height} ${classes} ${
-          isGradient ? "red-gradient" : ""
+          isGradient ? 'red-gradient' : ''
         }`}
         onClick={!disabled ? action : () => undefined}
-        type={isSubmitable ? "submit" : "button"}
+        type={isSubmitable ? 'submit' : 'button'}
         ref={ref}
         disabled={disabled}
       >
@@ -94,7 +94,7 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
     ) : (
       <Button
         className={`bg-primary text-white ${propWidth} md:${propWidth} select-none rounded-[0.625rem] cursor-not-allowed ${size_height} ${
-          classes ? classes : ""
+          classes ? classes : ''
         }`}
         ref={ref}
         disabled
@@ -107,6 +107,6 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
 );
 
 // Assigned display name
-MainButton.displayName = "MainButton";
+MainButton.displayName = 'MainButton';
 
 export default MainButton;
