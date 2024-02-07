@@ -17,7 +17,7 @@ type MainButtonProps = {
   rightIconRoute?: string;
   rightIconClass?: string;
   iconComponent?: ReactElement;
-  size?: 'small' | 'normal' | 'large';
+  size?: 'small' | 'normal' | 'large' | 'xlarge';
   isGradient?: boolean;
 };
 
@@ -53,7 +53,9 @@ const MainButton = forwardRef<HTMLButtonElement, MainButtonProps>(
         ? 'h-[2.256rem]'
         : size === 'large'
           ? 'h-[2.256rem]'
-          : 'h-[2.625rem]';
+          : size === 'xlarge'
+            ? 'h-[3rem]'
+            : 'h-[2.625rem]';
 
     const variant_hover =
       variant === 'primary' ? 'hover:bg-primary' : 'hover:bg-secondary';
