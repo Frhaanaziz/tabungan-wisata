@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IProps {
   iconUrl: string;
@@ -11,7 +11,7 @@ function CatergoryCard({ iconUrl, title, description, highlighted }: IProps) {
   return (
     <div
       className={`flex relative flex-col gap-4 items-center p-[2.5rem] ${
-        highlighted ? "bg-white shadow-md rounded-[2.5rem]" : ""
+        highlighted ? 'bg-white shadow-md rounded-[2.5rem]' : ''
       }`}
     >
       <div>
