@@ -60,6 +60,7 @@ const config = {
       },
       content: {
         'wavy-underline': 'url("/icons/wavy-underline.svg")',
+        'wavy-underline-green': 'url("/icons/wavy-underline-green.svg")',
       },
     },
   },
