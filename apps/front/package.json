@@ -39,6 +39,7 @@
     "@repo/typescript-config": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validators": "workspace:*",
+    "@repo/assets": "workspace:*",
     "@tailwindcss/typography": "^0.5.10",
     "@types/html-to-text": "^9.0.4",
     "@types/node": "^20.11.16",
