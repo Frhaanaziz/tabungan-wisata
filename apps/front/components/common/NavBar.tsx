@@ -1,19 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { PhoneIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import MainButton from './MainButton';
 import { env } from '@/env.mjs';
+import { Separator } from '@ui/components/shadcn/separator';
+import { companyContact, companyEmail } from '@repo/utils/constants';
 
 const navLinks = [
+  {
+    label: 'Faqs',
+    link: '/faqs',
+  },
   {
     label: 'Events',
     link: '/events',
   },
   {
-    label: 'Login',
-    link: `${env.NEXT_PUBLIC_STUDENT_URL}/auth/signin`,
+    label: 'About Us',
+    link: '/about',
   },
 ];
 
@@ -29,10 +35,10 @@ function NavBar() {
         {/* DESKTOP */}
         <div className=" hidden lg:block animate-in fade-in zoom-in  p-4 ">
           <div className="flex justify-between items-center">
-            <Link href={'/'}>
-              <img src="/images/logo.png" alt="logo" />
-            </Link>
-            <div className="flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none">
+            <div className="flex gap-10">
+              <Link href={'/'}>
+                <img src="/images/logo.png" alt="logo" />
+              </Link>
               {navLinks.map(({ link, label }) => (
                 <Link
                   key={link}
@@ -42,6 +48,33 @@ function NavBar() {
                   {label}
                 </Link>
               ))}
+            </div>
+            <div className="flex gap-5 xl:gap-[50px] text-[16px] items-center select-none">
+              <Link
+                href={`mailto:${companyEmail}`}
+                className="hover:text-primary text-navText font-[600] text-sm cursor-pointer flex items-center gap-2 "
+              >
+                {companyEmail}
+              </Link>
+
+              <div className="flex gap-1 items-center text-sm">
+                <PhoneIcon className="text-primary w-4 h-4" />
+                <Link
+                  href={`https://wa.me/${companyContact}`}
+                  className="text-primary underline font-medium"
+                >
+                  +{companyContact}
+                </Link>
+              </div>
+
+              <Separator orientation="vertical" className="border-l h-6" />
+
+              <Link
+                href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signin`}
+                className="hover:text-primary text-navText font-[600] cursor-pointer flex items-center gap-2 "
+              >
+                Login
+              </Link>
               <Link href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signup`}>
                 <MainButton
                   text="Sign up"
