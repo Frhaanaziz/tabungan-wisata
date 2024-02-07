@@ -40,8 +40,13 @@ export async function generateStaticParams() {
 }
 
 const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
-  const event = (await getBackendApi().get(`/events/${id}`)).data as Event;
-
+  let event: Event | null = null;
+  try {
+    event = (await getBackendApi().get(`/events/${id}`)).data;
+  } catch (error) {
+    console.error('EventPage', error);
+    notFound();
+  }
   if (!event) notFound();
 
   const { images, name, include, exclude, itineraries, highlight } = event;
