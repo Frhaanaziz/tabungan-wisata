@@ -10,6 +10,7 @@ import BreadCrumbs from '@/components/common/BreadCrumbs';
 import Pagination from '@/components/common/Pagination';
 import FilterAccordion from '@/components/common/FilterAccordion';
 import MainButton from '@/components/common/MainButton';
+import { Suspense } from 'react';
 
 const EventsPage = async ({
   searchParams,
@@ -136,7 +137,9 @@ const EventsPage = async ({
         </div>
       </section>
 
-      <Pagination {...paginationUtils} />
+      <Suspense fallback={null}>
+        <Pagination {...paginationUtils} />
+      </Suspense>
     </main>
   );
 };
