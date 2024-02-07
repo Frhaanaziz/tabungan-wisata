@@ -1,5 +1,7 @@
 import React from 'react';
 import MainButton from '../common/MainButton';
+import Link from 'next/link';
+import { companyContact, companyVideoUrl } from '@repo/utils/constants';
 
 function HeroSection() {
   return (
@@ -33,19 +35,23 @@ function HeroSection() {
         </p>
 
         <div className="flex gap-6 items-center ">
-          <div>
+          <Link href={`https://wa.me/${companyContact}`} target="_blank">
             <MainButton
               text="Find out more"
               classes="bg-secondary text-white font-[600] shadow-none rounded-[0.564rem] border-none hover:bg-secondary  w-[9.58788rem] h-[3rem]"
             />
-          </div>
-          <div className="flex items-center mt-6 hover:cursor-pointer">
+          </Link>
+          <Link
+            href={companyVideoUrl}
+            target="_blank"
+            className="flex items-center mt-6 hover:cursor-pointer"
+          >
             <img
               src="/images/play-shadow.png"
               alt="rounded play icon with shadow"
             />
             <p className="text-lightGrayAlt -mt-6">Play Demo</p>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="hidden md:block">
