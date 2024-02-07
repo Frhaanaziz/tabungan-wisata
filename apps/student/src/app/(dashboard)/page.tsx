@@ -50,7 +50,7 @@ export default async function Home() {
 
       <section className="my-20">
         <DataTable
-          columns={paymentColumn as any}
+          columns={paymentColumn}
           data={userPayments}
           emptyMessage={"No transactions."}
         />
