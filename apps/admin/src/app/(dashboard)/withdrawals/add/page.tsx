@@ -4,8 +4,11 @@ import AddWithdrawalForm from "@/components/forms/AddWithdrawalForm";
 import { api } from "@/trpc/server";
 
 const AddWithdrawalPage = async () => {
-  const userId = (await checkSessionAction()).data.id;
-  const schools = await api.school.getAll.query();
+  const [session, schools] = await Promise.all([
+    checkSessionAction(),
+    api.school.getAll.query(),
+  ]);
+  const userId = session.data.id;
 
   return (
     <>

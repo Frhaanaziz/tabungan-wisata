@@ -12,14 +12,12 @@ export default async function Home() {
   const { data: user } = await checkSessionAction();
   if (!user.schoolId) redirect("/auth/school");
 
-  const userPayments = await api.payment.getAll.query({
-    userId: user.id,
-  });
-  const userBalance = await api.user.getBalance.query();
-
-  const eventsCost = (
-    await api.eventRegistration.getBySchoolId.query({ schoolId: user.schoolId })
-  )
+  const [userPayments, userBalance, school] = await Promise.all([
+    api.payment.getAll.query({ userId: user.id }),
+    api.user.getBalance.query(),
+    api.eventRegistration.getBySchoolId.query({ schoolId: user.schoolId }),
+  ]);
+  const eventsCost = school
     .map(({ event }) => event.cost)
     .reduce((a, b) => a + b, 0);
 
@@ -52,7 +50,7 @@ export default async function Home() {
 
       <section className="my-20">
         <DataTable
-          columns={paymentColumn}
+          columns={paymentColumn as any}
           data={userPayments}
           emptyMessage={"No transactions."}
         />

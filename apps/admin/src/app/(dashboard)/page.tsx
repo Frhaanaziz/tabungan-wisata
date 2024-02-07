@@ -25,22 +25,29 @@ import { getInitials, toRupiah } from "@repo/utils";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const totalUsers = await api.user.getTotalUsers.query();
-  const totalUserOneMonth = await api.user.getCountNewUsers.query({ days: 30 });
-  const totalTransactionOneMonth = await api.payment.getCountNewPayments.query({
-    days: 30,
-  });
-  const totalEventsOneMonth = await api.event.getCountNewEvents.query({
-    days: 30,
-  });
-  const eventGrowth = await api.event.getGrowthPercentage.query();
-  const userGrowth = await api.user.getGrowthPercentage.query();
-  const revenueGrowth = await api.payment.getGrowthPercentage.query();
-  const revenueOneMonth = await api.payment.getRevenue.query({ days: 30 });
-  const usersGrowthCount = await api.user.getGrowthCount.query({ days: 7 });
-  const recentTransactions = await api.payment.getCompletedPayments.query({
-    take: 5,
-  });
+  const [
+    totalUsers,
+    totalUserOneMonth,
+    totalTransactionOneMonth,
+    totalEventsOneMonth,
+    eventGrowth,
+    userGrowth,
+    revenueGrowth,
+    revenueOneMonth,
+    usersGrowthCount,
+    recentTransactions,
+  ] = await Promise.all([
+    api.user.getTotalUsers.query(),
+    api.user.getCountNewUsers.query({ days: 30 }),
+    api.payment.getCountNewPayments.query({ days: 30 }),
+    api.event.getCountNewEvents.query({ days: 30 }),
+    api.event.getGrowthPercentage.query(),
+    api.user.getGrowthPercentage.query(),
+    api.payment.getGrowthPercentage.query(),
+    api.payment.getRevenue.query({ days: 30 }),
+    api.user.getGrowthCount.query({ days: 7 }),
+    api.payment.getCompletedPayments.query({ take: 5 }),
+  ]);
 
   return (
     <>
