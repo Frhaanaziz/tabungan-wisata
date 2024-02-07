@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Poppins, Volkhov, Caveat } from 'next/font/google';
 import './globals.css';
 import NextTopLoader from 'nextjs-toploader';
-import NavBar from '@/components/common/NavBar';
 import { cn } from '@repo/utils';
 import { webPrimaryColor } from '@repo/utils/constants';
 
@@ -43,7 +42,7 @@ export default function RootLayout({
         )}
       >
         <NextTopLoader color={webPrimaryColor} />
-        <NavBar />
+
         {children}
       </body>
     </html>
