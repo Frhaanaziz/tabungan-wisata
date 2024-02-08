@@ -10,6 +10,7 @@ import {
   CalendarRangeIcon,
   CreditCardIcon,
   LandmarkIcon,
+  CalendarPlusIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn, getInitials } from "@repo/utils";
@@ -52,6 +53,11 @@ const navigation: SidebarItem[] = [
     name: "Events",
     icon: CalendarRangeIcon,
     href: "/events",
+  },
+  {
+    name: "Event Registrations",
+    icon: CalendarPlusIcon,
+    href: "/event-registrations",
   },
   {
     name: "Payments",
