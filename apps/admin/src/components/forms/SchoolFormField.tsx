@@ -23,6 +23,7 @@ import { ScrollArea } from "@ui/components/shadcn/scroll-area";
 import { School } from "@repo/types";
 import { Control } from "react-hook-form";
 import { cn } from "@ui/lib/utils";
+import { Skeleton } from "@ui/components/shadcn/skeleton";
 
 const SchoolFormField = ({
   schools,
@@ -33,6 +34,14 @@ const SchoolFormField = ({
   control: Control<any, any>;
   name: string;
 }) => {
+  if (!schools)
+    return (
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-4 w-14" />
+        <Skeleton className="h-10 w-56" />
+      </div>
+    );
+
   return (
     <FormField
       control={control}
