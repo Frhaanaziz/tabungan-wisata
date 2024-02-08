@@ -70,3 +70,17 @@ export async function resetPasswordAction(
     return { error: getNestErrorMessage(error) };
   }
 }
+
+export async function refreshJwtTokenAction({ token }: { token: string }) {
+  try {
+    const { data } = await getBackendApi(token).post(
+      "/verifications/refresh-token",
+      { token },
+    );
+
+    return { data: data.token, error: null };
+  } catch (error) {
+    console.error("refreshJwtTokenAction", error);
+    return { error: getNestErrorMessage(error), data: null };
+  }
+}
