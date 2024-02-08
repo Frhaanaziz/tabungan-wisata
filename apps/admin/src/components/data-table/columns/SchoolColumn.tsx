@@ -9,17 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@ui/components/shadcn/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@ui/components/shadcn/dialog";
 
 import type { School } from "@repo/types";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 import Link from "next/link";
 import React from "react";
-import AddEventRegistrationForm from "@/components/forms/AddEventRegistrationForm";
 
 export const schoolColumns: ColumnDef<School>[] = [
   {
@@ -58,36 +52,23 @@ export const schoolColumns: ColumnDef<School>[] = [
 ];
 
 function ActionCell({ row }: { row: Row<School> }) {
-  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const school = row.original;
 
   return (
-    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
-            <Link href={`/schools/${school.id}/update`} className="w-full">
-              Edit
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <DialogTrigger className="w-full">Add event</DialogTrigger>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <DialogContent className="max-w-[550px]">
-        <AddEventRegistrationForm
-          schoolId={school.id}
-          setDialogOpen={setDialogOpen}
-        />
-      </DialogContent>
-    </Dialog>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem asChild>
+          <Link href={`/schools/${school.id}/update`} className="w-full">
+            Edit
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
