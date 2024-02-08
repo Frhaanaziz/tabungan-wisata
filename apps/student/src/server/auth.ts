@@ -7,7 +7,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 import { env } from "@/env";
-import { signInAction, signInGoogleAction } from "@/app/_actions/auth";
+import {
+  refreshJwtTokenAction,
+  signInAction,
+  signInGoogleAction,
+} from "@/app/_actions/auth";
 import { type User as UserData } from "@repo/types";
 
 declare module "next-auth" {
@@ -114,11 +118,16 @@ export const authOptions: NextAuthOptions = {
         };
       }
 
-      if (trigger === "update") {
+      if (trigger === "update" && session.accessToken) {
+        const { data: newAccessToken, error } = await refreshJwtTokenAction({
+          token: session.accessToken,
+        });
+        if (error) throw new Error("Error refreshing token");
+
         return {
           ...token,
           data: session.data,
-          accessToken: session.accessToken,
+          accessToken: newAccessToken,
         };
       }
 
