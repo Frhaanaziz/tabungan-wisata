@@ -49,7 +49,7 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Duration (days)" />;
     },
-    cell: ({ row }) => <div>{toRupiah(row.getValue("duration"))}</div>,
+    cell: ({ row }) => <div>{row.getValue("duration")}</div>,
   },
   {
     accessorKey: "createdAt",
