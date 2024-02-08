@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
 import { checkAccessToken } from "@repo/utils";
+import * as Sentry from "@sentry/nextjs";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
@@ -27,6 +28,12 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     };
   },
 });
+
+const sentryMiddleware = t.middleware(
+  Sentry.Handlers.trpcMiddleware({
+    attachRpcInput: true,
+  }),
+);
 
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (
@@ -56,8 +63,9 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     },
   });
 });
+const finalMiddleware = sentryMiddleware.unstable_pipe(enforceUserIsAuthed);
 
 export const publicProcedure = t.procedure;
-export const privateProcedure = t.procedure.use(enforceUserIsAuthed);
+export const privateProcedure = t.procedure.use(finalMiddleware);
 
 export const createTRPCRouter = t.router;
