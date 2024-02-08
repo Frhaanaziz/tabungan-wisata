@@ -12,10 +12,11 @@ import {
 
 import type { School } from "@repo/types";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
+import { toRupiah } from "@repo/utils";
 import Link from "next/link";
 import React from "react";
 
-export const schoolColumns: ColumnDef<School>[] = [
+export const schoolColumns: ColumnDef<School & { balance: number }>[] = [
   {
     accessorKey: "code",
     header: ({ column }) => {
@@ -43,6 +44,13 @@ export const schoolColumns: ColumnDef<School>[] = [
       return <DataTableColumnHeader column={column} title="Total Users" />;
     },
     cell: ({ row }) => <div>{row.original?._count?.users ?? ""}</div>,
+  },
+  {
+    accessorKey: "total balance",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Total Balance" />;
+    },
+    cell: ({ row }) => <div>{toRupiah(row.original?.balance ?? 0)}</div>,
   },
   {
     id: "actions",
