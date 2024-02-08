@@ -1,10 +1,20 @@
 'use client';
 
+import * as Sentry from '@sentry/nextjs';
 import MainButton from '@/components/common/MainButton';
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 
-export default function Error() {
+export default function GlobalError({
+  error,
+}: {
+  error: Error & { digest?: string };
+}) {
+  React.useEffect(() => {
+    Sentry.captureException(error);
+  }, [error]);
+
   return (
     <main className="min-h-screen flex flex-col justify-center items-center space-y-10 bg-sky-50/50">
       <Image src={'/images/error.svg'} width={600} height={600} alt="error" />
