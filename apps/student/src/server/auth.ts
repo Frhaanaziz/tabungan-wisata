@@ -13,6 +13,7 @@ import {
   signInGoogleAction,
 } from "@/app/_actions/auth";
 import { type User as UserData } from "@repo/types";
+import * as Sentry from "@sentry/nextjs";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -139,6 +140,15 @@ export const authOptions: NextAuthOptions = {
         accessToken: token.accessToken,
         data: token.data,
       };
+    },
+  },
+  events: {
+    signIn({ user }) {
+      const { id, email } = user.data;
+      Sentry.setUser({ id, email });
+    },
+    signOut() {
+      Sentry.setUser(null);
     },
   },
   pages: {
