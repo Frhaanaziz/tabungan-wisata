@@ -9,7 +9,7 @@ import { schoolSchema } from "@repo/validators/school";
 export const userRouter = createTRPCRouter({
   getAll: adminProcedure
     .output(
-      z.array(userSchema.extend({ school: schoolSchema, email: z.string() })),
+      z.array(userSchema.extend({ school: schoolSchema })),
     )
     .query(async ({ ctx }) => {
       const accessToken = ctx.session.accessToken;

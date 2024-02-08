@@ -29,7 +29,7 @@ export const paymentRouter = createTRPCRouter({
     .output(
       z.array(
         paymentSchema.extend({
-          user: userSchema.extend({ email: z.string() }),
+          user: userSchema,
         }),
       ),
     )
