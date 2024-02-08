@@ -81,7 +81,7 @@ const AddWithdrawalForm = ({
 
   return (
     <Form {...form}>
-      <form className="w-fit space-y-8 rounded-lg border p-6">
+      <form className="w-fit space-y-8 rounded-lg border p-6 shadow-md">
         <div className="space-y-5">
           <SchoolFormField
             schools={schools}

@@ -22,12 +22,6 @@ const EventsPage = async ({
 
   return (
     <>
-      {/* <header className="mb-4 flex items-center justify-between pb-5">
-        <h1 className="text-2xl font-semibold leading-6 ">Events</h1>
-        <div className="mt-3 sm:ml-4 sm:mt-0">
-          <AddEventForm />
-        </div>
-      </header> */}
       <HeadingWithAction heading="Events" href="/events/add" label="+ Add" />
 
       <Suspense fallback={<DataTableSkeleton />}>

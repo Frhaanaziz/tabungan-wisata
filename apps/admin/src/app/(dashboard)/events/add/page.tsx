@@ -6,7 +6,7 @@ const AddEventPage = async () => {
     <>
       <HeadingWithAction heading="Add Event" href="/events" label="Events" />
 
-      <main className="rounded-lg border p-6">
+      <main className="rounded-lg border p-6 shadow-md">
         <AddEventForm />
       </main>
     </>

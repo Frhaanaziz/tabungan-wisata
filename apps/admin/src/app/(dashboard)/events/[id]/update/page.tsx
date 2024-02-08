@@ -13,7 +13,7 @@ const UpdateEventPage = async ({
     <>
       <HeadingWithAction heading="Edit Event" href="/events" label="Events" />
 
-      <main className="rounded-lg border p-6">
+      <main className="rounded-lg border p-6 shadow-md">
         <UpdateEventForm event={event} />
       </main>
     </>

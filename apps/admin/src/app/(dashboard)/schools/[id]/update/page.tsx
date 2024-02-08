@@ -17,7 +17,7 @@ const UpdateSchoolPage = async ({
         label="Schools"
       />
 
-      <main className="rounded-lg border p-6">
+      <main className="rounded-lg border p-6 shadow-md">
         <UpdateSchoolForm school={school} />
       </main>
     </>
