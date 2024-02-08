@@ -9,15 +9,14 @@ export const schoolSchema = z.object({
   name: z
     .string()
     .min(1, { message: 'Name must have at least 1 character' })
-    .max(190),
+    .max(190, { message: 'Name must have at most 190 characters' }),
   address: z
     .string()
-    .min(1, { message: 'Address must have at least 1 character' })
-    .max(190),
+    .min(1, { message: 'Address must have at least 1 character' }),
   contact: z
     .string()
     .min(1, { message: 'Contact must have at least 1 character' })
-    .max(190),
+    .max(190, { message: 'Contact must have at most 190 characters' }),
   users: z.array(userSchema).optional(),
   events: z.array(eventSchema).optional(),
   createdAt: z.coerce.date(),
