@@ -44,15 +44,17 @@ export async function getEventsPaginatedAction(
     durationGTE?: number;
   } = {}
 ) {
-  try {
-    const { data } = await getBackendApi(undefined, paginate).get('/events');
-    const eventsPaginated = paginatedDataUtilsSchema
-      .extend({ content: z.array(eventSchema) })
-      .parse(data);
+  return await withSentryServerAction('getEventsPaginatedAction', async () => {
+    try {
+      const { data } = await getBackendApi(undefined, paginate).get('/events');
+      const eventsPaginated = paginatedDataUtilsSchema
+        .extend({ content: z.array(eventSchema) })
+        .parse(data);
 
-    return { data: eventsPaginated, error: null };
-  } catch (error) {
-    console.error('getEventsAction', error);
-    return { data: null, error: getNestErrorMessage(error) };
-  }
+      return { data: eventsPaginated, error: null };
+    } catch (error) {
+      console.error('getEventsAction', error);
+      return { data: null, error: getNestErrorMessage(error) };
+    }
+  });
 }
