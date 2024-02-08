@@ -81,10 +81,7 @@ const AddWithdrawalForm = ({
 
   return (
     <Form {...form}>
-      <form
-        // onSubmit={handleSubmit((value) => mutate(value))}
-        className="w-fit space-y-8 rounded-lg border p-6"
-      >
+      <form className="w-fit space-y-8 rounded-lg border p-6">
         <div className="space-y-5">
           <SchoolFormField
             schools={schools}

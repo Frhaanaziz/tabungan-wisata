@@ -50,13 +50,6 @@ export const schoolColumns: ColumnDef<School>[] = [
     },
     cell: ({ row }) => <div>{row.original?._count?.users ?? ""}</div>,
   },
-  // {
-  //   accessorKey: "total events",
-  //   header: ({ column }) => {
-  //     return <DataTableColumnHeader column={column} title="Total Events" />;
-  //   },
-  //   cell: ({ row }) => <div>{row.original?._count?.events ?? ""}</div>,
-  // },
   {
     id: "actions",
     enableHiding: false,

@@ -1,6 +1,10 @@
 "use client";
 
-import { Dialog, DialogContent, DialogTrigger } from "@ui/components/shadcn/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@ui/components/shadcn/dialog";
 import { buttonVariants } from "@ui/components/shadcn/button";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,8 +50,6 @@ const TopUpButton = ({ userId }: { userId: string }) => {
   const { mutate: createPayment, isLoading } = api.payment.create.useMutation({
     onSuccess: ({ token }) => {
       reset(defaultValues);
-      // TODO: Create success, error, etc page
-      // TODO: Add query key on every api call for caching
 
       snapPopUp({ toastId, token });
     },
