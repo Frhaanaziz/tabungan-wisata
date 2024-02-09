@@ -7,6 +7,7 @@ import type * as z from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,6 +25,7 @@ import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import RichTextEditor from "../RichTextEditor";
 import { Event } from "@repo/types";
+import { Checkbox } from "@ui/components/shadcn/checkbox";
 
 type UpdateEventType = z.infer<typeof updateEventSchema>;
 
@@ -33,7 +35,7 @@ const UpdateEventForm = ({ event }: { event: Event }) => {
 
   const defaultValues: UpdateEventType = {
     ...event,
-    images: [],
+    // images: [],
   };
 
   const form = useForm<UpdateEventType>({
@@ -41,7 +43,8 @@ const UpdateEventForm = ({ event }: { event: Event }) => {
     defaultValues,
   });
 
-  const { handleSubmit, control, formState } = form;
+  const { handleSubmit, control, formState, watch } = form;
+  console.log(watch("images"));
 
   const { fields, append, remove } = useFieldArray({
     name: "itineraries",
@@ -168,7 +171,7 @@ const UpdateEventForm = ({ event }: { event: Event }) => {
           />
 
           {fields.map((field, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment key={field.id}>
               <FormField
                 control={form.control}
                 key={field.id}
@@ -244,6 +247,29 @@ const UpdateEventForm = ({ event }: { event: Event }) => {
                   />
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
+            name="highlighted"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem className="flex w-fit flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>Highlighted</FormLabel>
+                  <FormDescription>
+                    If checked, this event will be highlighted on the home page,
+                    etc.
+                  </FormDescription>
+                </div>
               </FormItem>
             )}
           />
