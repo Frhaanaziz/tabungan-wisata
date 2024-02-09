@@ -28,7 +28,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
   },
 });
 
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   if (
     !ctx.session ||
     !ctx.session.user ||
@@ -37,7 +37,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   )
     throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authorized" });
 
-  const isAunthenticated = checkAccessToken(ctx.session.accessToken);
+  const isAunthenticated = await checkAccessToken(ctx.session.accessToken);
   if (!isAunthenticated)
     throw new TRPCError({
       code: "UNAUTHORIZED",

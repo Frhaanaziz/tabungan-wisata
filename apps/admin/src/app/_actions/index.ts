@@ -11,7 +11,7 @@ export async function checkSessionAction() {
   return session;
 }
 
-export function checkAccessToken(token: string | undefined): boolean {
+export async function checkAccessToken(token: string | undefined) {
   if (!token) redirect("/auth/signin");
 
   try {
