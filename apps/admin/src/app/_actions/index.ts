@@ -1,8 +1,8 @@
 "use server";
 
+import { getBackendApi } from "@/lib/axios";
 import { getServerAuthSession } from "@/server/auth";
-import { notFound, redirect } from "next/navigation";
-import jwt from "jsonwebtoken";
+import { notFound } from "next/navigation";
 
 export async function checkSessionAction() {
   const session = await getServerAuthSession();
@@ -11,14 +11,20 @@ export async function checkSessionAction() {
   return session;
 }
 
-export async function checkAccessToken(token: string | undefined) {
-  if (!token) redirect("/auth/signin");
+export async function checkAccessToken(
+  token: string | undefined,
+): Promise<boolean> {
+  if (!token) return false;
 
   try {
-    jwt.verify(token, process.env.NEXTAUTH_SECRET!);
+    const { data } = await getBackendApi().post("verification/verify-token", {
+      token,
+    });
+    if (!data || !data.user || !data.user.id) return false;
 
     return true;
   } catch (error) {
-    redirect("/auth/signin");
+    console.error("checkAccessToken", error);
+    return false;
   }
 }
