@@ -170,22 +170,22 @@ export const eventRouter = createTRPCRouter({
       const accessToken = ctx.session.accessToken;
 
       try {
-        const eventResponse = await getBackendApi(accessToken).put(
+        const { data: eventData } = await getBackendApi(accessToken).put(
           `/events/${input.id}`,
           rest,
         );
-        const eventId = eventResponse.data.id;
+        const eventId = eventData.id;
 
-        // Get deleted itineraries
-        const deletedItineraries = eventResponse.data.itineraries.filter(
-          (itinerary: any) =>
-            !itineraries.some((i: any) => i.id === itinerary.id),
-        );
-        // Delete itineraries
+        // Delete itineraries if they are not in the new data
         await Promise.all(
-          deletedItineraries.map(async (itinerary: any) =>
-            getBackendApi(accessToken).delete(`/itineraries/${itinerary.id}`),
-          ),
+          eventData.itineraries
+            .filter(
+              (itinerary: any) =>
+                !itineraries.some((i: any) => i.id === itinerary.id),
+            )
+            .map(async (itinerary: any) =>
+              getBackendApi(accessToken).delete(`/itineraries/${itinerary.id}`),
+            ),
         );
 
         // Update or create itineraries
@@ -206,19 +206,19 @@ export const eventRouter = createTRPCRouter({
 
         // Upload images
         const filesResponse = await Promise.all(
-          images.map(async (image) =>
-            uploadFile({ accessToken, file: image, eventId }),
-          ),
+          images
+            .filter((image) => {
+              if (!eventData.images.length) return true;
+              return !eventData.images.some(
+                (oldImage: File) => oldImage.url === image.url,
+              );
+            })
+            .map(async (image) =>
+              uploadFile({ accessToken, file: image, eventId }),
+            ),
         );
 
-        // Delete images
-        await Promise.all(
-          eventResponse.data.images.map(async (image: File) => {
-            deleteFile({ accessToken, file: image });
-          }),
-        );
-
-        return { ...eventResponse.data, images: filesResponse };
+        return { ...eventData, images: filesResponse };
       } catch (error) {
         console.error("eventRouter update", error);
         throw new TRPCError({
