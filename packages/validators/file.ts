@@ -8,3 +8,5 @@ export const fileSchema = z.object({
   uploadedAt: z.coerce.date(),
   eventId: z.string().cuid().optional(),
 });
+
+export const deleteFileSchema = fileSchema.pick({ id: true });
