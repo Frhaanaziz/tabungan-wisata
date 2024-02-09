@@ -76,7 +76,7 @@ function NavBar() {
               <Separator orientation="vertical" className="border-l h-6" />
 
               <Link
-                href={`${env.NEXT_PUBLIC_STUDENT_URL}/auth/signin`}
+                href={`${env.NEXT_PUBLIC_STUDENT_URL}`}
                 className="hover:text-primary text-navText font-[600] cursor-pointer flex items-center gap-2 "
               >
                 Login

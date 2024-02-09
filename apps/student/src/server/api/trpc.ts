@@ -3,8 +3,8 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
-import { checkAccessToken } from "@repo/utils";
 import * as Sentry from "@sentry/nextjs";
+import { checkAccessToken } from "@/app/_actions";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
@@ -35,7 +35,7 @@ const sentryMiddleware = t.middleware(
   }),
 );
 
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   if (
     !ctx.session ||
     !ctx.session.user ||
@@ -44,7 +44,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   )
     throw new TRPCError({ code: "UNAUTHORIZED", message: "Not authorized" });
 
-  const isAunthenticated = checkAccessToken(ctx.session.accessToken);
+  const isAunthenticated = await checkAccessToken(ctx.session.accessToken);
   if (!isAunthenticated)
     throw new TRPCError({
       code: "UNAUTHORIZED",

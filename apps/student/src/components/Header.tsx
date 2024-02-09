@@ -18,6 +18,7 @@ import { navigation } from "@/lib/constant";
 import logo from "@repo/assets/images/logo.png";
 import { companyName } from "@repo/utils/constants";
 import { Event, EventRegistration } from "@repo/types";
+import { env } from "@/env";
 
 export default function Header({
   session,
@@ -88,7 +89,8 @@ export default function Header({
                   {events.map((event) => (
                     <Link
                       key={event.id}
-                      href={`/events/${event.id}`}
+                      // href={`/events/${event.id}`}
+                      href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${event.id}`}
                       className={cn(
                         `/events/${event.id}` === pathName
                           ? "border-primary text-foreground"
@@ -96,7 +98,8 @@ export default function Header({
                         "inline-flex items-center border-b-2 px-1 py-1 text-sm font-medium",
                       )}
                     >
-                      {event.name}
+                      {/* {event.name} */}
+                      Event
                     </Link>
                   ))}
                 </div>
@@ -173,7 +176,8 @@ export default function Header({
                 <Link
                   key={event.name}
                   onClick={() => close()}
-                  href={`/events/${event.id}`}
+                  // href={`/events/${event.id}`}
+                  href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${event.id}`}
                   className={cn(
                     `/events/${event.id}` === pathName
                       ? "border-primary bg-primary/5 text-primary"
@@ -181,7 +185,8 @@ export default function Header({
                     "block border-l-4 py-2 pl-3 pr-4 text-base font-medium",
                   )}
                 >
-                  {event.name}
+                  {/* {event.name} */}
+                  Event
                 </Link>
               ))}
             </div>
