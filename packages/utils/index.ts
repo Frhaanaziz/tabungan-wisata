@@ -77,7 +77,7 @@ export function checkAccessToken(token: string | undefined): boolean {
 
     return true;
   } catch (error) {
-    console.error(error);
+    console.error('checkAccessToken', error);
     return false;
   }
 }
