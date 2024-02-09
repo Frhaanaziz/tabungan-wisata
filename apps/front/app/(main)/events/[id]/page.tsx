@@ -172,7 +172,8 @@ const EventPage = async ({ params: { id } }: Props) => {
             yang ada
           </div>
 
-          <section className="flex flex-col justify-around gap-10 md:flex-row">
+          {/* <section className="flex flex-col justify-around gap-10 md:flex-row"> */}
+          <section className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <div>
               <p className="text-3xl font-bold">Included :</p>
               <div className="my-4 h-0.5 w-24 bg-primary" />
