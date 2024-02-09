@@ -28,6 +28,12 @@ import { DataTableColumnHeader } from "@ui/components/table/data-table-column-he
 import Link from "next/link";
 import { api } from "@/trpc/react";
 import { toast } from "sonner";
+import { Badge } from "@ui/components/shadcn/badge";
+
+const highlightVariants = {
+  true: "border-transparent bg-green-500 hover:bg-green-500/80",
+  false: "border-transparent bg-yellow-500 hover:bg-yellow-500/80",
+};
 
 export const eventColumn: ColumnDef<Event & { school: School }>[] = [
   {
@@ -50,6 +56,20 @@ export const eventColumn: ColumnDef<Event & { school: School }>[] = [
       return <DataTableColumnHeader column={column} title="Duration (days)" />;
     },
     cell: ({ row }) => <div>{row.getValue("duration")}</div>,
+  },
+  {
+    accessorKey: "highlighted",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Highlighted" />;
+    },
+    cell: ({ row }) => {
+      const value = row.getValue("highlighted") as "true" | "false";
+      return (
+        <Badge
+          className={highlightVariants[value]}
+        >{`${row.getValue("highlighted")}`}</Badge>
+      );
+    },
   },
   {
     accessorKey: "createdAt",
