@@ -20,10 +20,10 @@ async function withSentryServerAction<T>(
   );
 }
 
-export async function getEventsAction() {
+export async function getEventsAction(input: { highlighted?: boolean } = {}) {
   return await withSentryServerAction('getEventsAction', async () => {
     try {
-      const { data } = await getBackendApi().get('/events');
+      const { data } = await getBackendApi(undefined, input).get('/events');
       const events = z.array(eventSchema).parse(data);
 
       return { data: events, error: null };
