@@ -1,13 +1,21 @@
 import HeadingWithAction from "@/components/HeadingWithAction";
 import UpdateEventForm from "@/components/forms/UpdateEventForm";
 import { api } from "@/trpc/server";
+import { notFound } from "next/navigation";
 
 const UpdateEventPage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
-  const event = await api.event.getById.query({ id });
+  let event = null;
+  try {
+    event = await api.event.getById.query({ id });
+  } catch (error) {
+    console.error("UpdateEventPage", error);
+    notFound();
+  }
+  if (!event) notFound();
 
   return (
     <>
