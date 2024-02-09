@@ -1,9 +1,16 @@
 "use client";
 import type { ColumnDef } from "@tanstack/react-table";
 
-import type { User } from "@repo/types";
+import type { User, UserRole } from "@repo/types";
 import { formatDate, toRupiah } from "@repo/utils";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
+import { Badge } from "@ui/components/shadcn/badge";
+
+const roleVariants = {
+  admin: "border-transparent bg-red-500 hover:bg-red-500/80",
+  student: "border-transparent bg-green-500 hover:bg-green-500/80",
+  teacher: "border-transparent bg-blue-500 hover:bg-blue-500/80",
+};
 
 export const userColumn: ColumnDef<User>[] = [
   {
@@ -39,7 +46,12 @@ export const userColumn: ColumnDef<User>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Role" />;
     },
-    cell: ({ row }) => <div>{row.getValue("role")}</div>,
+    cell: ({ row }) => {
+      const value = row.getValue("role") as UserRole;
+      return (
+        <Badge className={roleVariants[value]}>{row.getValue("role")}</Badge>
+      );
+    },
   },
   {
     accessorKey: "createdAt",
