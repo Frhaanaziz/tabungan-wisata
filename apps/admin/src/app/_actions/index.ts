@@ -17,7 +17,7 @@ export async function checkAccessToken(
   if (!token) return false;
 
   try {
-    const { data } = await getBackendApi().post("verification/verify-token", {
+    const { data } = await getBackendApi().post("verifications/verify-token", {
       token,
     });
     if (!data || !data.user || !data.user.id) return false;
