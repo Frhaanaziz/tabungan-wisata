@@ -15,6 +15,7 @@ import { DataTableColumnHeader } from "@ui/components/table/data-table-column-he
 import { toRupiah } from "@repo/utils";
 import Link from "next/link";
 import React from "react";
+import { Badge } from "@ui/components/shadcn/badge";
 
 export const schoolColumns: ColumnDef<School & { balance: number }>[] = [
   {
@@ -22,7 +23,9 @@ export const schoolColumns: ColumnDef<School & { balance: number }>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="School Code" />;
     },
-    cell: ({ row }) => <div>{row.getValue("code")}</div>,
+    cell: ({ row }) => (
+      <Badge variant={"outline"}>{row.getValue("code")}</Badge>
+    ),
   },
   {
     accessorKey: "name",
