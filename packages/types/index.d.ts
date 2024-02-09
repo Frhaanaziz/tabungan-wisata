@@ -8,6 +8,12 @@ import { fileSchema } from '@repo/validators/file';
 import { withdrawalSchema } from '@repo/validators/withdrawal';
 import { eventRegistrationSchema } from '@repo/validators/eventRegistration';
 
+export enum UserRole {
+  admin = 'admin',
+  student = 'student',
+  teacher = 'teacher',
+}
+
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
 export type School = z.infer<typeof schoolSchema> & {
