@@ -1,8 +1,14 @@
 import HeadingSection from '@/components/sections/HeadingSection';
 import { teamMembers } from '@repo/utils/constants';
 import { AspectRatio } from '@ui/components/shadcn/aspect-ratio';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: `Since 2013, we have offered group backpacking tours through the most alluring destinations in Southeast Asia!`,
+};
 
 const AboutPage = () => {
   return (

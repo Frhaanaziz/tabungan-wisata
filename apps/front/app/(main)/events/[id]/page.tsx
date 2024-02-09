@@ -32,6 +32,35 @@ import SocialShare from '@/components/common/SocialShare';
 import RichText from '@/components/common/RichText';
 import { MapPinIcon } from 'lucide-react';
 import Link from 'next/link';
+import { Metadata } from 'next';
+import { env } from '@/env.mjs';
+
+type Props = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = params.id;
+  const res = await getBackendApi().get(`/events/${id}`);
+  const { highlight, name, images } = res.data as Event;
+
+  return {
+    title: name,
+    description: highlight,
+    openGraph: {
+      title: name,
+      description: highlight,
+      url: `${env.NEXT_PUBLIC_BASE_URL}/events/${id}`,
+      images: images.map((image) => image.url),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: name,
+      description: highlight,
+      images: images.map((image) => image.url),
+    },
+  };
+}
 
 export async function generateStaticParams() {
   const result = await getBackendApi().get('/events/ids');
@@ -39,7 +68,7 @@ export async function generateStaticParams() {
   return result.data;
 }
 
-const EventPage = async ({ params: { id } }: { params: { id: string } }) => {
+const EventPage = async ({ params: { id } }: Props) => {
   let event: Event | null = null;
   try {
     event = (await getBackendApi().get(`/events/${id}`)).data;

@@ -54,6 +54,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
   openGraph: {
     type: 'website',
+    title: companyName,
     description: `Discover your dream vacation with ${companyName} - your trusted travel experts. Browse affordable packages, customize your trip with flexible booking options, and get personalized advice from our travel specialists. Whether it's a beach getaway, city break, or exotic adventure, we have the perfect vacation waiting for you. Book online today and start exploring.`,
     url: env.NEXT_PUBLIC_BASE_URL,
     siteName: companyName,

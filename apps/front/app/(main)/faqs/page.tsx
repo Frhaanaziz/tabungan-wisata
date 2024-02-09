@@ -5,6 +5,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'FAQs',
+  description: 'Frequently Asked Questions',
+};
 
 const faqs = [
   {

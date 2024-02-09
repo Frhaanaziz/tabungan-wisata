@@ -12,6 +12,12 @@ import MainButton from '@/components/common/MainButton';
 import { Suspense } from 'react';
 import HeadingSection from '@/components/sections/HeadingSection';
 import RichText from '@/components/common/RichText';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Event listing',
+  description: 'Pick Your Best Experience',
+};
 
 const EventsPage = async ({
   searchParams,
