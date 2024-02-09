@@ -7,10 +7,10 @@
     "library.js"
   ],
   "devDependencies": {
-    "eslint-config-turbo": "^1.11.3",
-    "eslint-config-next": "^14.0.4",
-    "@typescript-eslint/parser": "^6.17.0",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint-config-next": "^14.1.0",
+    "eslint-config-turbo": "^1.12.3",
     "typescript": "^5.3.3"
   }
 }

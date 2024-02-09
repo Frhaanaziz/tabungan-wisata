@@ -6,11 +6,11 @@
     "**/*.ts"
   ],
   "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
     "clsx": "^1.2.1",
-    "tailwind-merge": "^1.13.2",
-    "zod": "^3.22.4",
     "jsonwebtoken": "^9.0.2",
-    "@radix-ui/react-icons": "^1.3.0"
+    "tailwind-merge": "^1.14.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.5"
