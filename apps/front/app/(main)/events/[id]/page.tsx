@@ -26,14 +26,15 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Event } from '@repo/types';
 import GoogleMap from '@ui/components/GoogleMap';
-import { companyContact, companyEmail } from '@repo/utils/constants';
 import BreadCrumbs from '@/components/common/BreadCrumbs';
 import SocialShare from '@/components/common/SocialShare';
 import RichText from '@/components/common/RichText';
 import { MapPinIcon } from 'lucide-react';
-import Link from 'next/link';
 import { Metadata } from 'next';
 import { env } from '@/env.mjs';
+import EventListAside from '@/components/common/EventListAside';
+import { Suspense } from 'react';
+import { Skeleton } from '@ui/components/shadcn/skeleton';
 
 type Props = {
   params: { id: string };
@@ -108,7 +109,8 @@ const EventPage = async ({ params: { id } }: Props) => {
               <CarouselContent>
                 {images.map((image, i) => (
                   <CarouselItem key={image.id}>
-                    <AspectRatio ratio={16 / 9} className="w-full">
+                    {/* <AspectRatio ratio={16 / 9} className="w-full"> */}
+                    <AspectRatio ratio={3 / 2} className="w-full">
                       <Image
                         src={image.url}
                         className="w-full rounded-xl"
@@ -190,7 +192,7 @@ const EventPage = async ({ params: { id } }: Props) => {
           </section>
         </div>
 
-        <aside className="hidden space-y-10 lg:block">
+        <aside className="hidden space-y-12 lg:block">
           <GoogleMap />
 
           <div className="relative flex flex-col">
@@ -220,7 +222,7 @@ const EventPage = async ({ params: { id } }: Props) => {
             </div>
           </div>
 
-          <div className="space-y-5 rounded-medium border shadow p-7">
+          {/* <div className="space-y-5 rounded-medium border shadow p-7">
             <p className="text-2xl font-semibold">Information Contact</p>
             <div className="space-y-1">
               <p className="font-semibold">Email</p>
@@ -236,7 +238,16 @@ const EventPage = async ({ params: { id } }: Props) => {
                 </Link>
               </p>
             </div>
-          </div>
+          </div> */}
+          <Suspense
+            fallback={Array.from({ length: 4 }).map((_, i) => (
+              <AspectRatio ratio={3 / 2} key={i}>
+                <Skeleton className="w-full h-full bg-slate-100" />
+              </AspectRatio>
+            ))}
+          >
+            <EventListAside />
+          </Suspense>
         </aside>
       </main>
     </>
