@@ -13,6 +13,10 @@ const config = {
         hostname: "loremflickr.com",
         protocol: "https",
       },
+      {
+        hostname: "*.edgestore.dev",
+        protocol: "https",
+      },
     ],
   },
 };
