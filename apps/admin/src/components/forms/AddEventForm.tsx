@@ -7,6 +7,7 @@ import type * as z from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,6 +25,7 @@ import RichTextEditor from "../RichTextEditor";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import { XIcon } from "lucide-react";
+import { Checkbox } from "@ui/components/shadcn/checkbox";
 
 type AddEventType = z.infer<typeof addEventSchema>;
 
@@ -36,6 +38,7 @@ const AddEventForm = () => {
     include: "",
     exclude: "",
     highlight: "",
+    highlighted: false,
     itineraries: [{ description: "", name: "", eventId: "" }],
     images: [],
   };
@@ -249,6 +252,29 @@ const AddEventForm = () => {
                   />
                 </FormControl>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
+            name="highlighted"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem className="flex w-fit flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>Highlighted</FormLabel>
+                  <FormDescription>
+                    If checked, this event will be highlighted on the home page,
+                    etc.
+                  </FormDescription>
+                </div>
               </FormItem>
             )}
           />
