@@ -24,6 +24,7 @@ export const eventSchema = z.object({
   duration: z.coerce
     .number()
     .min(1, { message: 'Duration must be at least 1 day' }),
+  highlighted: z.boolean(),
   cost: z.coerce.number().min(0),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
