@@ -1,3 +1,5 @@
+import { SendIcon } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react';
 
 interface IProps {
@@ -17,11 +19,12 @@ function DestinationCard({
 }: IProps) {
   return (
     <div className="flex relative flex-col justify-between  pb-[2.63rem] group">
-      <div className="object-fill ">
-        <img
+      <div className="object-fill">
+        <Image
           src={imageUrl}
           alt="destination image"
-          // className="w-[314px] h-[20.43rem]  object-cover rounded-t-[1.5rem]"
+          width={400}
+          height={326}
           className="w-[400px] h-[20.43rem]  object-cover rounded-t-[1.5rem]"
         />
       </div>
@@ -31,15 +34,18 @@ function DestinationCard({
           <p>{amount}</p>
         </div>
         <div className="flex gap-4 items-center">
-          <div>
-            <img src="/images/send-icon.png" alt="send icon" />
-          </div>
+          <SendIcon size={18} />
           <p className="text-lightGray font-bold">{duration}</p>
         </div>
       </div>
       {highlighted && (
         <div className="absolute bottom-[5rem] right-[-4rem] -z-10 hidden md:block">
-          <img src="/images/stylish-ring.png" alt="curly ring" />
+          <Image
+            src="/images/stylish-ring.png"
+            alt="curly ring"
+            width={98}
+            height={254}
+          />
         </div>
       )}
     </div>

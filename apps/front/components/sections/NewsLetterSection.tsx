@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '../ui/input';
 import MainButton from '../common/MainButton';
 import { cn } from '@repo/utils';
+import Image from 'next/image';
 
 interface Props extends React.ComponentPropsWithoutRef<'div'> {}
 
@@ -28,7 +29,12 @@ function NewsLetterSection({ className, ...props }: Props) {
               className="bg-white h-[3.5rem] pl-[3rem]"
             />
             <div className="absolute top-5 left-4">
-              <img src="/images/envelop.png" alt="envelope icon" />
+              <Image
+                src="/images/envelop.png"
+                alt="envelope icon"
+                width={21}
+                height={18}
+              />
             </div>
           </div>
 
@@ -40,27 +46,41 @@ function NewsLetterSection({ className, ...props }: Props) {
         </div>
       </div>
       <div className="absolute bottom-0  left-4 z-0 opacity-25">
-        <img
+        <Image
           src="/images/round-ring-left.png"
           alt="round ring left"
+          width={200}
+          height={148}
           className="w-[200px]"
         />
       </div>
 
       <div className="absolute -top-4 -right-4">
-        <img src="/images/send-shape.png" alt="send icon" />
+        <Image
+          src="/images/send-shape.png"
+          alt="send icon"
+          width={70}
+          height={70}
+        />
       </div>
 
       <div className="absolute top-0 right-0 opacity-25">
-        <img
+        <Image
           src="/images/round-ring-right.png"
           alt="round ring right"
+          width={200}
+          height={262}
           className="w-[200px]"
         />
       </div>
 
       <div className="absolute -bottom-16 right-[-6rem] hidden md:block">
-        <img src="/images/plus-group.png" alt="send icon" />
+        <Image
+          src="/images/plus-group.png"
+          alt="send icon"
+          width={153}
+          height={166}
+        />
       </div>
     </div>
   );

@@ -2,11 +2,12 @@ import React from 'react';
 import MainButton from '../common/MainButton';
 import Link from 'next/link';
 import { companyContact, companyVideoUrl } from '@repo/utils/constants';
+import Image from 'next/image';
 
 function HeroSection() {
   return (
     <section className="flex justify-between items-center mt-16 md:z-[9999]">
-      <div className="pt-32 md:pt-4">
+      <div className=" sm:pt-16 md:pt-4">
         <p className="text-[1.128rem] font-[700] text-primary uppercase mb-4">
           Best Destinations around the world
         </p>
@@ -15,9 +16,11 @@ function HeroSection() {
             Travel,
             <div className="flex  flex-col">
               <span className="ml-8 z-10">enjoy</span>
-              <img
+              <Image
                 src="/images/stylish-underline.png"
                 alt="stylish underline"
+                width={704}
+                height={724}
                 className="-mt-4 z-0 hidden md:block"
               />
             </div>
@@ -46,8 +49,10 @@ function HeroSection() {
             target="_blank"
             className="flex items-center mt-6 hover:cursor-pointer"
           >
-            <img
+            <Image
               src="/images/play-shadow.png"
+              width={102}
+              height={102}
               alt="rounded play icon with shadow"
             />
             <p className="text-lightGrayAlt -mt-6">Play Demo</p>
@@ -55,8 +60,10 @@ function HeroSection() {
         </div>
       </div>
       <div className="hidden md:block">
-        <img
+        <Image
           src="/images/lady-with-aircraft.png"
+          width={784}
+          height={764}
           alt="girl with phone with aircrafts on the background"
         />
       </div>

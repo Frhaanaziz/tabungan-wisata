@@ -1,5 +1,6 @@
 import React from 'react';
 import TripStepCard from '../cards/TripStepCard';
+import Image from 'next/image';
 
 function BookNextTripSection() {
   const steps = [
@@ -47,7 +48,12 @@ function BookNextTripSection() {
         </div>
       </div>
       <div>
-        <img src="/images/next-trip.png" alt="card with a girl on a wall" />
+        <Image
+          src="/images/next-trip.png"
+          alt="card with a girl on a wall"
+          width={655}
+          height={789}
+        />
       </div>
     </section>
   );

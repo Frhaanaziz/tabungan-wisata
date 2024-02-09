@@ -7,6 +7,7 @@ import MainButton from './MainButton';
 import { env } from '@/env.mjs';
 import { Separator } from '@ui/components/shadcn/separator';
 import { companyContact, companyEmail } from '@repo/utils/constants';
+import Image from 'next/image';
 
 const navLinks = [
   {
@@ -37,7 +38,12 @@ function NavBar() {
           <div className="flex justify-between items-center">
             <div className="flex gap-10">
               <Link href={'/'}>
-                <img src="/images/logo.png" alt="logo" />
+                <Image
+                  src="/images/logo.png"
+                  alt="logo"
+                  width={116}
+                  height={35}
+                />
               </Link>
               {navLinks.map(({ link, label }) => (
                 <Link
@@ -96,7 +102,13 @@ function NavBar() {
               onClick={toggleMenu}
               className="flex gap-[50px] text-[16px] items-center select-none"
             >
-              <img src="/images/logo.png" alt="logo" className="w-[7rem]" />
+              <Image
+                src="/images/logo.png"
+                alt="logo"
+                width={116}
+                height={35}
+                className="w-[7rem]"
+              />
             </Link>
             <div className="flex items-center gap-[40px]">
               {menu ? (
@@ -105,9 +117,11 @@ function NavBar() {
                   onClick={toggleMenu}
                 />
               ) : (
-                <img
+                <Image
                   src="/images/hamburger.svg"
                   alt="logo"
+                  width={32}
+                  height={32}
                   className="cursor-pointer animate-in fade-in zoom-in"
                   onClick={toggleMenu}
                 />

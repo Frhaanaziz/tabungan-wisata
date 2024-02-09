@@ -44,7 +44,8 @@ function CategorySection() {
       <p className="volkhov text-[3.125rem] text-title font-[700] text-center">
         We Offer Best Services
       </p>
-      <div className="flex flex-col gap-4 md:flex-row justify-between w-full mt-16">
+      {/* <div className="flex flex-col gap-4 md:flex-row justify-between w-full mt-16"> */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full mt-16">
         {features.map((feature) => (
           <CatergoryCard
             key={feature.id}

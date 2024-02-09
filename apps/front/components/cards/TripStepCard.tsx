@@ -1,4 +1,5 @@
-import React from "react";
+import Image from 'next/image';
+import React from 'react';
 
 interface IProps {
   iconUrl: string;
@@ -10,7 +11,7 @@ function TripStepCard({ iconUrl, title, description }: IProps) {
   return (
     <div className="flex  gap-8 items-center">
       <div>
-        <img src={iconUrl} alt="step icon" />
+        <Image src={iconUrl} alt="step icon" width={48} height={48} />
       </div>
       <div className="flex flex-col">
         <p className="text-lightGray text-[1rem] font-[700]">{title}</p>

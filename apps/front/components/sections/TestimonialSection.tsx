@@ -1,5 +1,6 @@
 import React from 'react';
 import TestimonialCard from '../cards/TestimonialCard';
+import Image from 'next/image';
 
 function TestimonialSection() {
   const reviews = [
@@ -31,9 +32,11 @@ function TestimonialSection() {
         </p>
 
         <div className="mt-[5.12rem] ">
-          <img
+          <Image
             src="/images/slide-indicator.png"
             alt="slide indicator"
+            width={87}
+            height={16}
             className="hidden md:block"
           />
         </div>
@@ -60,10 +63,10 @@ function TestimonialSection() {
         </div>
         {/* <div className="flex flex-col gap-16">
           <div className="hover:cursor-pointer">
-            <img src="/images/chevron-up.png" alt="chevron up" />
+            <Image src="/images/chevron-up.png" alt="chevron up" width={16} height={10} />
           </div>
           <div className="hover:cursor-pointer">
-            <img src="/images/chevron-down.png" alt="chevron up" />
+            <Image src="/images/chevron-down.png" alt="chevron up" width={16} height={10} />
           </div>
         </div> */}
       </div>
