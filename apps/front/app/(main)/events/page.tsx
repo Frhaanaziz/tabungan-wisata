@@ -55,7 +55,7 @@ const EventsPage = async ({
   );
 
   return (
-    <main className="">
+    <main>
       <HeadingSection
         heading="Event listing"
         subHeading="Pick Your Best Experience"
