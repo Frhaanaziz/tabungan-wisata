@@ -3,6 +3,8 @@
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "baseUrl": ".",
+    "types": ["@serwist/next/typings"], // @serwist/next
+    "lib": ["dom", "dom.iterable", "ES2022", "webworker"] // "webworker" @serwist/next
   },
   "include": [
     ".eslintrc.cjs",
@@ -11,7 +13,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }

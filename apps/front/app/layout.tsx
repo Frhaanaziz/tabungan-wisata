@@ -3,7 +3,11 @@ import { Poppins, Volkhov, Caveat } from 'next/font/google';
 import './globals.css';
 import NextTopLoader from 'nextjs-toploader';
 import { cn } from '@repo/utils';
-import { companyName, webPrimaryColor } from '@repo/utils/constants';
+import {
+  companyDescription,
+  companyName,
+  webPrimaryColor,
+} from '@repo/utils/constants';
 import { env } from '@/env.mjs';
 
 const poppins = Poppins({
@@ -71,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@' + companyName.split(' ').join(''),
     title: companyName,
-    description: `Discover your dream vacation with ${companyName} - your trusted travel experts. Browse affordable packages, customize your trip with flexible booking options, and get personalized advice from our travel specialists. Whether it's a beach getaway, city break, or exotic adventure, we have the perfect vacation waiting for you. Book online today and start exploring.`,
+    description: companyDescription,
     images: [
       {
         url: `${env.NEXT_PUBLIC_BASE_URL}/images/logo.png`,

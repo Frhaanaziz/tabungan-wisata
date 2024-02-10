@@ -1,6 +1,5 @@
 import {
   CheckCircledIcon,
-  Cross1Icon,
   CrossCircledIcon,
   IdCardIcon,
   StopwatchIcon,
@@ -9,9 +8,11 @@ import { convertPaymentMethod } from '.';
 
 export const webPrimaryColor = '#2663E9';
 export const companyName = 'Tabungan Wisata';
+export const companyShortName = 'TW';
 export const companyContact = '6281234567890';
 export const companyEmail = 'support@aththariq.com';
 export const companyVideoUrl = 'https://www.youtube.com/watch?v=6v2L2UGZJAM';
+export const companyDescription = `Discover your dream vacation with ${companyName} - your trusted travel experts. Browse affordable packages, customize your trip with flexible booking options, and get personalized advice from our travel specialists. Whether it's a beach getaway, city break, or exotic adventure, we have the perfect vacation waiting for you. Book online today and start exploring.`;
 
 export const teamMembers = [
   {
