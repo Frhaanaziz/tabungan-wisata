@@ -388,9 +388,6 @@ importers:
       next-auth:
         specifier: ^4.24.5
         version: 4.24.5(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
-      next-recompose-plugins:
-        specifier: ^2.0.2
-        version: 2.0.2(next@14.1.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -6902,10 +6899,6 @@ packages:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
     dev: false
 
-  /is-promise@4.0.0:
-    resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
-    dev: false
-
   /is-reference@1.2.1:
     resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==}
     dependencies:
@@ -7480,17 +7473,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
-    dev: false
-
-  /next-recompose-plugins@2.0.2(next@14.1.0):
-    resolution: {integrity: sha512-AQw2nr8hzemq3SG6M5s1Th0/AeQpMAvlGrWUqQY9ojHJtlaIiW6Qq/cCskHQ9HM3c1qZvJVmdJApX2P7pPgewg==}
-    peerDependencies:
-      next: '>=11'
-    dependencies:
-      is-promise: 4.0.0
-      next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
-      semver: 7.6.0
-      take-n-pipe: 1.1.2
     dev: false
 
   /next-sitemap@4.2.3(next@14.1.0):
@@ -8944,10 +8926,6 @@ packages:
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
-
-  /take-n-pipe@1.1.2:
-    resolution: {integrity: sha512-PFkCips2WFAToQ6x+qcOKdOV6/OV28di1axYJzSkSuwWPOFjqflwFficMzNoxJwoKm2AcwmCMEgp+kgjWDVTUw==}
-    dev: false
 
   /tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
