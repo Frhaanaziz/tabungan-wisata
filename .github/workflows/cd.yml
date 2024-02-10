@@ -11,9 +11,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Alibaba Cloud
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +26,7 @@ jobs:
             source ~/.nvm/nvm.sh || true
             nvm use 20 || true
             cd /home/farhan/apps/tabungan-wisata || true
-            git stash -u || true
+            git reset --hard || true
             git pull origin main || true
             pnpm install || true
             pnpm run build || true
