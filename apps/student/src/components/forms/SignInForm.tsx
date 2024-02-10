@@ -160,7 +160,7 @@ const SignInForm = ({ callbackUrl, error }: Props) => {
         </div>
       </div>
 
-      <div className="">
+      <div>
         <Button
           className={"w-full gap-3"}
           variant={"outline"}
