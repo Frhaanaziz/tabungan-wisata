@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     },
     description: companyDescription,
   },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
