@@ -3,17 +3,12 @@ import { z } from "zod";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
-import { eventSchema } from "@repo/validators/event";
-import { fileSchema } from "@repo/validators/file";
+import { eventSchema, eventSchemaJoined } from "@repo/validators/event";
 
 export const eventRouter = createTRPCRouter({
   getOne: privateProcedure
     .input(z.string())
-    .output(
-      eventSchema.extend({
-        images: z.array(fileSchema),
-      }),
-    )
+    .output(eventSchemaJoined)
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
       const eventId = input;
@@ -29,6 +24,26 @@ export const eventRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get event",
+        });
+      }
+    }),
+
+  getHighlighted: privateProcedure
+    .output(z.array(eventSchema))
+    .query(async ({ ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result = await getBackendApi(accessToken, {
+          highlighted: "true",
+        }).get(`/events`);
+
+        return result.data;
+      } catch (error) {
+        console.error("eventRouter getHighlighted", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get highlighted events",
         });
       }
     }),
