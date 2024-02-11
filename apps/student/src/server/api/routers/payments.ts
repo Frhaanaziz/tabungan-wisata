@@ -5,6 +5,7 @@ import { getPaginatedDataSchema } from "@repo/validators";
 import { z } from "zod";
 import {
   addPaymentSchema,
+  paymentSchema,
   updatePaymentSchema,
 } from "@repo/validators/payment";
 import { baseUrl } from "@/lib/constant";
@@ -33,6 +34,7 @@ export const paymentRouter = createTRPCRouter({
 
   getAll: privateProcedure
     .input(z.object({ userId: z.string().cuid() }))
+    .output(z.array(paymentSchema))
     .query(async ({ input, ctx }) => {
       const { userId, ...rest } = input;
       const accessToken = ctx.session.accessToken;
