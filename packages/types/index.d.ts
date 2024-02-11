@@ -2,7 +2,7 @@ import type { z } from 'zod';
 import type { paginatedDataUtilsSchema } from '@repo/validators/index';
 import type { userSchema } from '@repo/validators/user';
 import type { schoolSchema } from '@repo/validators/school';
-import { eventSchema } from '@repo/validators/event';
+import { eventSchema, eventSchemaJoined } from '@repo/validators/event';
 import { paymentSchema } from '@repo/validators/payment';
 import { fileSchema } from '@repo/validators/file';
 import { withdrawalSchema } from '@repo/validators/withdrawal';
@@ -29,6 +29,7 @@ export type UsersPaginated = PaginatedDataUtils & {
 };
 
 export type Event = z.infer<typeof eventSchema>;
+export type EventJoined = z.infer<typeof eventSchemaJoined>;
 export type EventsPaginated = PaginatedDataUtils & {
   content: Event[];
 };
