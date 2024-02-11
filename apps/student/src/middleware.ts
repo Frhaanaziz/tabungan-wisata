@@ -12,6 +12,6 @@ const middleware = (req: NextRequestWithAuth) => {
 export default withAuth(middleware);
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|auth|images|icons).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|auth|monitoring|images|icons).*)",
   ],
 };
