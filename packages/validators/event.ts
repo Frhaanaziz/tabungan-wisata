@@ -28,12 +28,15 @@ export const eventSchema = z.object({
   cost: z.coerce.number().min(0),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
+});
+
+export const eventSchemaJoined = eventSchema.extend({
   images: z.array(fileSchema),
   itineraries: z.array(itinerarySchema),
 });
 
 export const addEventSchema = eventSchema
-  .omit({ id: true, itineraries: true, createdAt: true, updatedAt: true })
+  .omit({ id: true, createdAt: true, updatedAt: true })
   .extend({
     images: z.array(fileSchema.omit({ id: true })).min(1, {
       message: 'Please upload at least 1 image',
