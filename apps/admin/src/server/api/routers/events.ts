@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import {
   addEventSchema,
   eventSchema,
+  eventSchemaJoined,
   updateEventSchema,
 } from "@repo/validators/event";
 import { getPaginatedDataSchema } from "@repo/validators";
@@ -15,7 +16,7 @@ import { z } from "zod";
 export const eventRouter = createTRPCRouter({
   getById: adminProcedure
     .input(eventSchema.pick({ id: true }))
-    .output(eventSchema)
+    .output(eventSchemaJoined)
     .query(async ({ input, ctx }) => {
       const accessToken = ctx.session.accessToken;
 
