@@ -1,33 +1,29 @@
 import { companyName } from "@repo/utils/constants";
-import { Github, Instagram, Twitter, Youtube } from "lucide-react";
+import { cn } from "@ui/lib/utils";
+import { InstagramIcon, XIcon, YoutubeIcon } from "lucide-react";
 import Link from "next/link";
 
 const navigation = [
   {
     name: "Instagram",
-    href: "#",
-    icon: Instagram,
+    href: "https://instagram.com",
+    icon: InstagramIcon,
   },
   {
     name: "Twitter",
-    href: "#",
-    icon: Twitter,
-  },
-  {
-    name: "GitHub",
-    href: "#",
-    icon: Github,
+    href: "https://x.com",
+    icon: XIcon,
   },
   {
     name: "YouTube",
-    href: "#",
-    icon: Youtube,
+    href: "https://youtube.com",
+    icon: YoutubeIcon,
   },
 ];
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   return (
-    <footer className="border-t bg-background">
+    <footer className={cn("border-t bg-background", className)}>
       <div className="mx-auto max-w-7xl px-6 py-6 md:flex md:items-center md:justify-between lg:px-8">
         <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
