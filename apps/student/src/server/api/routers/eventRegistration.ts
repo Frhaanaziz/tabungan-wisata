@@ -11,7 +11,7 @@ export const eventRegistrationRouter = createTRPCRouter({
     .output(
       z.array(
         eventRegistrationSchema.extend({
-          event: eventSchema.omit({ images: true, itineraries: true }),
+          event: eventSchema,
         }),
       ),
     )
