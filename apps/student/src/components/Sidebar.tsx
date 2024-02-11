@@ -1,6 +1,11 @@
 "use client";
 
-import { Fragment, PropsWithChildren, useState } from "react";
+import { Fragment, useState } from "react";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@ui/components/shadcn/avatar";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { cn } from "@ui/lib/utils";
 import {
@@ -16,6 +21,9 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@ui/components/shadcn/button";
+import { Event, User } from "@repo/types";
+import { getInitials } from "@repo/utils";
+import { env } from "@/env";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon },
@@ -30,20 +38,24 @@ const navigation = [
     icon: BellDotIcon,
   },
 ];
+
 const userNavigation = [
   { name: "Your profile", href: "#" },
   { name: "Sign out", href: "#" },
 ];
-const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H" },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T" },
-  { id: 3, name: "Workcation", href: "#", initial: "W" },
-];
 
-const Sidebar = () => {
+type Props = {
+  events: Event[];
+  userSession: User;
+  highlightedEvents: Event[];
+};
+
+const Sidebar = ({ events, userSession, highlightedEvents }: Props) => {
   const pathName = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  console.log(pathName);
+
+  const popularEvents = highlightedEvents.slice(0, 3);
+
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -143,16 +155,16 @@ const Sidebar = () => {
                       </li>
                       <li>
                         <div className="text-xs font-semibold leading-6 text-muted-foreground">
-                          Your teams
+                          Your Events
                         </div>
                         <ul role="list" className="-mx-2 mt-2 space-y-1">
-                          {teams.map((team) => {
-                            const current = pathName === team.href;
+                          {events.map(({ name, id }) => {
+                            const current = pathName === `/events/${id}`;
 
                             return (
-                              <li key={team.name}>
+                              <li key={id}>
                                 <Link
-                                  href={team.href}
+                                  href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${id}`}
                                   className={cn(
                                     current
                                       ? "bg-muted text-primary"
@@ -168,9 +180,45 @@ const Sidebar = () => {
                                       "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-background text-[0.625rem] font-medium",
                                     )}
                                   >
-                                    {team.initial}
+                                    {name[0]}
                                   </span>
-                                  <span className="truncate">{team.name}</span>
+                                  <span className="truncate">{name}</span>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </li>
+                      <li>
+                        <div className="text-xs font-semibold leading-6 text-muted-foreground">
+                          Popular Events
+                        </div>
+                        <ul role="list" className="-mx-2 mt-2 space-y-1">
+                          {popularEvents.map(({ name, id }) => {
+                            const current = pathName === `/events/${id}`;
+
+                            return (
+                              <li key={id}>
+                                <Link
+                                  href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${id}`}
+                                  className={cn(
+                                    current
+                                      ? "bg-muted text-primary"
+                                      : "text-muted-foreground hover:bg-muted hover:text-primary",
+                                    "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
+                                  )}
+                                >
+                                  <span
+                                    className={cn(
+                                      current
+                                        ? "border-primary text-primary"
+                                        : "border-border text-muted-foreground group-hover:border-primary group-hover:text-primary",
+                                      "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-background text-[0.625rem] font-medium",
+                                    )}
+                                  >
+                                    {name[0]}
+                                  </span>
+                                  <span className="truncate">{name}</span>
                                 </Link>
                               </li>
                             );
@@ -245,16 +293,16 @@ const Sidebar = () => {
               </li>
               <li>
                 <div className="text-xs font-semibold leading-6 text-muted-foreground">
-                  Your teams
+                  Your Events
                 </div>
                 <ul role="list" className="-mx-2 mt-2 space-y-1">
-                  {teams.map((team) => {
-                    const current = pathName === team.href;
+                  {events.map(({ name, id }) => {
+                    const current = pathName === `/events/${id}`;
 
                     return (
-                      <li key={team.name}>
+                      <li key={id}>
                         <Link
-                          href={team.href}
+                          href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${id}`}
                           className={cn(
                             current
                               ? "bg-muted text-primary"
@@ -270,9 +318,45 @@ const Sidebar = () => {
                               "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-background text-[0.625rem] font-medium",
                             )}
                           >
-                            {team.initial}
+                            {name[0] ?? ""}
                           </span>
-                          <span className="truncate">{team.name}</span>
+                          <span className="truncate">{name}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+              <li>
+                <div className="text-xs font-semibold leading-6 text-muted-foreground">
+                  Popular Events
+                </div>
+                <ul role="list" className="-mx-2 mt-2 space-y-1">
+                  {popularEvents.map(({ name, id }) => {
+                    const current = pathName === `/events/${id}`;
+
+                    return (
+                      <li key={id}>
+                        <Link
+                          href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${id}`}
+                          className={cn(
+                            current
+                              ? "bg-muted text-primary"
+                              : "text-muted-foreground hover:bg-muted hover:text-primary",
+                            "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              current
+                                ? "border-primary text-primary"
+                                : "border-border text-muted-foreground group-hover:border-primary group-hover:text-primary",
+                              "flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border bg-background text-[0.625rem] font-medium",
+                            )}
+                          >
+                            {name[0] ?? ""}
+                          </span>
+                          <span className="truncate">{name}</span>
                         </Link>
                       </li>
                     );
@@ -333,17 +417,21 @@ const Sidebar = () => {
               <Menu as="div" className="relative">
                 <Menu.Button className="-m-1.5 flex items-center p-1.5">
                   <span className="sr-only">Open user menu</span>
-                  <img
-                    className="h-8 w-8 rounded-full bg-gray-50"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
+                  <Avatar>
+                    <AvatarImage
+                      src={userSession?.image ?? "/images/user.png"}
+                    />
+                    <AvatarFallback>
+                      {getInitials(userSession.name)}
+                    </AvatarFallback>
+                  </Avatar>
+
                   <span className="hidden lg:flex lg:items-center">
                     <span
                       className="ml-4 text-sm font-semibold leading-6 text-foreground"
                       aria-hidden="true"
                     >
-                      Tom Cook
+                      {userSession.name}
                     </span>
                     <ChevronDownIcon
                       className="ml-2 h-5 w-5 text-muted-foreground"
