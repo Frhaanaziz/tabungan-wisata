@@ -1,7 +1,7 @@
 import { getBackendApi } from '@/lib/axios';
 import { getNestErrorMessage } from '@repo/utils';
 import { z } from 'zod';
-import { eventSchema } from '@repo/validators/event';
+import { eventSchema, eventSchemaJoined } from '@repo/validators/event';
 import { paginatedDataUtilsSchema } from '@repo/validators';
 import * as Sentry from '@sentry/nextjs';
 import { headers } from 'next/headers';
@@ -48,7 +48,7 @@ export async function getEventsPaginatedAction(
     try {
       const { data } = await getBackendApi(undefined, paginate).get('/events');
       const eventsPaginated = paginatedDataUtilsSchema
-        .extend({ content: z.array(eventSchema) })
+        .extend({ content: z.array(eventSchemaJoined) })
         .parse(data);
 
       return { data: eventsPaginated, error: null };
