@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { checkSessionAction } from "../_actions";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { api } from "@/trpc/server";
+import Sidebar from "@/components/Sidebar";
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await checkSessionAction();
@@ -14,11 +14,8 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <Header
-        session={session}
-        eventRegistrations={eventRegistrations as any}
-      />
-      {children}
+      <Sidebar />
+      <main className="py-10 lg:pl-72">{children}</main>
       <Footer />
     </>
   );
