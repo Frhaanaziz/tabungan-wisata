@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <main className="container">
-      <section className="mt-10 grid-cols-5 items-center space-y-10 md:grid md:space-y-0">
+      <section className="grid-cols-5 items-center space-y-10 md:grid md:space-y-0">
         <div className="order-2 col-span-2">
           <AspectRatio ratio={3 / 2}>
             <Image src={"/images/frugality.jpg"} alt="frugality" fill />
@@ -48,9 +48,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="my-20">
+      <section className="mt-20">
         <DataTable
-          columns={paymentColumn}
+          columns={paymentColumn as any}
           data={userPayments}
           emptyMessage={"No transactions."}
         />
