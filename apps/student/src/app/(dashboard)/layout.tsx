@@ -8,15 +8,22 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await checkSessionAction();
   const schoolId = session.data.schoolId as string;
 
-  const eventRegistrations = await api.eventRegistration.getBySchoolId.query({
-    schoolId,
-  });
+  const [eventRegistrations, highlightedEvents] = await Promise.all([
+    api.eventRegistration.getBySchoolId.query({ schoolId }),
+    api.event.getHighlighted.query(),
+  ]);
+
+  const events = eventRegistrations.map((event) => event.event);
 
   return (
     <>
-      <Sidebar />
+      <Sidebar
+        events={events}
+        highlightedEvents={highlightedEvents}
+        userSession={session.data}
+      />
       <main className="py-10 lg:pl-72">{children}</main>
-      <Footer />
+      <Footer className="lg:pl-72" />
     </>
   );
 };
