@@ -24,12 +24,12 @@ import FormFieldWrapper from "./FormFieldWrapper";
 import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import RichTextEditor from "../RichTextEditor";
-import { Event } from "@repo/types";
+import { EventJoined } from "@repo/types";
 import { Checkbox } from "@ui/components/shadcn/checkbox";
 
 type UpdateEventType = z.infer<typeof updateEventSchema>;
 
-const UpdateEventForm = ({ event }: { event: Event }) => {
+const UpdateEventForm = ({ event }: { event: EventJoined }) => {
   const [isUploadingImage, setIsUploadingImage] = React.useState(false);
   const utils = api.useUtils();
 
