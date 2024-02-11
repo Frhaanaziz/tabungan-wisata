@@ -24,7 +24,7 @@ import { Separator } from '@ui/components/shadcn/separator';
 import { AspectRatio } from '@ui/components/shadcn/aspect-ratio';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Event } from '@repo/types';
+import { EventJoined } from '@repo/types';
 import GoogleMap from '@ui/components/GoogleMap';
 import BreadCrumbs from '@/components/common/BreadCrumbs';
 import SocialShare from '@/components/common/SocialShare';
@@ -43,7 +43,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = params.id;
   const res = await getBackendApi().get(`/events/${id}`);
-  const { highlight, name, images } = res.data as Event;
+  const { highlight, name, images } = res.data as EventJoined;
 
   return {
     title: name,
@@ -70,7 +70,7 @@ export async function generateStaticParams() {
 }
 
 const EventPage = async ({ params: { id } }: Props) => {
-  let event: Event | null = null;
+  let event: EventJoined | null = null;
   try {
     event = (await getBackendApi().get(`/events/${id}`)).data;
   } catch (error) {
