@@ -29,6 +29,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import NotificationIcon from "./NotificationIcon";
+import { api } from "@/trpc/react";
 
 type Notification = z.infer<typeof notificationSchema>;
 
@@ -55,11 +56,7 @@ const requestNotificationPermission = async ({
   if (permission === "granted") setIsNotificationPermissionGranted(true);
 };
 
-const sendNotification = async ({
-  notification,
-}: {
-  notification: Notification;
-}) => {
+const sendNotification = ({ notification }: { notification: Notification }) => {
   if (!("Notification" in window) || Notification.permission !== "granted")
     return;
 
@@ -85,6 +82,18 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
     (notification) => !notification.isRead,
   );
 
+  const { mutate: markAllNotification } =
+    api.notification.markAllNotification.useMutation({
+      onMutate() {
+        setNotifications(
+          notifications.map((notification) => ({
+            ...notification,
+            isRead: true,
+          })),
+        );
+      },
+    });
+
   useEffect(() => {
     async function requestNotification() {
       await requestNotificationPermission({
@@ -105,7 +114,9 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
       setNotifications(data);
     }
 
-    function handleNewNotification(data: Notification) {}
+    function handleNewNotification(notification: Notification) {
+      sendNotification({ notification });
+    }
 
     socket.on("recentNotifications", handleRecentNotifications);
     socket.on("newNotification", handleNewNotification);
@@ -140,6 +151,7 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
             variant={"ghost"}
             size={"icon"}
             disabled={!hasUnreadNotifications}
+            onClick={() => markAllNotification()}
             className="h-8 w-8"
           >
             <ListChecksIcon className="h-5 w-5" />
