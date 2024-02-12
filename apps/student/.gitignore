@@ -48,3 +48,4 @@ yarn-error.log*
 **/sw.js
 **/sw.js.map
 **/sw*.js
+**/sw*.js.map
