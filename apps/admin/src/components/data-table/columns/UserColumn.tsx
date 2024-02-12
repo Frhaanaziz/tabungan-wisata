@@ -1,16 +1,17 @@
 "use client";
 import type { ColumnDef } from "@tanstack/react-table";
 
-import type { User, UserRole } from "@repo/types";
+import type { User } from "@repo/types";
 import { formatDate, toRupiah } from "@repo/utils";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
 import { Badge } from "@ui/components/shadcn/badge";
+import { UserRole } from "@repo/validators/user";
 
 const roleVariants = {
   admin: "border-transparent bg-red-500 hover:bg-red-500/80",
   student: "border-transparent bg-green-500 hover:bg-green-500/80",
   teacher: "border-transparent bg-blue-500 hover:bg-blue-500/80",
-};
+} as const;
 
 export const userColumn: ColumnDef<User>[] = [
   {
