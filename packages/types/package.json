@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "files": [
-    "**/*.ts"
+    "**/*.ts",
+    "**/*.d.ts"
   ],
   "dependencies": {
     "zod": "^3.22.4"
