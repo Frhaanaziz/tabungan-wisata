@@ -44,14 +44,3 @@ export type WithdrawalsPaginated = PaginatedDataUtils & {
 export type Notification = z.infer<typeof notificationSchema>;
 
 export type File = z.infer<typeof fileSchema>;
-
-enum NotificationType {
-  transaction = 'transaction',
-  info = 'info',
-}
-
-enum PaymentStatus {
-  pending = 'pending',
-  completed = 'completed',
-  failed = 'failed',
-}
