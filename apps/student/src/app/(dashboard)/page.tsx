@@ -26,7 +26,13 @@ export default async function Home() {
       <section className="grid-cols-5 items-center space-y-10 md:grid md:space-y-0">
         <div className="order-2 col-span-2">
           <AspectRatio ratio={3 / 2}>
-            <Image src={"/images/frugality.jpg"} alt="frugality" fill />
+            <Image
+              src={"/images/frugality.jpg"}
+              alt="frugality"
+              priority
+              fill
+              sizes="50vw"
+            />
           </AspectRatio>
         </div>
 
