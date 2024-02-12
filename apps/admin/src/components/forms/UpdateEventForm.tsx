@@ -43,8 +43,7 @@ const UpdateEventForm = ({ event }: { event: EventJoined }) => {
     defaultValues,
   });
 
-  const { handleSubmit, control, formState, watch } = form;
-  console.log(watch("images"));
+  const { handleSubmit, control, formState } = form;
 
   const { fields, append, remove } = useFieldArray({
     name: "itineraries",
