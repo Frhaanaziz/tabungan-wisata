@@ -20,7 +20,7 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
       <Sidebar
         events={events}
         highlightedEvents={highlightedEvents}
-        userSession={session.data}
+        session={session}
       />
       <main className="py-10 lg:pl-72">{children}</main>
       <Footer className="lg:pl-72" />
