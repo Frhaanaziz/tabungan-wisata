@@ -129,6 +129,7 @@ const Sidebar = ({ events, session, highlightedEvents }: Props) => {
                               <li key={item.name}>
                                 <Link
                                   href={item.href}
+                                  onClick={() => setSidebarOpen(false)}
                                   className={cn(
                                     current
                                       ? "bg-muted text-primary"
