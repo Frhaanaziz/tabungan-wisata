@@ -101,6 +101,57 @@ export function formatDateWithTime(date: Date | string | number): string {
   }).format(new Date(date));
 }
 
+export function getRelativeTimeString(date: Date | number | string): string {
+  // Allow dates or times to be passed
+  const timeMs =
+    typeof date === 'number'
+      ? date
+      : typeof date === 'string'
+        ? new Date(date).getTime()
+        : date.getTime();
+
+  // Get the amount of seconds between the given date and now
+  const deltaSeconds = Math.round((timeMs - Date.now()) / 1000);
+
+  // Array reprsenting one minute, hour, day, week, month, etc in seconds
+  const cutoffs = [
+    60,
+    3600,
+    86400,
+    86400 * 7,
+    86400 * 30,
+    86400 * 365,
+    Infinity,
+  ];
+
+  // Array equivalent to the above but in the string representation of the units
+  const units: Intl.RelativeTimeFormatUnit[] = [
+    'second',
+    'minute',
+    'hour',
+    'day',
+    'week',
+    'month',
+    'year',
+  ];
+
+  // Grab the ideal cutoff unit
+  const unitIndex = cutoffs.findIndex(
+    (cutoff) => cutoff > Math.abs(deltaSeconds)
+  );
+
+  // Get the divisor to divide from the seconds. E.g. if our unit is "day" our divisor
+  // is one day in seconds, so we can divide our seconds by this to get the # of days
+  const divisor = unitIndex ? cutoffs[unitIndex - 1] : 1;
+
+  // Intl.RelativeTimeFormat do its magic
+  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  return rtf.format(
+    Math.floor(deltaSeconds / (divisor || 1)),
+    units[unitIndex] ?? 'second'
+  );
+}
+
 export function toRupiah(amount: number): string {
   if (!amount) return 'Rp 0';
   return 'Rp ' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
