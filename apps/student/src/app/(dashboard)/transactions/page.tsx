@@ -2,7 +2,7 @@ import { checkSessionAction } from "@/app/_actions";
 import TopUpButton from "@/components/TopUpButton";
 import { paymentColumn } from "@/components/data-table/columns/PaymentColumn";
 import { api } from "@/trpc/server";
-import { PaymentStatus } from "@repo/types";
+import { PaymentStatus } from "@repo/validators/payment";
 import { DataTable } from "@ui/components/table/data-table";
 import { cn } from "@ui/lib/utils";
 import { ScrollTextIcon } from "lucide-react";
