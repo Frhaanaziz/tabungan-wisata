@@ -61,11 +61,6 @@ export default async function Home() {
           emptyMessage={"No transactions."}
         />
       </section>
-      {/* <PaymentsTableSection
-        initialData={initialData}
-        userId={user.id}
-        page={parseInt(page)}
-      /> */}
     </main>
   );
 }
