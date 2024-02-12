@@ -1,7 +1,7 @@
 import { getBackendApi } from '@/lib/axios';
 import { getNestErrorMessage } from '@repo/utils';
 import { z } from 'zod';
-import { eventSchema, eventSchemaJoined } from '@repo/validators/event';
+import { eventSchemaJoined } from '@repo/validators/event';
 import { paginatedDataUtilsSchema } from '@repo/validators';
 import * as Sentry from '@sentry/nextjs';
 import { headers } from 'next/headers';
@@ -24,7 +24,7 @@ export async function getEventsAction(input: { highlighted?: boolean } = {}) {
   return await withSentryServerAction('getEventsAction', async () => {
     try {
       const { data } = await getBackendApi(undefined, input).get('/events');
-      const events = z.array(eventSchema).parse(data);
+      const events = z.array(eventSchemaJoined).parse(data);
 
       return { data: events, error: null };
     } catch (error) {
