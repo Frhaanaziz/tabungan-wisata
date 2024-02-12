@@ -10,7 +10,6 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import { cn } from "@ui/lib/utils";
 import {
   BellDotIcon,
-  BellIcon,
   ChevronDownIcon,
   CreditCardIcon,
   HomeIcon,
@@ -21,9 +20,12 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@ui/components/shadcn/button";
-import { Event, User } from "@repo/types";
+import { Event } from "@repo/types";
 import { getInitials } from "@repo/utils";
 import { env } from "@/env";
+import Notifications from "./Notifications";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon },
@@ -39,18 +41,15 @@ const navigation = [
   },
 ];
 
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
-];
-
 type Props = {
   events: Event[];
-  userSession: User;
+  session: Session;
   highlightedEvents: Event[];
 };
 
-const Sidebar = ({ events, userSession, highlightedEvents }: Props) => {
+const Sidebar = ({ events, session, highlightedEvents }: Props) => {
+  const userSession = session.data;
+
   const pathName = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -398,14 +397,7 @@ const Sidebar = ({ events, userSession, highlightedEvents }: Props) => {
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex-1" />
             <div className="flex items-center gap-x-4 lg:gap-x-6">
-              <Button
-                variant={"ghost"}
-                type="button"
-                className="-m-2.5 p-2.5 text-muted-foreground hover:text-primary"
-              >
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
-              </Button>
+              <Notifications accessToken={session.accessToken} />
 
               {/* Separator */}
               <div
@@ -449,21 +441,19 @@ const Sidebar = ({ events, userSession, highlightedEvents }: Props) => {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-background py-2 shadow-lg ring-1 ring-border focus:outline-none">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
-                        {({ active }) => (
-                          <Link
-                            href={item.href}
-                            className={cn(
-                              active ? "bg-muted" : "",
-                              "block px-3 py-1 text-sm leading-6 text-muted-foreground",
-                            )}
-                          >
-                            {item.name}
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    ))}
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={() => signOut()}
+                          className={cn(
+                            active ? "bg-muted" : "",
+                            "block w-full px-3 py-1 text-start text-sm leading-6 text-muted-foreground",
+                          )}
+                        >
+                          Sign out
+                        </button>
+                      )}
+                    </Menu.Item>
                   </Menu.Items>
                 </Transition>
               </Menu>
