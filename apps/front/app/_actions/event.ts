@@ -5,6 +5,7 @@ import { eventSchemaJoined } from '@repo/validators/event';
 import { paginatedDataUtilsSchema } from '@repo/validators';
 import * as Sentry from '@sentry/nextjs';
 import { headers } from 'next/headers';
+import { EventJoined } from '@repo/types';
 
 async function withSentryServerAction<T>(
   actionName: string,
@@ -24,9 +25,8 @@ export async function getEventsAction(input: { highlighted?: boolean } = {}) {
   return await withSentryServerAction('getEventsAction', async () => {
     try {
       const { data } = await getBackendApi(undefined, input).get('/events');
-      const events = z.array(eventSchemaJoined).parse(data);
 
-      return { data: events, error: null };
+      return { data: data as EventJoined[], error: null };
     } catch (error) {
       console.error('getEventsAction', error);
       return { data: null, error: getNestErrorMessage(error) };
