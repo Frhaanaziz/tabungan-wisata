@@ -7,12 +7,7 @@ import { paymentSchema } from '@repo/validators/payment';
 import { fileSchema } from '@repo/validators/file';
 import { withdrawalSchema } from '@repo/validators/withdrawal';
 import { eventRegistrationSchema } from '@repo/validators/eventRegistration';
-
-export enum UserRole {
-  admin = 'admin',
-  student = 'student',
-  teacher = 'teacher',
-}
+import { notificationSchema } from '@repo/validators/notification';
 
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
@@ -46,4 +41,17 @@ export type WithdrawalsPaginated = PaginatedDataUtils & {
   content: Withdrawal[];
 };
 
+export type Notification = z.infer<typeof notificationSchema>;
+
 export type File = z.infer<typeof fileSchema>;
+
+enum NotificationType {
+  transaction = 'transaction',
+  info = 'info',
+}
+
+enum PaymentStatus {
+  pending = 'pending',
+  completed = 'completed',
+  failed = 'failed',
+}
