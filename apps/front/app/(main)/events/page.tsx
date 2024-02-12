@@ -13,6 +13,7 @@ import { Suspense } from 'react';
 import HeadingSection from '@/components/sections/HeadingSection';
 import RichText from '@/components/common/RichText';
 import { Metadata } from 'next';
+import BlurImage from '@/components/common/BlurImage';
 
 export const metadata: Metadata = {
   title: 'Event listing',
@@ -74,12 +75,16 @@ const EventsPage = async ({
                 ({ id, imageUrl, title, highlight, duration, amount }) => (
                   <Link key={id} href={`/events/${id}`}>
                     <div className="p-5 shadow-md rounded-medium">
-                      <AspectRatio ratio={3 / 2}>
-                        <Image
-                          className="object-cover rounded-medium"
+                      <AspectRatio
+                        ratio={3 / 2}
+                        className="overflow-hidden rounded-medium"
+                      >
+                        <BlurImage
+                          className="object-cover"
                           src={imageUrl}
                           alt={title}
                           fill
+                          sizes="75vw"
                         />
                       </AspectRatio>
                       <h3 className="text-lg font-bold my-3 tracking-wide">
