@@ -27,7 +27,7 @@ jobs:
             source ~/.nvm/nvm.sh || true
             nvm use 20 || true
             cd /home/farhan/apps/tabungan-wisata || true
-            git reset --hard || true
+            git clean -f || true
             git pull origin main || true
             pnpm install || true
             pnpm run build || true
