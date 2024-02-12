@@ -12,7 +12,6 @@ const PaymentsPage = async () => {
     <>
       <HeadingNoAction text="Payments" />
 
-      {/* <PaymentsTableSection page={parseInt(page)} initialData={initialData} /> */}
       <DataTable columns={paymentColumn} data={data} searchBy="name" />
     </>
   );
