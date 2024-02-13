@@ -13,7 +13,7 @@ async function TopSellingSection() {
     data
       .map((event) => ({
         id: event.id,
-        imageUrl: event.images.at(1)?.url ?? '/',
+        imageUrl: event.images.at(0)?.url ?? '/',
         title: truncate(event.name, 23),
         amount: toRupiahSuffix(event.cost),
         duration: `${event.duration} Days Trip`,
