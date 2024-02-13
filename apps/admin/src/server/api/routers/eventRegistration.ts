@@ -1,7 +1,10 @@
 import { createTRPCRouter, adminProcedure } from "@/server/api/trpc";
 import { getBackendApi } from "@/lib/axios";
 import { TRPCError } from "@trpc/server";
-import { addEventRegistrationSchema } from "@repo/validators/eventRegistration";
+import {
+  addEventRegistrationSchema,
+  updateEventRegistrationSchema,
+} from "@repo/validators/eventRegistration";
 import { getPaginatedDataSchema } from "@repo/validators";
 
 export const eventRegistrationRouter = createTRPCRouter({
@@ -45,6 +48,28 @@ export const eventRegistrationRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to create event registration",
+        });
+      }
+    }),
+
+  update: adminProcedure
+    .input(updateEventRegistrationSchema)
+    .mutation(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+      const { id, ...rest } = input;
+
+      try {
+        const result = await getBackendApi(accessToken).put(
+          `/event-registrations/${id}`,
+          rest,
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("eventRegistrationRouter update", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to update event registration",
         });
       }
     }),
