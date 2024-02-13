@@ -15,8 +15,8 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="container grid min-h-[calc(100vh-105px-112px)] max-w-[1600px] grid-cols-5 gap-10">
-      <section className="col-span-2 space-y-10">
+    <div className="container grid min-h-[calc(100vh-105px-112px)] max-w-[1600px] grid-cols-1 gap-10 xl:grid-cols-5">
+      <section className="space-y-10 xl:col-span-2">
         <DashboardQuickAccess eventRegistrations={eventRegistrations} />
 
         <div className="space-y-2">
@@ -28,7 +28,10 @@ export default async function Home() {
                 currency: "IDR",
               })}
             </p>
-            <Link href={"/transactions"} className="block text-sm text-primary">
+            <Link
+              href={"/transactions"}
+              className="hidden text-sm text-primary md:block"
+            >
               View Transactions
             </Link>
           </div>
@@ -42,7 +45,7 @@ export default async function Home() {
         <DashboardEventTimeout eventRegistrations={eventRegistrations} />
       </section>
 
-      <section className="col-span-3 space-y-10">
+      <section className="space-y-10 xl:col-span-3">
         <DashboardAreaChart balance={balance} />
 
         <DashboardRecentTransactions />
