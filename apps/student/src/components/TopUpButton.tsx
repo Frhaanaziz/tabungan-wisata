@@ -31,7 +31,12 @@ import { useSnap } from "@/lib/hooks/useSnap";
 
 type AddPaymentType = z.infer<typeof addPaymentSchema>;
 
-const TopUpButton = ({ userId }: { userId: string }) => {
+interface Props {
+  userId: string;
+  TriggerComponent?: JSX.Element;
+}
+
+const TopUpButton = ({ userId, TriggerComponent }: Props) => {
   const toastId = React.useId();
   const { snapPopUp } = useSnap();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -63,7 +68,12 @@ const TopUpButton = ({ userId }: { userId: string }) => {
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger className={buttonVariants()}>Top up</DialogTrigger>
+      <DialogTrigger
+        className={!!TriggerComponent ? "" : buttonVariants()}
+        asChild={!!TriggerComponent}
+      >
+        {TriggerComponent ? TriggerComponent : "Top Up"}
+      </DialogTrigger>
       <DialogContent>
         <Form {...form}>
           <form
