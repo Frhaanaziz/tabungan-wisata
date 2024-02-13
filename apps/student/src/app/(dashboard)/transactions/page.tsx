@@ -10,7 +10,7 @@ import { ScrollTextIcon } from "lucide-react";
 const Transactions = async () => {
   const user = (await checkSessionAction()).data;
 
-  const userPayments = await api.payment.getAll.query({ userId: user.id });
+  const userPayments = await api.user.getAllPayments.query({});
   const totalTransactions = userPayments.length;
   const completedTransactions = userPayments.filter(
     (payment) => payment.status === PaymentStatus.completed,
