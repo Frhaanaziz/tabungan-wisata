@@ -26,7 +26,7 @@ import {
 
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
-import { cn } from "@repo/utils";
+import { cn, getErrorMessage } from "@repo/utils";
 import { Calendar } from "@ui/components/shadcn/calendar";
 import { Input } from "@ui/components/shadcn/input";
 import SubmitButton from "../SubmitButton";
@@ -71,7 +71,7 @@ const AddEventRegistrationForm = () => {
       await utils.eventRegistration.invalidate();
     },
     onError: (err) => {
-      toast.error(err.message);
+      toast.error(getErrorMessage(err));
     },
   });
 
