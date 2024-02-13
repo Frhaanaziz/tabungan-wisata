@@ -176,24 +176,6 @@ export function getCloudinaryPublicId(imageUrl: string): string | undefined {
   return parts[parts.length - 1]?.split('.')[0];
 }
 
-export function greeting(): string {
-  let currentHour = new Date().getHours();
-
-  let greetingText;
-
-  if (currentHour < 12) {
-    greetingText = 'morning';
-  } else if (currentHour < 17) {
-    greetingText = 'afternoon';
-  } else if (currentHour < 22) {
-    greetingText = 'evening';
-  } else {
-    greetingText = 'night';
-  }
-
-  return greetingText;
-}
-
 export function getFirstName(fullName: string): string {
   if (!fullName) return '';
 
@@ -257,4 +239,34 @@ export function getDaysBetweenDates(
   );
 
   return diffDays;
+}
+
+export function formatDateToShortMonthDay(isoDateString: string | Date) {
+  // Buat objek Date dari string ISO
+  const date = new Date(isoDateString);
+
+  // Daftar nama bulan dalam bahasa Inggris
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  // Ambil bulan dan tanggal dari objek Date
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+
+  // Gabungkan bulan dan tanggal
+  const formattedDate = `${month} ${day}`;
+
+  return formattedDate;
 }
