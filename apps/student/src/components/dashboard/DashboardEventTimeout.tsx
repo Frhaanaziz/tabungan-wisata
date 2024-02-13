@@ -39,7 +39,7 @@ const DashboardEventTimeout = ({ eventRegistrations }: Props) => {
   // Hitung persentase progress (dibulatkan ke bilangan bulat)
   const progressValue = Math.round((daysPassed / totalDays) * 100);
   return (
-    <Card className="flex items-center gap-5">
+    <Card className="flex flex-col items-center gap-5 md:flex-row">
       <ProgressCircle value={progressValue} size="xl">
         <span className="font-medium text-slate-700">
           {daysLeft < 0 ? 0 : daysLeft} {daysLeft === 1 ? "day" : "days"} left
