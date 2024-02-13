@@ -16,7 +16,7 @@ const DashboardQuickAccess = async ({ eventRegistrations }: Props) => {
   return (
     <>
       <h2 className="mb-5 text-xl font-semibold">Quick Access</h2>
-      <div className="grid grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-10">
         <TopUpButton
           userId={user.id}
           TriggerComponent={
