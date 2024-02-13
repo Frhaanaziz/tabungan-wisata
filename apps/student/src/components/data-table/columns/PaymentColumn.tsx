@@ -4,11 +4,12 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Payment } from "@repo/types";
 import {
   convertPaymentMethod,
-  formatDateWithTime,
+  getRelativeTimeString,
   toRupiah,
 } from "@repo/utils";
 import { Badge } from "@ui/components/shadcn/badge";
 import { DataTableColumnHeader } from "@ui/components/table/data-table-column-header";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ui/components/shadcn/hover-card";
 
 const paymentStatusClass = {
   pending: "bg-yellow-500 hover:bg-yellow-500",
@@ -60,6 +61,17 @@ export const paymentColumn: ColumnDef<Payment>[] = [
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Created At" />;
     },
-    cell: ({ row }) => <div>{formatDateWithTime(row.getValue("createdAt"))}</div>,
+    cell: ({ row }) => (
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <p className="inline-block hover:underline">
+            {getRelativeTimeString(row.getValue("createdAt"))}
+          </p>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-fit p-1.5 text-xs">
+          {new Date(row.getValue("createdAt")).toLocaleString()}
+        </HoverCardContent>
+      </HoverCard>
+    ),
   },
 ];
