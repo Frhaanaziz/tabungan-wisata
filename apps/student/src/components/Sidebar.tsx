@@ -28,16 +28,18 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: HomeIcon },
+  { name: "Dashboard", href: "/", icon: HomeIcon, title: "Dashboard Overview" },
   {
     name: "Transactions",
     href: "/transactions",
     icon: CreditCardIcon,
+    title: "",
   },
   {
     name: "Notifications",
     href: "/notifications",
     icon: BellDotIcon,
+    title: "",
   },
 ];
 
@@ -54,6 +56,8 @@ const Sidebar = ({ events, session, highlightedEvents }: Props) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const popularEvents = highlightedEvents.slice(0, 3);
+
+  const title = navigation.find((item) => item.href === pathName)?.title ?? "";
 
   return (
     <>
@@ -394,6 +398,8 @@ const Sidebar = ({ events, session, highlightedEvents }: Props) => {
 
           {/* Separator */}
           <div className="h-6 w-px bg-border lg:hidden" aria-hidden="true" />
+
+          <h1 className="hidden font-semibold sm:block">{title}</h1>
 
           <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
             <div className="flex-1" />
