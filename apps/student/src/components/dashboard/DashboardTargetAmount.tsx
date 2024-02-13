@@ -12,6 +12,8 @@ const DashboardTargetAmount = async ({
   balance,
   eventRegistrations,
 }: Props) => {
+  if (!eventRegistrations.length) return null;
+
   const targetAmount = eventRegistrations.reduce(
     (acc, registration) => acc + registration.cost,
     0,
