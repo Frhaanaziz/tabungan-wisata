@@ -10,10 +10,12 @@ export const eventRegistrationSchema = z.object({
   createdAt: z.coerce.date(),
 });
 
-export const addEventRegistrationSchema = eventRegistrationSchema.pick({
-  eventId: true,
+export const addEventRegistrationSchema = eventRegistrationSchema.omit({
+  id: true,
+  createdAt: true,
+});
+
+export const updateEventRegistrationSchema = eventRegistrationSchema.omit({
+  createdAt: true,
   schoolId: true,
-  startDate: true,
-  endDate: true,
-  cost: true,
 });
