@@ -101,7 +101,7 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
               return (
                 <DropdownMenuItem
                   key={id}
-                  className="relative flex items-center gap-3 py-2"
+                  className="relative flex items-center gap-3 py-2 pr-8"
                 >
                   <NotificationIcon type={type} status={status} />
                   <div className="space-y-1">
