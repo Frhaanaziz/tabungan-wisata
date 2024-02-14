@@ -18,8 +18,9 @@ const DashboardTargetAmount = async ({
     (acc, registration) => acc + registration.cost,
     0,
   );
-  const progress = (balance / targetAmount) * 100;
-  const amountLeft = targetAmount - balance;
+  const progress =
+    (balance / targetAmount) * 100 > 100 ? 100 : (balance / targetAmount) * 100;
+  const amountLeft = targetAmount - balance < 0 ? 0 : targetAmount - balance;
 
   return (
     <Card>
