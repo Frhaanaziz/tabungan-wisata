@@ -7,7 +7,6 @@ interface Props {
 }
 
 const DashboardEventTimeout = ({ eventRegistrations }: Props) => {
-  console.log(eventRegistrations);
   const nearestEvent = eventRegistrations.sort(
     (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
   )[0];
