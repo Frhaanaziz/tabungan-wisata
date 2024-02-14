@@ -14,7 +14,7 @@ const NotificationIcon = ({
   isRead,
 }: {
   type: NotificationType;
-  status: PaymentStatus | undefined;
+  status: PaymentStatus | null | undefined;
   isRead?: boolean;
 }) => {
   if (type === NotificationType.info) {
