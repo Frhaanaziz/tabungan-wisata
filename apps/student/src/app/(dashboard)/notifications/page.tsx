@@ -1,3 +1,4 @@
+import MarkAllNotificationButton from "@/components/MarkAllNotificationButton";
 import { SearchDataTable } from "@/components/data-table/SearchDataTable";
 import { notificationColumn } from "@/components/data-table/columns/NotificationColumn";
 import { api } from "@/trpc/server";
@@ -18,13 +19,22 @@ const NotificationsPage = async ({
 
   const { content, ...utils } = data;
 
+  const hasUnreadNotifications = content.some(
+    (notification) => !notification.isRead,
+  );
+
   return (
     <div className="container min-h-[calc(100vh-105px-112px)]">
-      <header>
-        <h1 className="text-2xl font-bold">Notifications</h1>
-        <p className="text-muted-foreground">
-          Stay up-to-date on transactions, alerts, and other updates.
-        </p>
+      <header className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">Notifications</h1>
+          <p className="text-muted-foreground">
+            Stay up-to-date on transactions, alerts, and other updates.
+          </p>
+        </div>
+        <MarkAllNotificationButton
+          hasUnreadNotifications={hasUnreadNotifications}
+        />
       </header>
 
       <section className="mt-16">
