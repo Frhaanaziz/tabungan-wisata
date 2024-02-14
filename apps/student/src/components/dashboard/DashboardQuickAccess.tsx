@@ -5,12 +5,16 @@ import QuickAccessCard from "./QuickAccessCard";
 import { env } from "@/env";
 import { Event, EventRegistration, User } from "@repo/types";
 
-type Props = { eventRegistrations: (EventRegistration & { event: Event })[], user: User };
+type Props = {
+  eventRegistrations: (EventRegistration & { event: Event })[];
+  user: User;
+};
 
 const DashboardQuickAccess = async ({ eventRegistrations, user }: Props) => {
   const nearestEvent = eventRegistrations.sort(
     (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
   )[0];
+  const event = nearestEvent?.event;
 
   return (
     <>
@@ -36,9 +40,9 @@ const DashboardQuickAccess = async ({ eventRegistrations, user }: Props) => {
           />
         </Link>
 
-        {nearestEvent && (
+        {event && (
           <Link
-            href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${nearestEvent.id}`}
+            href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${event.id}`}
             target="_blank"
           >
             <QuickAccessCard
