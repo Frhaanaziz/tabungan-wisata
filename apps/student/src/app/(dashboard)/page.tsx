@@ -5,19 +5,25 @@ import DashboardRecentTransactions from "@/components/dashboard/DashboardRecentT
 import DashboardTargetAmount from "@/components/dashboard/DashboardTargetAmount";
 import { api } from "@/trpc/server";
 import Link from "next/link";
+import { checkSessionAction } from "../_actions";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [balance, eventRegistrations] = await Promise.all([
+  const [balance, eventRegistrations, session] = await Promise.all([
     api.user.getBalance.query(),
     api.school.getEventRegistrations.query(),
+    checkSessionAction(),
   ]);
+  const user = session.data;
 
   return (
     <div className="container grid min-h-[calc(100vh-105px-112px)] max-w-[1600px] grid-cols-1 gap-10 xl:grid-cols-5">
       <section className="space-y-10 xl:col-span-2">
-        <DashboardQuickAccess eventRegistrations={eventRegistrations} />
+        <DashboardQuickAccess
+          eventRegistrations={eventRegistrations}
+          user={user}
+        />
 
         <div className="space-y-2">
           <h3>Your balance</h3>
@@ -42,13 +48,22 @@ export default async function Home() {
           eventRegistrations={eventRegistrations}
         />
 
-        <DashboardEventTimeout eventRegistrations={eventRegistrations} />
+        {eventRegistrations.map((eventRegistration) => (
+          <DashboardEventTimeout
+            key={eventRegistration.id}
+            eventRegistration={eventRegistration}
+          />
+        ))}
       </section>
 
       <section className="space-y-10 xl:col-span-3">
-        <DashboardAreaChart balance={balance} />
+        <DashboardAreaChart
+          balance={balance}
+          eventRegistrations={eventRegistrations}
+          user={user}
+        />
 
-        <DashboardRecentTransactions />
+        <DashboardRecentTransactions user={user} />
       </section>
     </div>
   );
