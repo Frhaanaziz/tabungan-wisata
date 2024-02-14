@@ -2,10 +2,9 @@ import { api } from "@/trpc/server";
 import { redirect } from "next/navigation";
 import { DataTable } from "@ui/components/table/data-table";
 import { paymentColumn } from "@/components/data-table/columns/PaymentColumn";
-import { checkSessionAction } from "@/app/_actions";
+import { User } from "@repo/types";
 
-const DashboardRecentTransactions = async () => {
-  const { data: user } = await checkSessionAction();
+const DashboardRecentTransactions = async ({user}: {user: User}) => {
   if (!user.schoolId) redirect("/auth/school");
 
   const [userPayments] = await Promise.all([api.user.getAllPayments.query({})]);
