@@ -173,7 +173,7 @@ export default async function Home() {
                             </p>
                           </div>
                           <div className="ml-auto font-medium">
-                            +{toRupiah(amount)}
+                            {toRupiah(amount)}
                           </div>
                         </div>
                       ))}
