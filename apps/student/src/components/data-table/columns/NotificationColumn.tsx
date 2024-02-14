@@ -19,11 +19,11 @@ export const notificationColumn: ColumnDef<Notification>[] = [
       return <DataTableColumnHeader column={column} title="Amount" />;
     },
     cell: ({ row }) => {
-      const { message, type, status, createdAt } = row.original;
+      const { message, type, status, createdAt, isRead } = row.original;
 
       return (
         <div className="flex items-center gap-3">
-          <NotificationIcon type={type} status={status} />
+          <NotificationIcon type={type} status={status} isRead={isRead} />
           <div className="space-y-1">
             <p className="truncate">{message}</p>
 
