@@ -11,7 +11,9 @@ type Props = { eventRegistrations: (EventRegistration & { event: Event })[] };
 const DashboardQuickAccess = async ({ eventRegistrations }: Props) => {
   const user = (await checkSessionAction()).data;
 
-  const event = eventRegistrations.find((registration) => registration.event);
+  const nearestEvent = eventRegistrations.sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+  )[0];
 
   return (
     <>
@@ -37,9 +39,9 @@ const DashboardQuickAccess = async ({ eventRegistrations }: Props) => {
           />
         </Link>
 
-        {event && (
+        {nearestEvent && (
           <Link
-            href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${event.id}`}
+            href={`${env.NEXT_PUBLIC_FRONT_URL}/events/${nearestEvent.id}`}
             target="_blank"
           >
             <QuickAccessCard
