@@ -1,14 +1,20 @@
 "use client";
 import { AreaChart, CustomTooltipProps } from "@tremor/react";
 import { toRupiah, toRupiahSuffix } from "@repo/utils";
+import { EventRegistration } from "@repo/types";
 
-const BalanceAreaChart = ({
-  data,
-  balance,
-}: {
+type Props = {
   data: any;
   balance: number;
-}) => {
+  eventRegistrations: EventRegistration[];
+};
+
+const BalanceAreaChart = ({ data, balance, eventRegistrations }: Props) => {
+  const totalCost = eventRegistrations.reduce(
+    (acc, curr) => acc + curr.cost,
+    0,
+  );
+
   const customTooltip = (props: CustomTooltipProps) => {
     const { payload, active } = props;
     if (!active || !payload) return null;
@@ -45,6 +51,7 @@ const BalanceAreaChart = ({
         yAxisWidth={60}
         showAnimation
         showGradient
+        maxValue={totalCost}
         noDataText="No transaction available."
         valueFormatter={(value: number) => toRupiahSuffix(value)}
         customTooltip={customTooltip}
