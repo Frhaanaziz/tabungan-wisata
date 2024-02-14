@@ -3,14 +3,11 @@ import Link from "next/link";
 import TopUpButton from "../TopUpButton";
 import QuickAccessCard from "./QuickAccessCard";
 import { env } from "@/env";
-import { checkSessionAction } from "@/app/_actions";
-import { Event, EventRegistration } from "@repo/types";
+import { Event, EventRegistration, User } from "@repo/types";
 
-type Props = { eventRegistrations: (EventRegistration & { event: Event })[] };
+type Props = { eventRegistrations: (EventRegistration & { event: Event })[], user: User };
 
-const DashboardQuickAccess = async ({ eventRegistrations }: Props) => {
-  const user = (await checkSessionAction()).data;
-
+const DashboardQuickAccess = async ({ eventRegistrations, user }: Props) => {
   const nearestEvent = eventRegistrations.sort(
     (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
   )[0];
