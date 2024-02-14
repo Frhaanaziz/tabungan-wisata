@@ -11,7 +11,7 @@ export const notificationSchema = z.object({
   message: z.string(),
   isRead: z.boolean(),
   type: z.nativeEnum(NotificationType),
-  status: z.nativeEnum(PaymentStatus).optional(),
+  status: z.nativeEnum(PaymentStatus).optional().nullable(),
   userId: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
