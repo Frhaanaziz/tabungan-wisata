@@ -81,7 +81,7 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="min-w-96">
+        <DropdownMenuContent align="end" className="min-w-96 max-w-[375px]">
           <DropdownMenuLabel className="flex items-center justify-between gap-5">
             <span>Notifications</span>
             <Button
@@ -101,9 +101,13 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
               return (
                 <DropdownMenuItem
                   key={id}
-                  className="relative flex items-center gap-3 py-2 pr-8"
+                  className="relative flex items-center gap-3 py-2"
                 >
-                  <NotificationIcon type={type} status={status} />
+                  <NotificationIcon
+                    type={type}
+                    status={status}
+                    isRead={isRead}
+                  />
                   <div className="space-y-1">
                     <p className="truncate">{message}</p>
 
@@ -118,9 +122,6 @@ const Notifications = ({ accessToken }: { accessToken: string }) => {
                       </HoverCardContent>
                     </HoverCard>
                   </div>
-                  {!isRead && (
-                    <span className="absolute right-3 top-1/2 h-1.5 w-1.5 rounded-full bg-red-500" />
-                  )}
                 </DropdownMenuItem>
               );
             },
