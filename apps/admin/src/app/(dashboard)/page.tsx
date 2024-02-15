@@ -28,25 +28,27 @@ export default async function Home() {
   const [
     totalUsers,
     totalUserOneMonth,
-    totalTransactionOneMonth,
-    totalEventsOneMonth,
-    eventGrowth,
     userGrowth,
+    usersGrowthCount,
+    totalTransactionOneMonth,
     revenueGrowth,
     revenueOneMonth,
-    usersGrowthCount,
     recentTransactions,
+    paymentsOverview,
+    totalEventsOneMonth,
+    eventGrowth,
   ] = await Promise.all([
     api.user.getTotalUsers.query(),
     api.user.getCountNewUsers.query({ days: 30 }),
-    api.payment.getCountNewPayments.query({ days: 30 }),
-    api.event.getCountNewEvents.query({ days: 30 }),
-    api.event.getGrowthPercentage.query(),
     api.user.getGrowthPercentage.query(),
+    api.user.getGrowthCount.query({ days: 7 }),
+    api.payment.getCountNewPayments.query({ days: 30 }),
     api.payment.getGrowthPercentage.query(),
     api.payment.getRevenue.query({ days: 30 }),
-    api.user.getGrowthCount.query({ days: 7 }),
     api.payment.getCompletedPayments.query({ take: 5 }),
+    api.payment.getOverview.query(),
+    api.event.getCountNewEvents.query({ days: 30 }),
+    api.event.getGrowthPercentage.query(),
   ]);
 
   return (
@@ -140,7 +142,7 @@ export default async function Home() {
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview />
+                    <Overview data={paymentsOverview} />
                   </CardContent>
                 </Card>
                 <Card className="col-span-3">
