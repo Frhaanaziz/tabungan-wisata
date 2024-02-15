@@ -1,9 +1,10 @@
 "use client";
 
 import { webPrimaryColor } from "@repo/utils/constants";
+import { toRupiahSuffix } from "@repo/utils";
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-const data = [
+const dummyData = [
   {
     name: "Jan",
     total: Math.floor(Math.random() * 5000) + 1000,
@@ -54,10 +55,13 @@ const data = [
   },
 ];
 
-export default function Overview() {
+type Props = { data: { name: string; total: number }[] };
+
+export default function Overview(_: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      {/* <BarChart data={data}> */}
+      <BarChart data={dummyData}>
         <XAxis
           dataKey="name"
           stroke="#888888"
@@ -70,7 +74,8 @@ export default function Overview() {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          // tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value) => toRupiahSuffix(value)}
         />
         <Bar dataKey="total" fill={webPrimaryColor} radius={[4, 4, 0, 0]} />
       </BarChart>
