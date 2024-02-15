@@ -70,7 +70,11 @@ export const paymentRouter = createTRPCRouter({
 
         const revenue = payments
           .map((payment) => payment.amount)
-          .reduce((a, b) => a + b, 0);
+          .reduce((a, b) => {
+            // if b is negative, then it's a withdrawal from admin
+            const postiveA = b > 0 ? b : 0;
+            return a + postiveA;
+          }, 0);
 
         return revenue;
       } catch (error) {
@@ -142,6 +146,25 @@ export const paymentRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get count new payments",
+        });
+      }
+    }),
+
+  getOverview: adminProcedure
+    .output(z.array(z.object({ name: z.string(), total: z.number() })))
+    .query(async ({ ctx }) => {
+      const accessToken = ctx.session.accessToken;
+
+      try {
+        const result =
+          await getBackendApi(accessToken).get("/payments/overview");
+
+        return result.data;
+      } catch (error) {
+        console.error("paymentRouter getOverview", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get overview",
         });
       }
     }),
