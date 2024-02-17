@@ -1,9 +1,9 @@
-import AddSchoolForm from "@/components/forms/AddSchoolForm";
 import { api } from "@/trpc/server";
 import { Suspense } from "react";
 import DataTableSkeleton from "@/components/skeleton/DataTableSkeleton";
 import { SearchDataTable } from "@/components/data-table/SearchDataTable";
 import { schoolColumns } from "@/components/data-table/columns/SchoolColumn";
+import HeadingWithAction from "@/components/HeadingWithAction";
 
 const SchoolsPage = async ({
   searchParams,
@@ -21,12 +21,7 @@ const SchoolsPage = async ({
 
   return (
     <>
-      <header className="mb-4 flex items-center justify-between pb-5">
-        <h1 className="text-2xl font-semibold leading-6 ">Schools</h1>
-        <div className="mt-3 sm:ml-4 sm:mt-0">
-          <AddSchoolForm />
-        </div>
-      </header>
+      <HeadingWithAction heading="Schools" href="/schools/add" label="+ Add" />
 
       <Suspense fallback={<DataTableSkeleton />}>
         <SearchDataTable data={content} columns={schoolColumns} utils={utils} />
