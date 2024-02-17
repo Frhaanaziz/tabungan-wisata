@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { userSchema } from './user';
 import { eventSchema } from './event';
+import { addSchoolAdminSchema, updateSchoolAdminSchema } from './schoolAdmin';
 
 // create a custom error message
 export const schoolSchema = z.object({
@@ -23,15 +24,25 @@ export const schoolSchema = z.object({
   updatedAt: z.coerce.date(),
 });
 
-export const addSchoolSchema = schoolSchema.pick({
-  name: true,
-  address: true,
-  contact: true,
-});
+export const addSchoolSchema = schoolSchema
+  .pick({
+    name: true,
+    address: true,
+    contact: true,
+  })
+  .extend({
+    schoolAdmins: z.array(addSchoolAdminSchema.omit({ schoolId: true })),
+  });
 
-export const updateSchoolSchema = schoolSchema.pick({
-  id: true,
-  name: true,
-  address: true,
-  contact: true,
-});
+export const updateSchoolSchema = schoolSchema
+  .pick({
+    id: true,
+    name: true,
+    address: true,
+    contact: true,
+  })
+  .extend({
+    schoolAdmins: z.array(
+      updateSchoolAdminSchema.extend({ id: z.string().cuid().optional() })
+    ),
+  });
