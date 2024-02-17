@@ -38,7 +38,7 @@ const DashboardEventTimeout = ({ eventRegistration }: Props) => {
       <h2 className="mb-5 font-semibold">{eventRegistration.event.name}</h2>
 
       <div className="flex flex-col items-center gap-5 md:flex-row">
-        <ProgressCircle value={progressValue} size="xl">
+        <ProgressCircle value={daysLeft <= 0 ? 100 : progressValue} size="xl">
           <span className="font-medium text-slate-700">
             {daysLeft < 0 ? 0 : daysLeft} {daysLeft === 1 ? "day" : "days"} left
           </span>
