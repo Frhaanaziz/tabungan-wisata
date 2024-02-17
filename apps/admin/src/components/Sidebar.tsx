@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import {
   XIcon,
@@ -12,6 +12,11 @@ import {
   LandmarkIcon,
   CalendarPlusIcon,
 } from "lucide-react";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@ui/components/shadcn/avatar";
 import type { LucideIcon } from "lucide-react";
 import { cn, getInitials } from "@repo/utils";
 import Link from "next/link";
@@ -20,11 +25,11 @@ import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/ModeToggler";
 import { Menu } from "lucide-react";
 import type { Session } from "next-auth";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@ui/components/shadcn/avatar";
+import { io } from "socket.io-client";
+import { env } from "@/env";
+import { User } from "@repo/types";
+import ImageTheme from "./ImageTheme";
+import { companyName } from "@repo/utils/constants";
 
 type SidebarItem = {
   name: string;
@@ -168,9 +173,31 @@ export default function Sidebar({
   session: Session;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [onlineAdmins, setOnlineAdmins] = useState<User[]>([]);
   const pathName = usePathname();
 
-  const user = session.data;
+  const accessToken = session.accessToken;
+
+  useEffect(() => {
+    const socket = io(`${env.NEXT_PUBLIC_WS_URL}/users/online-admins`, {
+      withCredentials: true,
+      extraHeaders: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    function handleOnlineAdmins(data: User[]) {
+      setOnlineAdmins(data);
+    }
+
+    socket.on("onlineAdmins", handleOnlineAdmins);
+
+    return () => {
+      socket.off("onlineAdmins", handleOnlineAdmins);
+      socket.disconnect();
+    };
+  }, [accessToken]);
+
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -226,12 +253,20 @@ export default function Sidebar({
                 </Transition.Child>
 
                 {/* Sidebar component */}
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-2 ring-1 ring-white/10">
-                  <div className="flex h-16 shrink-0 items-center justify-between">
-                    {/* <Link href={'/'}>
-                      <Logo />
-                    </Link> */}
-                    <ModeToggle />
+                <div className="flex grow flex-col overflow-y-auto bg-background px-6 pb-2 ring-1 ring-white/10">
+                  <div className="my-5 flex items-center justify-between gap-8">
+                    <Link href={"/"}>
+                      <ImageTheme
+                        srcDark="/images/logo-dark.png"
+                        srcLight="/images/logo-light.png"
+                        width={1417}
+                        height={380}
+                        alt={companyName}
+                      />
+                    </Link>
+                    <div>
+                      <ModeToggle />
+                    </div>
                   </div>
                   <nav className="flex flex-1 flex-col">
                     <ul role="list" className="-mx-2 space-y-2">
@@ -252,24 +287,60 @@ export default function Sidebar({
       <div className="hidden border-r lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         <ScrollArea>
           {/* <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 h-screen"> */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6">
-            <div className="flex h-16 shrink-0 items-center justify-between">
-              {/* <Link href={'/'}>
-                <Logo />
-              </Link> */}
-              <ModeToggle />
+          <div className="flex grow flex-col overflow-y-auto bg-background px-6">
+            <div className="my-5 flex items-center justify-between gap-8">
+              <Link href={"/"}>
+                <ImageTheme
+                  srcDark="/images/logo-dark.png"
+                  srcLight="/images/logo-light.png"
+                  width={1417}
+                  height={380}
+                  alt={companyName}
+                />
+              </Link>
+              <div>
+                <ModeToggle />
+              </div>
             </div>
             <ul role="list" className="-mx-2 space-y-2">
               <NavList pathName={pathName} setSidebarOpen={setSidebarOpen} />
+              <li className="pt-5">
+                <p className="text-xs font-semibold leading-6 text-muted-foreground">
+                  Online Admins
+                </p>
+                <ul className="-mx-2">
+                  {onlineAdmins.map((user) => (
+                    <div
+                      key={user.id}
+                      className="flex items-center gap-x-4 px-4 py-3 text-sm font-semibold leading-6 hover:bg-muted"
+                    >
+                      <Avatar>
+                        <AvatarImage
+                          src={user.image ?? "/icons/avatar-fallback.svg"}
+                          alt={user.name}
+                          width={40}
+                          height={40}
+                        />
+                        <AvatarFallback>
+                          {getInitials(user.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="sr-only">Your profile</span>
+                      <span aria-hidden="true" className="capitalize">
+                        {user.name}
+                      </span>
+                    </div>
+                  ))}
+                </ul>
+              </li>
             </ul>
           </div>
         </ScrollArea>
 
-        <div className="mt-auto flex items-center gap-x-4 px-4 py-4 text-sm font-semibold leading-6">
+        {/* <div className="mt-auto flex items-center gap-x-4 px-4 py-4 text-sm font-semibold leading-6">
           <Avatar>
             <AvatarImage
-              // src={user.image ?? undefined}
-              src={"/"}
+              src={user.image ?? "/icons/avatar-fallback.svg"}
               alt={user.name}
               width={40}
               height={40}
@@ -280,7 +351,7 @@ export default function Sidebar({
           <span aria-hidden="true" className="capitalize">
             {user.name}
           </span>
-        </div>
+        </div> */}
       </div>
 
       <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-background px-4 py-4 shadow-sm sm:px-6 lg:hidden">
