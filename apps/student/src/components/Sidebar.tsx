@@ -26,6 +26,8 @@ import { env } from "@/env";
 import Notifications from "./Notifications";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
+import { companyName } from "@repo/utils/constants";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon, title: "Dashboard Overview" },
@@ -114,12 +116,14 @@ const Sidebar = ({ events, session, highlightedEvents }: Props) => {
                   </div>
                 </Transition.Child>
                 {/* Sidebar component, swap this element with another sidebar if you like */}
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
-                  <div className="flex h-16 shrink-0 items-center">
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                      alt="Your Company"
+                <div className="flex grow flex-col overflow-y-auto bg-background px-6 pb-4">
+                  <div className="my-3 flex h-16 shrink-0 items-center">
+                    <Image
+                      className="h-10 w-auto"
+                      src="/images/logo-light.png"
+                      width={1417}
+                      height={380}
+                      alt={companyName}
                     />
                   </div>
                   <nav className="flex flex-1 flex-col">
@@ -253,12 +257,14 @@ const Sidebar = ({ events, session, highlightedEvents }: Props) => {
       {/* Static sidebar for desktop */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-background px-6 pb-4">
-          <div className="flex h-16 shrink-0 items-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
+        <div className="flex grow flex-col overflow-y-auto border-r border-border bg-background px-6 pb-4">
+          <div className="my-3 flex h-16 shrink-0 items-center">
+            <Image
+              className="h-10 w-auto"
+              src="/images/logo-light.png"
+              width={1417}
+              height={380}
+              alt={companyName}
             />
           </div>
           <nav className="flex flex-1 flex-col">
