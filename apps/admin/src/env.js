@@ -21,6 +21,7 @@ export const env = createEnv({
 
   client: {
     NEXT_PUBLIC_BASE_URL: z.string(),
+    NEXT_PUBLIC_WS_URL: z.string().url()
   },
 
   /**
@@ -35,6 +36,8 @@ export const env = createEnv({
     BACKEND_URL: process.env.BACKEND_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     PORT: process.env.PORT,
+    NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL,
+    
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
