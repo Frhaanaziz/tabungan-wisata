@@ -8,6 +8,7 @@ import { fileSchema } from '@repo/validators/file';
 import { withdrawalSchema } from '@repo/validators/withdrawal';
 import { eventRegistrationSchema } from '@repo/validators/eventRegistration';
 import { notificationSchema } from '@repo/validators/notification';
+import { schoolAdminSchema } from '@repo/validators/schoolAdmin';
 
 export type PaginatedDataUtils = z.infer<typeof paginatedDataUtilsSchema>;
 
@@ -17,6 +18,8 @@ export type School = z.infer<typeof schoolSchema> & {
 export type SchoolsPaginated = PaginatedDataUtils & {
   content: School[];
 };
+
+export type SchoolAdmin = z.infer<typeof schoolAdminSchema>;
 
 export type User = z.infer<typeof userSchema> & { school: School };
 export type UsersPaginated = PaginatedDataUtils & {
