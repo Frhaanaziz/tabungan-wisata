@@ -19,3 +19,10 @@ export const userSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
+
+export const updateUserSchema = userSchema.omit({
+  password: true,
+  emailVerified: true,
+  createdAt: true,
+  updatedAt: true,
+});
