@@ -15,6 +15,7 @@ import {
 import { Input } from "@ui/components/shadcn/input";
 import { updateUserSchema } from "@repo/validators/user";
 import { User } from "@repo/types";
+import { formatDateWithTime } from "@repo/utils";
 import Image from "next/image";
 
 type UpdateUserType = z.infer<typeof updateUserSchema>;
@@ -105,6 +106,14 @@ const UpdateUserForm = ({ user }: { user: User }) => {
             <FormLabel>School</FormLabel>
             <FormControl>
               <Input value={user?.school?.name ?? ""} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+
+          <FormItem className="pointer-events-none w-full">
+            <FormLabel>Created at</FormLabel>
+            <FormControl>
+              <Input value={formatDateWithTime(user.createdAt)} />
             </FormControl>
             <FormMessage />
           </FormItem>
