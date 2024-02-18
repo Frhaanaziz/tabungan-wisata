@@ -17,6 +17,10 @@ const config = {
         hostname: "*.edgestore.dev",
         protocol: "https",
       },
+      {
+        hostname: "*.googleusercontent.com",
+        protocol: "https",
+      },
     ],
   },
 };
