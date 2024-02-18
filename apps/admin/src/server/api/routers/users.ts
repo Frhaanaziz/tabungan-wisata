@@ -8,9 +8,7 @@ import { schoolSchema } from "@repo/validators/school";
 
 export const userRouter = createTRPCRouter({
   getAll: adminProcedure
-    .output(
-      z.array(userSchema.extend({ school: schoolSchema })),
-    )
+    .output(z.array(userSchema.extend({ school: schoolSchema })))
     .query(async ({ ctx }) => {
       const accessToken = ctx.session.accessToken;
 
@@ -46,6 +44,25 @@ export const userRouter = createTRPCRouter({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Failed to get users",
+        });
+      }
+    }),
+
+  getById: adminProcedure
+    .input(userSchema.pick({ id: true }))
+    .query(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+      const { id } = input;
+
+      try {
+        const result = await getBackendApi(accessToken).get(`/users/${id}`);
+
+        return result.data;
+      } catch (error) {
+        console.error("userRouter getById", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get user",
         });
       }
     }),
