@@ -21,7 +21,7 @@ export type SchoolsPaginated = PaginatedDataUtils & {
 
 export type SchoolAdmin = z.infer<typeof schoolAdminSchema>;
 
-export type User = z.infer<typeof userSchema> & { school: School };
+export type User = z.infer<typeof userSchema> & { school?: School };
 export type UsersPaginated = PaginatedDataUtils & {
   content: User[];
 };
