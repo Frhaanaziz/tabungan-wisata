@@ -316,7 +316,7 @@ export default function Sidebar({
                     >
                       <Avatar>
                         <AvatarImage
-                          src={user.image ?? "/icons/avatar-fallback.svg"}
+                          src={user.image ?? "/images/avatar-fallback.svg"}
                           alt={user.name}
                           width={40}
                           height={40}
@@ -340,7 +340,7 @@ export default function Sidebar({
         {/* <div className="mt-auto flex items-center gap-x-4 px-4 py-4 text-sm font-semibold leading-6">
           <Avatar>
             <AvatarImage
-              src={user.image ?? "/icons/avatar-fallback.svg"}
+              src={user.image ?? "/images/avatar-fallback.svg"}
               alt={user.name}
               width={40}
               height={40}
