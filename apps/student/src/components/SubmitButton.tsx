@@ -1,11 +1,21 @@
 import { Loader2 } from "lucide-react";
-import { Button } from "@ui/components/shadcn/button";
+import { Button, ButtonProps } from "@ui/components/shadcn/button";
 
-const SubmitButton = ({ isSubmitting }: { isSubmitting: boolean }) => {
+interface Props extends ButtonProps {
+  isSubmitting: boolean;
+  text?: string;
+}
+
+const SubmitButton = ({
+  isSubmitting,
+  disabled,
+  text = "Submit",
+  ...rest
+}: Props) => {
   return (
-    <Button type="submit" disabled={isSubmitting}>
+    <Button type="submit" disabled={isSubmitting || disabled} {...rest}>
       {isSubmitting && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}
-      Submit
+      {text}
     </Button>
   );
 };
