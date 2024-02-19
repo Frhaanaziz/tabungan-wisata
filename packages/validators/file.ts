@@ -9,4 +9,8 @@ export const fileSchema = z.object({
   eventId: z.string().cuid().optional(),
 });
 
+export const addFileSchema = z.object({
+  file: z.instanceof(File),
+});
+
 export const deleteFileSchema = fileSchema.pick({ id: true });
