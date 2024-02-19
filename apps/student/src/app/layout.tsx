@@ -14,7 +14,8 @@ import {
 import NextAuthSessionProvider from "@/context/NextAuthSessionProvider";
 import { PropsWithChildren } from "react";
 import { Metadata, Viewport } from "next";
-import { env } from "@/env";
+import { EdgeStoreProvider } from "@/context/edgestore";
+import { baseUrl } from "@/lib/constant";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     template: `%s | ${companyName}`,
   },
   description: companyDescription,
-  metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
+  metadataBase: new URL(baseUrl),
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   appleWebApp: {
     capable: true,
@@ -71,12 +72,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
       >
         <NextAuthSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
-            {/* <ThemeProvider attribute="class" disableTransitionOnChange> */}
-            <ToastProvider>
-              <NextTopLoader color={webPrimaryColor} />
-              {children}
-            </ToastProvider>
-            {/* </ThemeProvider> */}
+            <EdgeStoreProvider>
+              <ToastProvider>
+                <NextTopLoader color={webPrimaryColor} />
+                {children}
+              </ToastProvider>
+            </EdgeStoreProvider>
           </TRPCReactProvider>
         </NextAuthSessionProvider>
       </body>
