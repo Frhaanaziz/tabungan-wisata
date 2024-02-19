@@ -19,6 +19,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
     PORT: z.string(),
+    EDGE_STORE_ACCESS_KEY: z.string(),
+    EDGE_STORE_SECRET_KEY: z.string(),
   },
 
   client: {
@@ -51,6 +53,8 @@ export const env = createEnv({
     PORT: process.env.PORT,
     NEXT_PUBLIC_FRONT_URL: process.env.NEXT_PUBLIC_FRONT_URL,
     NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL,
+    EDGE_STORE_ACCESS_KEY: process.env.EDGE_STORE_ACCESS_KEY,
+    EDGE_STORE_SECRET_KEY: process.env.EDGE_STORE_SECRET_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
