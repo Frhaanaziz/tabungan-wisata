@@ -33,7 +33,7 @@ const UpdateUserForm = ({ user }: { user: User }) => {
     <div className="flex gap-10">
       <div>
         <Image
-          src={user.image ?? "/icons/avatar-fallback.svg"}
+          src={user.image ?? "/images/avatar-fallback.svg"}
           alt={user.name}
           width={150}
           height={150}
