@@ -9,7 +9,6 @@ export enum PaymentStatus {
 export const paymentSchema = z.object({
   id: z.string().cuid(),
   amount: z.coerce.number().int(),
-
   paymentMethod: z.string().optional().nullable(),
   userId: z.string().cuid(),
   status: z.nativeEnum(PaymentStatus),
