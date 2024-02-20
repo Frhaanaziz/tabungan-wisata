@@ -211,11 +211,11 @@ const UpdateProfileForm = ({ user }: { user: User }) => {
         </div>
       </div>
 
-      <FormFieldWrapper className="w-full flex-nowrap items-start gap-10">
+      <FormFieldWrapper className="w-full items-start gap-10">
         <Form {...nameForm}>
           <form
             onSubmit={nameForm.handleSubmit((value) => updateName(value))}
-            className="flex flex-1 items-center gap-5"
+            className="w-full min-w-72 flex-1"
           >
             <FormField
               control={nameForm.control}
@@ -224,9 +224,14 @@ const UpdateProfileForm = ({ user }: { user: User }) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
+                  <div className="flex items-center gap-5">
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <Button size={"sm"} disabled={isUpdatingName}>
+                      Update name
+                    </Button>
+                  </div>
                   <FormDescription>
                     This is how your name will appear in the app
                   </FormDescription>
@@ -234,16 +239,13 @@ const UpdateProfileForm = ({ user }: { user: User }) => {
                 </FormItem>
               )}
             />
-            <Button size={"sm"} disabled={isUpdatingName}>
-              Update name
-            </Button>
           </form>
         </Form>
 
         <Form {...emailForm}>
           <form
             onSubmit={emailForm.handleSubmit((value) => updateEmail(value))}
-            className="flex flex-1 items-center gap-5"
+            className="w-full min-w-72 flex-1"
           >
             <FormField
               control={emailForm.control}
@@ -252,9 +254,12 @@ const UpdateProfileForm = ({ user }: { user: User }) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
+                  <div className="flex items-center gap-5">
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <Button size={"sm"}>Update e-mail</Button>
+                  </div>
                   <FormDescription>
                     You may need to log out and back in to see any changes
                   </FormDescription>
@@ -262,7 +267,6 @@ const UpdateProfileForm = ({ user }: { user: User }) => {
                 </FormItem>
               )}
             />
-            <Button size={"sm"}>Update e-mail</Button>
           </form>
         </Form>
       </FormFieldWrapper>
