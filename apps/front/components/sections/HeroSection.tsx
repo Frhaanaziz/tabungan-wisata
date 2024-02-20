@@ -14,14 +14,14 @@ function HeroSection() {
         <div className="flex flex-col">
           <div className="volkhov font-[700] text-[3rem] md:text-[4.73756rem] leading-large inline-flex text-lightBlue">
             Travel,
-            <div className="flex  flex-col">
+            <div className="flex flex-col">
               <span className="ml-8 z-10">enjoy</span>
               <Image
                 src="/images/stylish-underline.png"
                 alt="stylish underline"
                 width={704}
                 height={724}
-                className="-mt-4 z-0 hidden md:block"
+                className="-mt-3 z-0 w-80 hidden md:block"
               />
             </div>
           </div>
