@@ -26,6 +26,7 @@ import React from "react";
 import RichTextEditor from "../RichTextEditor";
 import { EventJoined } from "@repo/types";
 import { Checkbox } from "@ui/components/shadcn/checkbox";
+import { Textarea } from "@ui/components/shadcn/textarea";
 
 type UpdateEventType = z.infer<typeof updateEventSchema>;
 
@@ -116,6 +117,21 @@ const UpdateEventForm = ({ event }: { event: EventJoined }) => {
 
           <FormField
             control={control}
+            name="highlight"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Highlight (summary)</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
             name="include"
             disabled={isLoading}
             render={({ field }) => (
@@ -139,24 +155,6 @@ const UpdateEventForm = ({ event }: { event: EventJoined }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Exclude</FormLabel>
-                <FormControl>
-                  <RichTextEditor
-                    {...field}
-                    {...formState}
-                    isLoading={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="highlight"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Highlight</FormLabel>
                 <FormControl>
                   <RichTextEditor
                     {...field}
