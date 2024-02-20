@@ -261,6 +261,7 @@ export default function Sidebar({
                         srcLight="/images/logo-light.png"
                         width={1417}
                         height={380}
+                        priority
                         alt={companyName}
                       />
                     </Link>
@@ -293,8 +294,9 @@ export default function Sidebar({
                 <ImageTheme
                   srcDark="/images/logo-dark.png"
                   srcLight="/images/logo-light.png"
-                  width={1417}
-                  height={380}
+                  width={149}
+                  height={40}
+                  priority
                   alt={companyName}
                 />
               </Link>
