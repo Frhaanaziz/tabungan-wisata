@@ -26,6 +26,7 @@ import { MultiFileDropzoneField } from "./MultiFileDropzoneField";
 import React from "react";
 import { XIcon } from "lucide-react";
 import { Checkbox } from "@ui/components/shadcn/checkbox";
+import { Textarea } from "@ui/components/shadcn/textarea";
 
 type AddEventType = z.infer<typeof addEventSchema>;
 
@@ -122,6 +123,21 @@ const AddEventForm = () => {
 
           <FormField
             control={control}
+            name="highlight"
+            disabled={isLoading}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Highlight (summary)</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
             name="include"
             disabled={isLoading}
             render={({ field }) => (
@@ -145,24 +161,6 @@ const AddEventForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Exclude</FormLabel>
-                <FormControl>
-                  <RichTextEditor
-                    {...field}
-                    {...formState}
-                    isLoading={isLoading}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={control}
-            name="highlight"
-            disabled={isLoading}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Highlight</FormLabel>
                 <FormControl>
                   <RichTextEditor
                     {...field}
