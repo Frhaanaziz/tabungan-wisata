@@ -22,6 +22,10 @@ const navLinks = [
     label: 'About Us',
     link: '/about',
   },
+  {
+    label: 'Terms of Service',
+    link: '/terms',
+  },
 ];
 
 function NavBar() {
