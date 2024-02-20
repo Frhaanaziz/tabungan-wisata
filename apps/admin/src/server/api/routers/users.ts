@@ -147,4 +147,25 @@ export const userRouter = createTRPCRouter({
         });
       }
     }),
+
+  getPayments: adminProcedure
+    .input(userSchema.pick({ id: true }))
+    .query(async ({ input, ctx }) => {
+      const accessToken = ctx.session.accessToken;
+      const { id } = input;
+
+      try {
+        const result = await getBackendApi(accessToken).get(
+          `/users/${id}/payments`,
+        );
+
+        return result.data;
+      } catch (error) {
+        console.error("userRouter getPayments", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to get payments",
+        });
+      }
+    }),
 });
