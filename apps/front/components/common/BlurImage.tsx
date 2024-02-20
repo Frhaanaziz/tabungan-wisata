@@ -21,7 +21,7 @@ const BlurImage = ({ alt, zoomIn, className, ...rest }: Props) => {
           : 'scale-100 blur-0 grayscale-0',
         className
       )}
-      onLoadingComplete={() => setIsLoading(false)}
+      onLoad={() => setIsLoading(false)}
     />
   );
 };
