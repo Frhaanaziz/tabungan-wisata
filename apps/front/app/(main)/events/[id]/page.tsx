@@ -141,10 +141,9 @@ const EventPage = async ({ params: { id } }: Props) => {
               <h2 className="mb-1 text-xl font-medium text-primary">
                 Highlights
               </h2>
-              <RichText
-                content={highlight}
-                className="prose-sm prose-li:list-image-[url(/icons/check-circle.svg)]"
-              />
+              <p className="text-sm leading-relaxed text-lightGray">
+                {highlight}
+              </p>
             </div>
 
             <div>
