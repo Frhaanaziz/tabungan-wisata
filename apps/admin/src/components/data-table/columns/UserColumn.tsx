@@ -16,6 +16,9 @@ import { Button } from "@ui/components/shadcn/button";
 import { MoreHorizontalIcon } from "lucide-react";
 
 import Link from "next/link";
+import { exportUserData } from "@/lib/utils";
+import { toast } from "sonner";
+import { getUserPayments } from "@/app/_actions/payment";
 
 const roleVariants = {
   admin: "border-transparent bg-red-500 hover:bg-red-500/80",
@@ -81,6 +84,17 @@ export const userColumn: ColumnDef<User>[] = [
 function ActionCell({ row }: { row: Row<User> }) {
   const user = row.original;
 
+  const handleExportUserData = async () => {
+    const { data: payments, error } = await getUserPayments({ id: user.id });
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    const userData = { ...user, payments: payments ?? [] };
+    exportUserData(userData);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -94,6 +108,10 @@ function ActionCell({ row }: { row: Row<User> }) {
           <Link href={`/users/${user.id}`} className="w-full">
             View
           </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={handleExportUserData}>
+          Export to excel
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
