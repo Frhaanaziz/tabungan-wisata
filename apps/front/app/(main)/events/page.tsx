@@ -11,7 +11,6 @@ import FilterAccordion from '@/components/common/FilterAccordion';
 import MainButton from '@/components/common/MainButton';
 import { Suspense } from 'react';
 import HeadingSection from '@/components/sections/HeadingSection';
-import RichText from '@/components/common/RichText';
 import { Metadata } from 'next';
 import BlurImage from '@/components/common/BlurImage';
 
@@ -90,10 +89,9 @@ const EventsPage = async ({
                       <h3 className="text-lg font-bold my-3 tracking-wide">
                         {title}
                       </h3>
-                      <RichText
-                        className="text-lightGrayAlt2 line-clamp-5 leading-snug"
-                        content={highlight}
-                      />
+                      <p className="text-lightGrayAlt2 line-clamp-5 leading-snug">
+                        {highlight}
+                      </p>
 
                       <Separator className="my-8 bg-gray-200 p-[0.5px]" />
 
