@@ -86,6 +86,9 @@ importers:
       date-fns:
         specifier: ^3.3.1
         version: 3.3.1
+      json-as-xlsx:
+        specifier: ^2.5.6
+        version: 2.5.6
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -1427,6 +1430,12 @@ packages:
 
   /@corex/deepmerge@4.0.43:
     resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
+    dev: false
+
+  /@e965/xlsx@0.20.1:
+    resolution: {integrity: sha512-zRv8NLB1H6aqQyZt3/gLjd0xkZsH+/WIRi4YHAw1koESNTPPmzXJbPqO2HMN7DZB1vnF1USKxQ9ZvS0S9Lqmbg==}
+    engines: {node: '>=0.8'}
+    hasBin: true
     dev: false
 
   /@edgestore/react@0.1.6(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)(zod@3.22.4):
@@ -7250,6 +7259,12 @@ packages:
       - bufferutil
       - supports-color
       - utf-8-validate
+    dev: false
+
+  /json-as-xlsx@2.5.6:
+    resolution: {integrity: sha512-z7phlB+VgS9wZv2N4SBKlguC3C7uauSj2PYSZICCrPaiu1lu8zkCpzZ4sOHWi0/3Je0CJl87q+J+3mpZbxpOew==}
+    dependencies:
+      '@e965/xlsx': 0.20.1
     dev: false
 
   /json-buffer@3.0.1:
