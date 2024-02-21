@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { CreateAxiosDefaults } from 'axios';
 import { env } from '@/env.mjs';
 
 export function getBackendApi(token?: string, params?: object) {
@@ -8,6 +8,21 @@ export function getBackendApi(token?: string, params?: object) {
       Authorization: token ? `Bearer ${token}` : undefined,
     },
     params,
+  });
+}
+
+export function getStrapiApi(
+  params?: object,
+  config?: CreateAxiosDefaults<any>
+) {
+  return axios.create({
+    baseURL: `${env.STRAPI_URL}/api`,
+    headers: {
+      Authorization: `Bearer ${env.STRAPI_API_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    params,
+    ...config,
   });
 }
 
