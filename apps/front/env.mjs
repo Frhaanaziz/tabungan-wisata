@@ -10,6 +10,7 @@ export const env = createEnv({
   server: {
     BACKEND_URL: z.string().url(),
     STRAPI_URL: z.string().url(),
+    STRAPI_API_TOKEN: z.string(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -30,6 +31,7 @@ export const env = createEnv({
   runtimeEnv: {
     BACKEND_URL: process.env.BACKEND_URL,
     STRAPI_URL: process.env.STRAPI_URL,
+    STRAPI_API_TOKEN: process.env.STRAPI_API_TOKEN,
     NEXT_PUBLIC_STUDENT_URL: process.env.NEXT_PUBLIC_STUDENT_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:
