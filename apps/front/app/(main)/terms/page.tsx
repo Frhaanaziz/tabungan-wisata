@@ -1,4 +1,6 @@
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import HeadingSection from '@/components/sections/HeadingSection';
+import { getStrapiApi } from '@/lib/axios';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +8,10 @@ export const metadata: Metadata = {
   description: 'Terms of Service',
 };
 
-const TermsPage = () => {
+const TermsPage = async () => {
+  const { data } = await getStrapiApi().get('/term');
+  const terms = data.data.attributes.content;
+  console.log(terms);
   return (
     <main>
       <HeadingSection
@@ -15,7 +20,7 @@ const TermsPage = () => {
         image="/images/bg-events-top.png"
       />
 
-      <section className="mt-20 container max-w-[1100px]">
+      <section className="my-20 container max-w-[1100px]">
         <p className="mb-5">Last updated: Dec 6, 2022</p>
         <p className="text-lg">
           PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING THE
@@ -23,6 +28,9 @@ const TermsPage = () => {
           AGREE TO BE LEGALLY BOUND BY THESE TERMS OF SERVICE AND TERMS
           INCORPORATED BY REFERENCE
         </p>
+        <div className="prose max-w-none dark:prose-invert text-muted-foreground  mt-5">
+          <BlocksRenderer content={terms} />
+        </div>
       </section>
     </main>
   );
