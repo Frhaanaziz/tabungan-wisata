@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const TermsPage = async () => {
   const { data } = await getStrapiApi().get('/term');
   const terms = data.data.attributes.content;
-  console.log(terms);
+
   return (
     <main>
       <HeadingSection
