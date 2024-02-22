@@ -41,6 +41,13 @@ interface SearchDataTableProps {
   emptyState?: string;
 }
 
+/**
+ * Renders a searchable data table component.
+ *
+ * @component
+ * @param {SearchDataTableProps} props - The props for the SearchDataTable component.
+ * @returns {JSX.Element} The rendered SearchDataTable component.
+ */
 export function SearchDataTable({
   data,
   columns,
