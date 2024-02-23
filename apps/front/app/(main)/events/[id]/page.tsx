@@ -72,7 +72,8 @@ export async function generateStaticParams() {
 const EventPage = async ({ params: { id } }: Props) => {
   let event: EventJoined | null = null;
   try {
-    event = (await getBackendApi().get(`/events/${id}`)).data;
+    const eventData = (await getBackendApi().get(`/events/${id}`)).data;
+    event = eventData;
   } catch (error) {
     console.error('EventPage', error);
     notFound();
