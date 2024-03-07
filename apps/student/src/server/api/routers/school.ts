@@ -1,13 +1,13 @@
 import { getBackendApi } from "@/lib/axios";
 import { createTRPCRouter, privateProcedure } from "@/server/api/trpc";
 import { eventSchema } from "@repo/validators/event";
-import { eventRegistrationSchema } from "@repo/validators/eventRegistration";
+import { baseEventRegistrationSchema } from "@repo/validators/eventRegistration";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 export const schoolRouter = createTRPCRouter({
   getEventRegistrations: privateProcedure
-    .output(z.array(eventRegistrationSchema.extend({ event: eventSchema })))
+    .output(z.array(baseEventRegistrationSchema.extend({ event: eventSchema })))
     .query(async ({ ctx }) => {
       const session = ctx.session;
       const user = ctx.session.data;
