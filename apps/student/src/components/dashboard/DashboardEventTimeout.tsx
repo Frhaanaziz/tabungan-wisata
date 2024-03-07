@@ -7,35 +7,31 @@ interface Props {
 }
 
 const DashboardEventTimeout = ({ eventRegistration }: Props) => {
-  const twoWeeks = 1000 * 60 * 60 * 24 * 14;
-  const limitDate = new Date(eventRegistration.startDate.getTime() - twoWeeks);
+  const { paymentLimit, startDate, createdAt, event } = eventRegistration;
 
   const daysLeft = Math.min(
     Math.floor(
-      (eventRegistration.startDate.getTime() - new Date().getTime()) /
-        (1000 * 60 * 60 * 24),
+      (startDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
     ),
     Math.floor(
-      (limitDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
+      (paymentLimit.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
     ),
   );
 
   // Hitung total hari dalam rentang tanggal
   const totalDays =
-    (limitDate.getTime() - eventRegistration.createdAt.getTime()) /
-    (1000 * 60 * 60 * 24);
+    (paymentLimit.getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24);
 
   // Hitung hari yang telah berlalu
   const daysPassed =
-    (new Date().getTime() - eventRegistration.createdAt.getTime()) /
-    (1000 * 60 * 60 * 24);
+    (new Date().getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24);
 
   // Hitung persentase progress (dibulatkan ke bilangan bulat)
-  const progressValue = Math.round((daysPassed / totalDays) * 100);
+  const progressValue = +((daysPassed / totalDays) * 100).toFixed(2);
 
   return (
     <Card className="">
-      <h2 className="mb-5 font-semibold">{eventRegistration.event.name}</h2>
+      <h2 className="mb-5 font-semibold">{event.name}</h2>
 
       <div className="flex flex-col items-center gap-5 md:flex-row">
         <ProgressCircle value={daysLeft <= 0 ? 100 : progressValue} size="xl">
