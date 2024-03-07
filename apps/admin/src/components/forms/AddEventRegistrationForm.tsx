@@ -44,10 +44,12 @@ type AddEventRegistrationType = z.infer<typeof addEventRegistrationSchema>;
 const AddEventRegistrationForm = () => {
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
+  // paymentLimit default value is 45 days before the event start date
   const defaultValues: AddEventRegistrationType = {
     cost: 0,
     eventId: "",
     schoolId: "",
+    paymentLimit: new Date(),
     startDate: new Date(),
     endDate: new Date(),
   };
@@ -78,7 +80,7 @@ const AddEventRegistrationForm = () => {
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger className={buttonVariants()}>+ Add</DialogTrigger>
-      <DialogContent className="max-w-xl">
+      <DialogContent className="max-w-4xl">
         <Form {...form}>
           <form
             onSubmit={handleSubmit((value) => mutate(value))}
@@ -170,9 +172,45 @@ const AddEventRegistrationForm = () => {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          // disabled={(date) =>
-                          //   date > new Date() || date < new Date("1900-01-01")
-                          // }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="paymentLimit"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Payment limit</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[240px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground",
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
                           initialFocus
                         />
                       </PopoverContent>
