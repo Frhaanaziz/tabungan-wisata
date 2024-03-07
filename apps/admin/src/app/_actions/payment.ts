@@ -13,7 +13,7 @@ export async function getUserPayments({ id }: { id: string }) {
 
     return { data: result.data, error: null };
   } catch (error) {
-    console.error("userRouter getPayments", error);
+    console.error("paymentAction getUserPayments", error);
     return { data: null, error: "Failed to get payments" };
   }
 }
