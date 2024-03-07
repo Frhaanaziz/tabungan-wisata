@@ -16,6 +16,9 @@ import { toRupiah } from "@repo/utils";
 import Link from "next/link";
 import React from "react";
 import { Badge } from "@ui/components/shadcn/badge";
+import { toast } from "sonner";
+import { exportSchoolData } from "@/lib/utils";
+import { getSchoolExportData } from "@/app/_actions/school";
 
 export const schoolColumns: ColumnDef<School & { balance: number }>[] = [
   {
@@ -65,6 +68,16 @@ export const schoolColumns: ColumnDef<School & { balance: number }>[] = [
 function ActionCell({ row }: { row: Row<School> }) {
   const school = row.original;
 
+  const handleExportSchoolData = async () => {
+    const { data, error } = await getSchoolExportData({ id: school.id });
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    exportSchoolData(data);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -78,6 +91,10 @@ function ActionCell({ row }: { row: Row<School> }) {
           <Link href={`/schools/${school.id}/update`} className="w-full">
             Edit
           </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem onClick={handleExportSchoolData}>
+          Export to excel
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
