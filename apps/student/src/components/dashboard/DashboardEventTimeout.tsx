@@ -2,6 +2,19 @@
 import { Event, EventRegistration } from "@repo/types";
 import { Card, ProgressCircle } from "@tremor/react";
 
+function getDurationInDays(startDate: Date, endDate: Date) {
+  const diffInMilliseconds = endDate.getTime() - startDate.getTime();
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+  if (diffInDays === 0) {
+    return "today";
+  } else if (diffInDays === 1) {
+    return "1 day";
+  } else {
+    return `${diffInDays} days`;
+  }
+}
+
 interface Props {
   eventRegistration: EventRegistration & { event: Event };
 }
@@ -45,10 +58,12 @@ const DashboardEventTimeout = ({ eventRegistration }: Props) => {
             Important Notice: Deadline for Event Payments Approaching!
           </h3>
           <p className="text-sm text-muted-foreground">
-            Get set for an incredible event experience! Friendly reminder to all
-            participants: make sure to settle your payments two weeks prior to
-            the event. Secure your spot hassle-free and join us for an
-            unforgettable time! 🎉💳
+            Mark your calendars! The highly anticipated event you&apos;ve all
+            been waiting for is just around the corner. In{" "}
+            <b>{getDurationInDays(new Date(), startDate)}</b>, we will kick off
+            an extraordinary experience that promises to be unforgettable. Get
+            ready to immerse yourself in a world of excitement, entertainment,
+            and endless possibilities.
           </p>
         </div>
       </div>
