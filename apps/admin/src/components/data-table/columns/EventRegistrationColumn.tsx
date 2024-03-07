@@ -46,6 +46,13 @@ export const EventRegistrationColumn: ColumnDef<
     cell: ({ row }) => <div>{toRupiah(row.getValue("cost"))}</div>,
   },
   {
+    accessorKey: "paymentLimit",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Payment Limit" />;
+    },
+    cell: ({ row }) => <div>{formatDate(row.getValue("paymentLimit"))}</div>,
+  },
+  {
     accessorKey: "startDate",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Start Date" />;
