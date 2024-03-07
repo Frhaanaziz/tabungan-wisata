@@ -25,9 +25,7 @@ export const exportSchoolData = (school: ExportSchoolDataProps) => {
     contact,
     createdAt,
     eventRegistrations,
-    id,
     schoolAdmins,
-    updatedAt,
     users,
     withdrawals,
   } = school;
