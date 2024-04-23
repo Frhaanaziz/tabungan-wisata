@@ -33,8 +33,8 @@ const SignInForm = ({ callbackUrl }: Props) => {
   const router = useRouter();
 
   const defaultValues = {
-    email: "",
-    password: "",
+    email: "demo@email.com",
+    password: "112233",
   };
 
   const form = useForm<z.infer<typeof signInSchema>>({
